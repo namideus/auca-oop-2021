@@ -12,24 +12,24 @@ public class Main1768 {
 
             for(i=1; i<=n; i+=2)
             {
-                for(j = n-i-1; j>=0 ; j--)
+                for(j = n/2-i/2; j>=1 ; j--)
                     System.out.print(" ");
 
                 for(j=0; j<i; j++)
-                    System.out.print("* ");
+                    System.out.print("*");
 
                 System.out.println();
             }
 
             for(i=n/2; i>=1; i--)
-                System.out.print("  ");
+                System.out.print(" ");
             System.out.print("*\n");
 
             for(i=n/2-1; i>=1; i--)
-                System.out.print("  ");
-            System.out.print("* * *\n");
+                System.out.print(" ");
+            System.out.print("***\n");
 
-            System.out.println();
+            System.out.print("\n");
         }
     }
 }
