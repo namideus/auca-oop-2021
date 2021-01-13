@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/auca-oop-2021.iml" filepath="$PROJECT_DIR$/.idea/auca-oop-2021.iml" />
       <module fileurl="file://$PROJECT_DIR$/lab-01/lab-01.iml" filepath="$PROJECT_DIR$/lab-01/lab-01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/m-uri-1024/m-uri-1024.iml" filepath="$PROJECT_DIR$/m-uri-1024/m-uri-1024.iml" />
       <module fileurl="file://$PROJECT_DIR$/m-uri-1168/m-uri-1168.iml" filepath="$PROJECT_DIR$/m-uri-1168/m-uri-1168.iml" />
       <module fileurl="file://$PROJECT_DIR$/m-uri-1332/m-uri-1332.iml" filepath="$PROJECT_DIR$/m-uri-1332/m-uri-1332.iml" />
     </modules>
