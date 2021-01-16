@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Problem01 {
 
     private static final int CANVAS_SIZE = 20;
@@ -10,17 +12,56 @@ public class Problem01 {
     private static int turtleRow = 0;
     private static int turtleCol = 0;
     private static boolean turtlesPenDown = false;
+    private static boolean turtlesPenUp = false;
     private static int turtleDir = EAST;
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String command;
+        int steps;
+
         init();
-        penDown();
-        move(18);
-        print();
+
+        while(true)
+        {
+            command = scanner.next();
+
+            switch (command)
+            {
+                case "PenUp":
+                    penUp();
+                    break;
+                case "PenDown":
+                    penDown();
+                    break;
+                case "TurnRight":
+                    turnRight();
+                    break;
+                case "TurnLeft":
+                    turnLeft();
+                    break;
+                case "Move":
+                    steps = scanner.nextInt();
+                    move(steps);
+                    break;
+                case "Print":
+                    print();
+                    System.exit(2);
+                    break;
+                default:
+                    System.out.println("Undefined command.");
+            }
+        }
     }
 
     public static void penDown() {
         turtlesPenDown = true;
+        turtlesPenUp = false;
+    }
+
+    public static void penUp() {
+        turtlesPenDown = false;
+        turtlesPenUp = true;
     }
 
     public static void move(int steps) {
@@ -29,8 +70,16 @@ public class Problem01 {
             {
                 canvas[turtleRow][turtleCol] = '*';
             }
-            turtleCol++;
+            ++turtleCol;
         }
+    }
+
+    public static void turnLeft() {
+
+    }
+
+    public static void turnRight() {
+
     }
 
     public static void init() {
@@ -41,11 +90,7 @@ public class Problem01 {
         }
     }
 
-    public static void moveTurtle() {
-
-    }
-
-        public static void print()
+    public static void print()
     {
         for(int row = 0; row < CANVAS_SIZE; ++row) {
             for(int col = 0; col < CANVAS_SIZE; ++col) {
@@ -53,5 +98,6 @@ public class Problem01 {
             }
             System.out.println();
         }
+        System.out.println("Exit");
     }
 }
