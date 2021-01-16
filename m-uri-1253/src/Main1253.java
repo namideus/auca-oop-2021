@@ -18,6 +18,7 @@ public class Main1253 {
             for (int i = 0; i < l; i++)
             {
                 ch = msg.charAt(i);
+
                 if(ch-shift<65)
                     System.out.print((char)((ch-shift)+26));
                 else
