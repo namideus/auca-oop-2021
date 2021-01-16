@@ -70,16 +70,33 @@ public class Problem01 {
             {
                 canvas[turtleRow][turtleCol] = '*';
             }
-            ++turtleCol;
+            if(turtleDir==EAST)
+                ++turtleCol;
+            else if (turtleDir==SOUTH)
+                ++turtleRow;
+            else if(turtleDir==WEST)
+                --turtleCol;
+            else if(turtleDir==NORTH)
+                --turtleRow;
         }
     }
 
     public static void turnLeft() {
-
+        if(turtleDir==EAST)
+            turtleDir = SOUTH;
+        else if(turtleDir==SOUTH)
+            turtleDir = WEST;
+        else if(turtleDir==WEST)
+            turtleDir = NORTH;
     }
 
     public static void turnRight() {
-
+        if(turtleDir==EAST)
+            turtleDir = SOUTH;
+        else if(turtleDir==SOUTH)
+            turtleDir = WEST;
+        else if(turtleDir==WEST)
+            turtleDir = NORTH;
     }
 
     public static void init() {
