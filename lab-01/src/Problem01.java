@@ -15,7 +15,7 @@ public class Problem01 {
     public static void main(String[] args) {
         init();
         penDown();
-        move(10);
+        move(18);
         print();
     }
 
@@ -23,8 +23,14 @@ public class Problem01 {
         turtlesPenDown = true;
     }
 
-    public static void move() {
-
+    public static void move(int steps) {
+        for(int i=0; i<steps; ++i) {
+            if(turtlesPenDown)
+            {
+                canvas[turtleRow][turtleCol] = '*';
+            }
+            turtleCol++;
+        }
     }
 
     public static void init() {
