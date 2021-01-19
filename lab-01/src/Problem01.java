@@ -65,29 +65,34 @@ public class Problem01 {
     }
 
     public static void move(int steps) {
-        for(int i=0; i<steps; ++i) {
-            if(turtlesPenDown)
-            {
-                canvas[turtleRow][turtleCol] = '*';
+        try {
+            for (int i = 0; i < steps; ++i) {
+                if (turtlesPenDown) {
+                    canvas[turtleRow][turtleCol] = '*';
+                }
+                if (turtleDir == EAST)
+                    ++turtleCol;
+                else if (turtleDir == SOUTH)
+                    ++turtleRow;
+                else if (turtleDir == WEST)
+                    --turtleCol;
+                else if (turtleDir == NORTH)
+                    --turtleRow;
             }
-            if(turtleDir==EAST)
-                ++turtleCol;
-            else if (turtleDir==SOUTH)
-                ++turtleRow;
-            else if(turtleDir==WEST)
-                --turtleCol;
-            else if(turtleDir==NORTH)
-                --turtleRow;
+        } catch(ArrayIndexOutOfBoundsException error) {
+            System.out.println("Number of steps exceeded, turtle stopped at the edge of the world...");
         }
     }
 
     public static void turnLeft() {
         if(turtleDir==EAST)
-            turtleDir = SOUTH;
-        else if(turtleDir==SOUTH)
-            turtleDir = WEST;
-        else if(turtleDir==WEST)
             turtleDir = NORTH;
+        else if(turtleDir==SOUTH)
+            turtleDir = EAST;
+        else if(turtleDir==WEST)
+            turtleDir = SOUTH;
+        else if(turtleDir==NORTH)
+            turtleDir = WEST;
     }
 
     public static void turnRight() {
@@ -97,6 +102,8 @@ public class Problem01 {
             turtleDir = WEST;
         else if(turtleDir==WEST)
             turtleDir = NORTH;
+        else if(turtleDir==NORTH)
+            turtleDir = EAST;
     }
 
     public static void init() {

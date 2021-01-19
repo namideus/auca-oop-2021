@@ -8,7 +8,7 @@ public class Main1254 {
         boolean match, f, print,cond=true;
         char ch;
 
-        while(scanner.hasNextLine())
+        while(scanner.hasNext())
         {
             f = false;
             print = true;
