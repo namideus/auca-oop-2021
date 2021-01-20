@@ -4,7 +4,9 @@ public class Problem01 {
 
     private static final int CANVAS_SIZE = 20;
     private static char[][] canvas = new char[CANVAS_SIZE][CANVAS_SIZE];
-
+    private static Scanner scanner;
+    private static String command;
+    private static int steps;
     private static final int NORTH = 0;
     private static final int SOUTH = 2;
     private static final int EAST = 1;
@@ -16,43 +18,49 @@ public class Problem01 {
     private static int turtleDir = EAST;
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String command;
-        int steps;
+        scanner = new Scanner(System.in);
 
         init();
 
+        try {
+            run();
+        } catch(RuntimeException e) {
+            System.out.println("Your program has a problem: ");
+            System.out.println("\t"+e.getMessage());
+        }
+    }
+
+    private static void run() {
         while(true)
         {
             command = scanner.next();
 
-            switch (command)
-            {
-                case "PenUp":
-                    penUp();
-                    break;
-                case "PenDown":
-                    penDown();
-                    break;
-                case "TurnRight":
-                    turnRight();
-                    break;
-                case "TurnLeft":
-                    turnLeft();
-                    break;
-                case "Move":
-                    steps = scanner.nextInt();
-                    move(steps);
-                    break;
-                case "Print":
-                    print();
-                    break;
-                case "Exit":
-                    System.exit(2);
-                    break;
-                default:
-                    System.out.println("Undefined command.");
-            }
+                switch (command) {
+                    case "PenUp":
+                        penUp();
+                        break;
+                    case "PenDown":
+                        penDown();
+                        break;
+                    case "TurnRight":
+                        turnRight();
+                        break;
+                    case "TurnLeft":
+                        turnLeft();
+                        break;
+                    case "Move":
+                        steps = scanner.nextInt();
+                        move(steps);
+                        break;
+                    case "Print":
+                        print();
+                        break;
+                    case "Exit":
+                        System.exit(2);
+                        break;
+                    default:
+                        System.out.println("Syntax error, reenter the command.");
+                }
         }
     }
 
@@ -66,9 +74,13 @@ public class Problem01 {
         turtlesPenUp = true;
     }
 
-    public static void move(int steps) {
-        try {
-            for (int i = 0; i < steps; ++i) {
+    public static void move(int steps) throws ArrayIndexOutOfBoundsException
+    {
+            for (int i = 0; i < steps; ++i)
+            {
+                if(isOutOfCanvas(turtleRow, turtleCol))
+                    throw new ArrayIndexOutOfBoundsException();
+
                 if (turtlesPenDown) {
                     canvas[turtleRow][turtleCol] = '*';
                 }
@@ -89,13 +101,15 @@ public class Problem01 {
                         break;
                 }
             }
-        } catch(ArrayIndexOutOfBoundsException error) {
-            System.out.println("Number of steps exceeded, turtle stopped at the edge of the world...");
-        }
     }
 
     public static void turnLeft() {
-        switch(turtleDir)
+        --turtleDir;
+
+        if(turtleDir==-1)
+            turtleDir = 3;
+
+       /* switch(turtleDir)
         {
             case EAST:
                 turtleDir = NORTH;
@@ -109,11 +123,13 @@ public class Problem01 {
             case NORTH:
                 turtleDir = WEST;
                 break;
-        }
+        }*/
     }
 
     public static void turnRight() {
-        switch(turtleDir)
+        turtleDir = (turtleDir+1) % 4;
+
+        /*switch(turtleDir)
         {
             case EAST:
                 turtleDir = SOUTH;
@@ -127,10 +143,10 @@ public class Problem01 {
             case NORTH:
                 turtleDir = EAST;
                 break;
-        }
+        }*/
     }
 
-    public static void init() {
+    private static void init() {
         for(int row = 0; row < CANVAS_SIZE; ++row) {
             for(int col = 0; col < CANVAS_SIZE; ++col) {
                 canvas[row][col] = '.';
@@ -138,7 +154,7 @@ public class Problem01 {
         }
     }
 
-    public static void print()
+    private static void print()
     {
         for(int row = 0; row < CANVAS_SIZE; ++row) {
             for(int col = 0; col < CANVAS_SIZE; ++col) {
@@ -146,5 +162,9 @@ public class Problem01 {
             }
             System.out.println();
         }
+    }
+
+    private static boolean isOutOfCanvas(int turtleRow, int turtleCol) {
+        return 0 > turtleRow || CANVAS_SIZE <= turtleRow && turtleCol < 0 || CANVAS_SIZE <= turtleCol;
     }
 }
