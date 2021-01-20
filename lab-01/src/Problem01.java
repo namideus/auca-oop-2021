@@ -46,6 +46,8 @@ public class Problem01 {
                     break;
                 case "Print":
                     print();
+                    break;
+                case "Exit":
                     System.exit(2);
                     break;
                 default:
@@ -70,14 +72,22 @@ public class Problem01 {
                 if (turtlesPenDown) {
                     canvas[turtleRow][turtleCol] = '*';
                 }
-                if (turtleDir == EAST)
-                    ++turtleCol;
-                else if (turtleDir == SOUTH)
-                    ++turtleRow;
-                else if (turtleDir == WEST)
-                    --turtleCol;
-                else if (turtleDir == NORTH)
-                    --turtleRow;
+
+                switch(turtleDir)
+                {
+                    case EAST:
+                        ++turtleCol;
+                        break;
+                    case SOUTH:
+                        ++turtleRow;
+                        break;
+                    case WEST:
+                        --turtleCol;
+                        break;
+                    case NORTH:
+                        --turtleRow;
+                        break;
+                }
             }
         } catch(ArrayIndexOutOfBoundsException error) {
             System.out.println("Number of steps exceeded, turtle stopped at the edge of the world...");
@@ -85,25 +95,39 @@ public class Problem01 {
     }
 
     public static void turnLeft() {
-        if(turtleDir==EAST)
-            turtleDir = NORTH;
-        else if(turtleDir==SOUTH)
-            turtleDir = EAST;
-        else if(turtleDir==WEST)
-            turtleDir = SOUTH;
-        else if(turtleDir==NORTH)
-            turtleDir = WEST;
+        switch(turtleDir)
+        {
+            case EAST:
+                turtleDir = NORTH;
+                break;
+            case SOUTH:
+                turtleDir = EAST;
+                break;
+            case WEST:
+                turtleDir = SOUTH;
+                break;
+            case NORTH:
+                turtleDir = WEST;
+                break;
+        }
     }
 
     public static void turnRight() {
-        if(turtleDir==EAST)
-            turtleDir = SOUTH;
-        else if(turtleDir==SOUTH)
-            turtleDir = WEST;
-        else if(turtleDir==WEST)
-            turtleDir = NORTH;
-        else if(turtleDir==NORTH)
-            turtleDir = EAST;
+        switch(turtleDir)
+        {
+            case EAST:
+                turtleDir = SOUTH;
+                break;
+            case SOUTH:
+                turtleDir = WEST;
+                break;
+            case WEST:
+                turtleDir = NORTH;
+                break;
+            case NORTH:
+                turtleDir = EAST;
+                break;
+        }
     }
 
     public static void init() {
@@ -122,6 +146,5 @@ public class Problem01 {
             }
             System.out.println();
         }
-        System.out.println("Exit");
     }
 }
