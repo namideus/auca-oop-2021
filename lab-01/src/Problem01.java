@@ -20,17 +20,16 @@ public class Problem01 {
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
 
-        init();
-
         try {
             run();
         } catch(RuntimeException e) {
-            System.out.println("Your program has a problem: ");
-            System.out.println("\t"+e.getMessage());
+            System.out.println("Your turtle is out of canvas. Restart the program!");
         }
     }
 
     private static void run() {
+        init();
+
         while(true)
         {
             command = scanner.next();
