@@ -19,7 +19,7 @@ public class Main1241 {
             if(l1<l2)
                 System.out.println("nao encaixa");
             else {
-                id = l1 - l2;
+                id = l1 - l2; // 7 -4 = 3
                 for(int i=0; i<l2; ++i)
                 {
                     if(a.charAt(id)!=b.charAt(i)) {
