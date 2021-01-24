@@ -22,8 +22,10 @@ public class Main1241 {
                 id = l1 - l2;
                 for(int i=0; i<l2; ++i)
                 {
-                    if(a.charAt(id)!=b.charAt(i))
+                    if(a.charAt(id)!=b.charAt(i)) {
                         ok = false;
+                        break;
+                    }
                     ++id;
                 }
                 if(ok)
