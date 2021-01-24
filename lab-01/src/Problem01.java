@@ -30,10 +30,10 @@ public class Problem01 {
     private static void run() {
         init();
 
-        while(true)
-        {
-            command = scanner.next();
+        readUserCommand();
 
+        while(!command.equals("Exit"))
+        {
                 switch (command) {
                     case "PenUp":
                         penUp();
@@ -48,19 +48,33 @@ public class Problem01 {
                         turnLeft();
                         break;
                     case "Move":
-                        steps = scanner.nextInt();
                         move(steps);
                         break;
                     case "Print":
                         print();
                         break;
-                    case "Exit":
-                        System.exit(2);
-                        break;
-                    default:
-                        System.out.println("Syntax error, reenter the command.");
                 }
         }
+
+        readUserCommand();
+    }
+
+    private static void readUserCommand() {
+        String line = scanner.nextLine();
+        switch (line) {
+            case "PenUp":
+            case "PenDown":
+            case "Print":
+            case "TurnLeft":
+            case "TurnRight":
+            case "Exit":
+                command = line;
+                steps = 0;
+                return;
+        }
+        Scanner inpLine = new Scanner(line);
+        command = inpLine.next();
+        steps = inpLine.nextInt();
     }
 
     public static void penDown() {
@@ -107,42 +121,10 @@ public class Problem01 {
 
         if(turtleDir==-1)
             turtleDir = 3;
-
-       /* switch(turtleDir)
-        {
-            case EAST:
-                turtleDir = NORTH;
-                break;
-            case SOUTH:
-                turtleDir = EAST;
-                break;
-            case WEST:
-                turtleDir = SOUTH;
-                break;
-            case NORTH:
-                turtleDir = WEST;
-                break;
-        }*/
     }
 
     public static void turnRight() {
         turtleDir = (turtleDir+1) % 4;
-
-        /*switch(turtleDir)
-        {
-            case EAST:
-                turtleDir = SOUTH;
-                break;
-            case SOUTH:
-                turtleDir = WEST;
-                break;
-            case WEST:
-                turtleDir = NORTH;
-                break;
-            case NORTH:
-                turtleDir = EAST;
-                break;
-        }*/
     }
 
     private static void init() {
