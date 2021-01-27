@@ -3,27 +3,29 @@ import java.util.Scanner;
 public class Problem01 {
 
     private static final int CANVAS_SIZE = 20;
+    // canvas
     private static char[][] canvas = new char[CANVAS_SIZE][CANVAS_SIZE];
-    private static Scanner scanner;
-    private static String command;
+    private static Scanner scanner = new Scanner(System.in);
+    private static String command ;
     private static int steps;
     private static final int NORTH = 0;
     private static final int SOUTH = 2;
     private static final int EAST = 1;
     private static final int WEST = 3;
+    // turtle
     private static int turtleRow = 0;
     private static int turtleCol = 0;
     private static boolean turtlesPenDown = false;
-    private static boolean turtlesPenUp = false;
     private static int turtleDir = EAST;
 
+    private static int nLine = 0;
+
     public static void main(String[] args) {
-        scanner = new Scanner(System.in);
 
         try {
             run();
         } catch(RuntimeException e) {
-            System.out.println("Your program has a problem: ");
+            System.out.println("Your program has a problem in line: "+nLine+":");
             System.out.println(e.getMessage());
         }
     }
@@ -61,6 +63,7 @@ public class Problem01 {
     // Procedures (functions)
     private static void readUserCommand() {
         String line = scanner.nextLine().trim();
+        ++nLine;
         switch (line) {
             case "PenUp":
             case "PenDown":
@@ -103,6 +106,7 @@ public class Problem01 {
 
     public static void penDown() {
         turtlesPenDown = true;
+        canvas[turtleRow][turtleCol] = '*';
     }
 
     public static void penUp() {
@@ -113,13 +117,6 @@ public class Problem01 {
     {
             for (int i = 0; i < steps; ++i)
             {
-                if(!isInCanvas(turtleRow, turtleCol))
-                    throw new RuntimeException("Turtle is out of canvas: " + turtleRow + ", " + turtleCol);
-
-                if (turtlesPenDown) {
-                    canvas[turtleRow][turtleCol] = '*';
-                }
-
                 switch(turtleDir)
                 {
                     case EAST:
@@ -134,6 +131,13 @@ public class Problem01 {
                     case NORTH:
                         --turtleRow;
                         break;
+                }
+
+                if(!isOnCanvas(turtleRow, turtleCol))
+                    throw new RuntimeException("Turtle is out of canvas: " + turtleRow + ", " + turtleCol);
+
+                if (turtlesPenDown) {
+                    canvas[turtleRow][turtleCol] = '*';
                 }
             }
     }
@@ -167,7 +171,7 @@ public class Problem01 {
         }
     }
 
-    private static boolean isInCanvas(int turtleRow, int turtleCol) {
-        return (0 <= turtleRow && CANVAS_SIZE > turtleRow) && (turtleCol <= 0 && CANVAS_SIZE > turtleCol);
+    private static boolean isOnCanvas(int turtleRow, int turtleCol) {
+        return (0 <= turtleRow && CANVAS_SIZE > turtleRow) && (turtleCol <= 0 && turtleCol<CANVAS_SIZE);
     }
 }

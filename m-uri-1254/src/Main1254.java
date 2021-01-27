@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Main1254 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String tag, line;
+        Scanner strScanner, scanner = new Scanner(System.in);
+        String tag, line, str;
         int num,i,j,k;
         boolean match, f, print,cond=true;
         char ch;
@@ -13,10 +13,13 @@ public class Main1254 {
             f = false;
             print = true;
 
-            tag = scanner.next();
-            num = scanner.nextInt();
-            line = scanner.nextLine();
+            str = scanner.nextLine();
             scanner.nextLine();
+
+            strScanner = new Scanner(str);
+            tag = strScanner.next();
+            num = strScanner.nextInt();
+            line = strScanner.nextLine();
 
             for(i=0; i<line.length(); ++i)
             {
