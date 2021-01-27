@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Main1254 {
     public static void main(String[] args) {
-        Scanner strScanner, scanner = new Scanner(System.in);
-        String tag, line, str;
+        Scanner scanner = new Scanner(System.in);
+        String tag, line;
         int num,i,j,k;
-        boolean match, f, print,cond=true;
+        boolean match, f, print;
         char ch;
 
         while(scanner.hasNext())
@@ -13,13 +13,11 @@ public class Main1254 {
             f = false;
             print = true;
 
-            str = scanner.nextLine();
+            tag = scanner.next();
+            num = scanner.nextInt();
             scanner.nextLine();
-
-            strScanner = new Scanner(str);
-            tag = strScanner.next();
-            num = strScanner.nextInt();
-            line = strScanner.nextLine();
+            line = scanner.nextLine();
+            // scanner.nextLine();
 
             for(i=0; i<line.length(); ++i)
             {
