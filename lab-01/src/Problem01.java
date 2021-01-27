@@ -23,7 +23,8 @@ public class Problem01 {
         try {
             run();
         } catch(RuntimeException e) {
-            System.out.println("Your turtle is out of canvas. Restart the program!");
+            System.out.println("Your program has a problem: ");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -31,7 +32,6 @@ public class Problem01 {
         init();
 
         readUserCommand();
-
         while(!command.equals("Exit"))
         {
                 switch (command) {
@@ -55,12 +55,12 @@ public class Problem01 {
                         break;
                 }
         }
-
         readUserCommand();
     }
 
+    // Procedures (functions)
     private static void readUserCommand() {
-        String line = scanner.nextLine();
+        String line = scanner.nextLine().trim();
         switch (line) {
             case "PenUp":
             case "PenDown":
@@ -72,27 +72,49 @@ public class Problem01 {
                 steps = 0;
                 return;
         }
+
         Scanner inpLine = new Scanner(line);
-        command = inpLine.next();
-        steps = inpLine.nextInt();
+
+        if(!inpLine.hasNext()) {
+            throw new RuntimeException("Wrong command: '"+line+"'");
+        }
+
+        String userCommand = inpLine.next();
+        if(!userCommand.equals("Move")) {
+            throw new RuntimeException("Unknown command: '"+line+"'");
+        }
+
+        if(!inpLine.hasNextInt()) {
+            throw new RuntimeException("No integer in command 'Move': '"+line+"'");
+        }
+
+        int numberOfSteps = inpLine.nextInt();
+        if(numberOfSteps<0)
+        {
+            throw new RuntimeException("Negative integer in command 'Move': '"+line+"'");
+        }
+
+        if (inpLine.hasNext()) {
+            throw new RuntimeException("Too many parameters in command 'Move': '"+line+"'");
+        }
+        command = userCommand;
+        steps = numberOfSteps;
     }
 
     public static void penDown() {
         turtlesPenDown = true;
-        turtlesPenUp = false;
     }
 
     public static void penUp() {
         turtlesPenDown = false;
-        turtlesPenUp = true;
     }
 
     public static void move(int steps) throws ArrayIndexOutOfBoundsException
     {
             for (int i = 0; i < steps; ++i)
             {
-                if(isOutOfCanvas(turtleRow, turtleCol))
-                    throw new ArrayIndexOutOfBoundsException();
+                if(!isInCanvas(turtleRow, turtleCol))
+                    throw new RuntimeException("Turtle is out of canvas: " + turtleRow + ", " + turtleCol);
 
                 if (turtlesPenDown) {
                     canvas[turtleRow][turtleCol] = '*';
@@ -145,7 +167,7 @@ public class Problem01 {
         }
     }
 
-    private static boolean isOutOfCanvas(int turtleRow, int turtleCol) {
-        return 0 > turtleRow || CANVAS_SIZE <= turtleRow && turtleCol < 0 || CANVAS_SIZE <= turtleCol;
+    private static boolean isInCanvas(int turtleRow, int turtleCol) {
+        return (0 <= turtleRow && CANVAS_SIZE > turtleRow) && (turtleCol <= 0 && CANVAS_SIZE > turtleCol);
     }
 }
