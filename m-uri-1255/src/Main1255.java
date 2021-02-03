@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main1255 {
@@ -6,6 +5,7 @@ public class Main1255 {
         Scanner scanner = new Scanner(System.in);
         int max, n = scanner.nextInt();
         scanner.nextLine();
+
         StringBuilder list;
         int[] cnt;
         String line;
