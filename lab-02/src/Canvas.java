@@ -1,6 +1,6 @@
 public class Canvas
 {
-    private static final int CANVAS_SIZE = 20;
+    private final int CANVAS_SIZE = 20;
     private char[][] data;
 
     // Constructor
@@ -28,5 +28,9 @@ public class Canvas
             throw new RuntimeException("Canvas: coordinates out of border");
         }
         data[row][col] = '*';
+    }
+
+    public boolean isOnCanvas(int turtleRow, int turtleCol) {
+        return (0 <= turtleRow && CANVAS_SIZE > turtleRow) && (turtleCol <= 0 && turtleCol<CANVAS_SIZE);
     }
 }

@@ -28,6 +28,7 @@ public class Problem01 {
             System.out.println("Your program has a problem in line: "+nLine+":");
             System.out.println(e.getMessage());
         }
+
     }
 
     private static void run() {
