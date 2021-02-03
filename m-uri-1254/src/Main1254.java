@@ -17,7 +17,6 @@ public class Main1254 {
             num = scanner.nextInt();
             scanner.nextLine();
             line = scanner.nextLine();
-            // scanner.nextLine();
 
             for(i=0; i<line.length(); ++i)
             {
