@@ -4,30 +4,52 @@ public class Main1448 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String a,b,c;
-        int n,h,sum, t = scanner.nextInt();
+        boolean f;
+        int c1,c2,tests = scanner.nextInt();
         scanner.nextLine();
 
-        while(t>0)
+        for(int t=1; t<=tests; ++t)
         {
-            sum = 0;
+            f = false;
+            c1 = 0;
+            c2 = 0;
 
-            n = scanner.nextInt();
-            scanner.nextLine();
+            a = scanner.nextLine();
+            b = scanner.nextLine();
+            c = scanner.nextLine();
 
-            for(int i=0; i<n; ++i)
+            for(int i=0; i<a.length(); ++i)
             {
-                h = 0;
-                s = scanner.next();
+                if(a.charAt(i)==b.charAt(i))
+                    ++c1;
 
-                for(int j=0; j<s.length(); ++j)
-                    h+=i+j+((int)s.charAt(j)-65);
-
-                sum += h;
+                if(a.charAt(i)==c.charAt(i))
+                    ++c2;
             }
 
-            System.out.println(sum);
+            System.out.println("Instancia "+t);
 
-            --t;
+            if(c1==c2) {
+                for (int i = 0; i < a.length(); ++i) {
+                    if (a.charAt(i) == b.charAt(i) && a.charAt(i) != c.charAt(i)) {
+                        System.out.println("time 1");
+                        f = true;
+                        break;
+                    } else if (a.charAt(i) != b.charAt(i) && a.charAt(i) == c.charAt(i)) {
+                        System.out.println("time 2");
+                        f = true;
+                        break;
+                    }
+                }
+                if(!f)
+                    System.out.println("empate");
+            } else {
+                if(c1>c2)
+                    System.out.println("time 1");
+                else
+                    System.out.println("time 2");
+            }
+            System.out.println();
         }
     }
 }
