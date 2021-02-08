@@ -6,12 +6,11 @@ public class Main2484 {
         int i,j,l,r;
         String str;
 
-        while(scanner.hasNext())
+        while(scanner.hasNextLine())
         {
             str = scanner.next();
 
             l = str.length();
-            r = str.length();
 
             for(int count = 0; count<l; ++count)
             {
