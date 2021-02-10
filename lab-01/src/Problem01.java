@@ -57,8 +57,8 @@ public class Problem01 {
                         print();
                         break;
                 }
+                readUserCommand();
         }
-        readUserCommand();
     }
 
     // Procedures (functions)
@@ -101,6 +101,7 @@ public class Problem01 {
         if (inpLine.hasNext()) {
             throw new RuntimeException("Too many parameters in command 'Move': '"+line+"'");
         }
+
         command = userCommand;
         steps = numberOfSteps;
     }
