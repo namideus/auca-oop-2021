@@ -15,7 +15,13 @@ public class Problem03 extends PApplet {
         dx = 10;
 
         for(int i=0; i<100; ++i)
-            stars[i] = new Star(this, random(width), random(height), random(10,30), random(1,10), random(1,10));
+            stars[i] = new Star(
+                    this,
+                    random(width),
+                    random(height),
+                    random(10,30),
+                    random(1,10),
+                    random(1,10));
 
         frameRate(60);
     }
