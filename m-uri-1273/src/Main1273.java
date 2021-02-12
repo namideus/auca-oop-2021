@@ -12,7 +12,6 @@ public class Main1273 {
         while(scanner.hasNextInt())
         {
             n = scanner.nextInt();
-            scanner.nextLine();
 
             if(n==0)
                 break;
