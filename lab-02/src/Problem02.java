@@ -27,7 +27,7 @@ public class Problem02 {
     private static void run() {
         Scanner scanner = new Scanner(System.in);
         Canvas canvas = new Canvas();
-        Turtle turtle = new Turtle(canvas,0,0,false,Turtle.EAST); // 1000 ? Exercies
+        Turtle turtle = new Turtle(canvas,0,0,false,Turtle.EAST);
 
         ++nLine;
         UserCommand cmd = new UserCommand(scanner.nextLine());

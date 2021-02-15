@@ -27,7 +27,6 @@ public class UserCommand {
         }
 
         Scanner inpLine = new Scanner(line);
-
         if(!inpLine.hasNext()) {
             throw new RuntimeException("Wrong command: '"+line+"'");
         }

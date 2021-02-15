@@ -1,6 +1,6 @@
 public class Canvas
 {
-    private final int CANVAS_SIZE = 20;
+    public static final int CANVAS_SIZE = 20;
     private char[][] data;
 
     // Constructor
@@ -31,6 +31,6 @@ public class Canvas
     }
 
     public boolean isOnCanvas(int turtleRow, int turtleCol) {
-        return (0 <= turtleRow && CANVAS_SIZE > turtleRow) && (turtleCol <= 0 && turtleCol<CANVAS_SIZE);
+        return 0<=turtleRow && turtleRow < CANVAS_SIZE || 0 <= turtleCol && turtleCol < CANVAS_SIZE;
     }
 }

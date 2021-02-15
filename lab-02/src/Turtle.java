@@ -11,10 +11,22 @@ public class Turtle {
     private int turtleDir = EAST;
 
     public Turtle(Canvas canvas, int row, int col, boolean isPenDown, int direction) {
+        if(0<=direction && direction<=3) {
+            this.turtleDir = direction;
+        } else {
+            throw new RuntimeException("Unknown direction: " + direction);
+        }
+        if(0<=row && row<Canvas.CANVAS_SIZE) {
+            this.turtleRow = row;
+        } else {
+            throw new RuntimeException("Unknown row: " + row);
+        }
+        if(0<=col && col<Canvas.CANVAS_SIZE) {
+            this.turtleCol = col;
+        } else {
+            throw new RuntimeException("Unknown column: " + col);
+        }
         this.canvas = canvas;
-        this.turtleDir = direction;
-        this.turtleRow = row;
-        this.turtleCol = col;
         this.isPenDown = isPenDown;
     }
 
