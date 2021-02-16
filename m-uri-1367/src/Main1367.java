@@ -20,7 +20,6 @@ public class Main1367 {
             cnt = new int[128];
 
             s = p = 0;
-
             while(n>0)
             {
                 ch = scanner.next().toCharArray()[0];
