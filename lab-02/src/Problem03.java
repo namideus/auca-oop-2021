@@ -14,14 +14,8 @@ public class Problem03 extends PApplet {
         y = height/2;
         dx = 10;
 
-        for(int i=0; i<100; ++i)
-            stars[i] = new Star(
-                    this,
-                    random(width),
-                    random(height),
-                    random(10,30),
-                    random(1,10),
-                    random(1,10));
+        for(int i=0; i<stars.length; ++i)
+            stars[i] = new Star(this, random(width), random(height),random(10,30), random(-10,10), random(-10,10), random(-1f, 1f));
 
         frameRate(60);
     }
@@ -29,8 +23,9 @@ public class Problem03 extends PApplet {
     public void draw() {
         background(0, 0, 0);
 
-        for(int i=0; i<100; ++i) {
-            stars[i].draw().move();
+        for (Star star : stars) {
+            star.draw();
+            star.move();
         }
 
     }
