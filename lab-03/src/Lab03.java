@@ -3,6 +3,6 @@ public class Lab03 {
         Rational a = new Rational(1, 10);
         Rational b = new Rational(1, 10);
 
-        System.out.printf("%s + %s = %s%n", a, b, a.add(b));
+        System.out.printf("%s + %s = %s%n", a, b, a.divide(b));
     }
 }
