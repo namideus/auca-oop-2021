@@ -24,21 +24,17 @@ public class Star
         this.dAngle = dAngle;
     }
 
-    public void draw() {
-        canvas.background(0);
-
+    public void draw() { ;
         canvas.pushMatrix();
-        canvas.translate(x,y);
+        canvas.translate(this.x,this.y);
         canvas.rotate(angle);
         canvas.stroke(255);
+
         for(int i=0; i<N; ++i) {
             canvas.rotate((float) (Math.PI/N));
             canvas.line(-r,0,r,0);
         }
         canvas.popMatrix();
-
-        //canvas.fill(rc,gc,bc);
-        //canvas.circle(x,y,r);
     }
 
     public void move() {

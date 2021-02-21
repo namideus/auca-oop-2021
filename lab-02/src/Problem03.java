@@ -1,8 +1,6 @@
 import processing.core.PApplet;
 
 public class Problem03 extends PApplet {
-    int x, y;
-    int dx;
     Star[] stars = new Star[100];
 
     public void settings() {
@@ -10,14 +8,13 @@ public class Problem03 extends PApplet {
     }
 
     public void setup() {
-        x = width/2;
-        y = height/2;
-        dx = 10;
-
-        for(int i=0; i<stars.length; ++i)
-            stars[i] = new Star(this, random(width), random(height),random(10,30), random(-10,10), random(-10,10), random(-1f, 1f));
-
         frameRate(60);
+        for(int i=0; i<stars.length; ++i) {
+            stars[i] = new Star(this,
+                    random(width), random(height), random(10, 30),
+                    random(-10, 10), random(-10, 10),
+                    random(-(float)Math.PI/100, (float)Math.PI/100));
+        }
     }
 
     public void draw() {
