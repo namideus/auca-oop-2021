@@ -4,6 +4,7 @@ public class Star
 {
     private  static final int N = 4;
     private float x,y,dx,dy,r,rc,gc,bc,angle,dAngle;
+    private boolean bounceX,bounceY;
     private final PApplet canvas;
 
     public Star(PApplet canvas, float x, float y, float r, float dx, float dy, float dAngle)
@@ -42,27 +43,24 @@ public class Star
         y+=dx;
         angle+=dAngle;
 
-        if(canvas.keyPressed)
-        {
+        if(canvas.keyPressed) {
             dAngle = -dAngle;
         }
-        if(x>=canvas.width)
-        {
+
+        if(x>=canvas.width) {
             x=canvas.width-1;
             dx = -dx;
         }
-        if(x<0)
-        {
+        if(x<0) {
             x=0;
             dx = -dx;
         }
-        if(y>=canvas.height)
-        {
+
+        if(y>=canvas.height) {
             y=canvas.height-1;
             dy = -dy;
         }
-        if(y<0)
-        {
+        if(y<0) {
             y=0;
             dy = -dy;
         }
