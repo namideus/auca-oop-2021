@@ -6,10 +6,9 @@ public class Main2484 {
         int i,j,l,r;
         String str;
 
-        while(scanner.hasNextLine())
+        while(scanner.hasNext())
         {
             str = scanner.next();
-
             l = str.length();
 
             for(int count = 0; count<l; ++count)
@@ -18,7 +17,7 @@ public class Main2484 {
                     System.out.print(" ");
 
                 for(i=0; i<l-count; ++i)
-                    System.out.print(str.charAt(i)+((i!=(l-count)-1) ? " ": ""));
+                    System.out.print(str.charAt(i)+""+((i!=(l-count)-1) ? " ": ""));
 
                 System.out.println();
             }
