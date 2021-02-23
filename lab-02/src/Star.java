@@ -29,7 +29,7 @@ public class Star
         canvas.pushMatrix();
         canvas.translate(this.x,this.y);
         canvas.rotate(angle);
-        canvas.stroke(255);
+        canvas.stroke(rc,gc,bc);
 
         for(int i=0; i<N; ++i) {
             canvas.rotate((float) (Math.PI/N));
@@ -40,7 +40,8 @@ public class Star
 
     public void move() {
         x+=dx;
-        y+=dx;
+        y+=dy;
+
         angle+=dAngle;
 
         if(canvas.keyPressed) {
