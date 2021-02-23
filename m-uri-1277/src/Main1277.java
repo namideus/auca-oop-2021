@@ -31,7 +31,7 @@ public class Main1277 {
                     else if (str.charAt(j) == 'M')
                         ++val;
 
-                if ((100.0 * pr) / (str.length() - val) < 75)
+                if ((100 * pr)/(str.length() - val) < 75)
                     list.add(std[i]);
             }
 

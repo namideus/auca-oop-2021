@@ -3,33 +3,33 @@ import java.util.Scanner;
 public class Main1262 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int procs, reads, p;
+        int pr, r, p;
         String trace;
 
         while(scanner.hasNext()) {
-            procs=reads=0;
+            pr=r=0;
 
             trace = scanner.next();
             p = scanner.nextInt();
 
             for(int i=0;i<trace.length();++i) {
                 if(trace.charAt(i)=='R') {
-                    ++reads;
-                    if(reads==p) {
-                        reads=0;
-                        ++procs;
+                    ++r;
+                    if(r==p) {
+                        r=0;
+                        ++pr;
                     }
                 } else {
-                    ++procs;
-                    if(reads>0) {
-                        reads=0;
-                        ++procs;
+                    ++pr;
+                    if(r>0) {
+                        r=0;
+                        ++pr;
                     }
                 }
             }
-            if(reads>0)
-                ++procs;
-            System.out.println(procs);
+            if(r>0)
+                ++pr;
+            System.out.println(pr);
         }
     }
 }
