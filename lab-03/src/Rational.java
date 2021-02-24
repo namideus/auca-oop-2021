@@ -60,5 +60,17 @@ public class Rational {
         int rhs = denominator*other.nominator;
         return Integer.compare(lhs, rhs);
     }
-    // public void parse
+
+    public static Rational parse(String s) {
+
+        s = s.trim();
+        int indexSlash = s.indexOf("/");
+
+        if(indexSlash==-1) {
+            return new Rational(Integer.parseInt(s),1);
+        }
+        int num = Integer.parseInt(s.substring(0,indexSlash));
+        int den = Integer.parseInt(s.substring(indexSlash+1));
+        return new Rational(num, den);
+    }
 }
