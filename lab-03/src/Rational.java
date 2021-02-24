@@ -1,3 +1,5 @@
+import java.math.BigInteger;
+
 public class Rational {
 
     private int nominator;
@@ -7,8 +9,23 @@ public class Rational {
     {
         if(denominator==0)
             throw new RuntimeException("Rational: denominator is zero");
-        this.nominator = nominator;
-        this.denominator = denominator;
+
+        if(denominator<0) {
+            nominator=-nominator;
+            denominator=-denominator;
+        }
+
+        int a = Math.abs(nominator);
+        int b = Math.abs(denominator);
+
+        while(b!=0) {
+            int rem = a % b;
+            a = b;
+            b = rem;
+        }
+
+        this.nominator = nominator/a;
+        this.denominator = denominator/a;
     }
 
     @Override
@@ -16,31 +33,32 @@ public class Rational {
         return nominator + "/" + denominator;
     }
 
-    public Rational add(Rational other)
-    {
+    public Rational add(Rational other) {
         int rNum = nominator*other.denominator+denominator*other.nominator;
         int rDen = denominator*other.denominator;
         return new Rational(rNum, rDen);
     }
 
-    public Rational subtract(Rational other)
-    {
+    public Rational subtract(Rational other) {
         int rNum = nominator*other.denominator-denominator*other.nominator;
         int rDen = denominator*other.denominator;
         return new Rational(rNum, rDen);
     }
 
-    public Rational multiply(Rational other)
-    {
-        int rNum = nominator*other.nominator;
-        int rDen = denominator*other.denominator;
-        return new Rational(rNum, rDen);
+    public Rational multiply(Rational other) {
+        return new Rational(nominator*other.nominator,
+                denominator*other.denominator);
     }
 
-    public Rational divide(Rational other)
-    {
-        int rNum = nominator*other.denominator;
-        int rDen = denominator*other.nominator;
-        return new Rational(rNum, rDen);
+    public Rational divide(Rational other) {
+        return new Rational(nominator*other.denominator,
+                denominator*other.nominator);
     }
+
+    public int compareTo(Rational other) {
+        int lhs = nominator*other.denominator;
+        int rhs = denominator*other.nominator;
+        return Integer.compare(lhs, rhs);
+    }
+    // public void parse
 }
