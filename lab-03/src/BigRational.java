@@ -1,29 +1,23 @@
+import java.math.BigInteger;
+
 public class BigRational {
 
-    private int nominator;
-    private int denominator;
+    private final BigInteger nominator;
+    private final BigInteger denominator;
 
-    public BigRational(int nominator, int denominator)
-    {
-        if(denominator==0)
+    public BigRational(BigInteger nominator, BigInteger denominator) {
+        if(denominator.longValue()==0)
             throw new RuntimeException("Rational: denominator is zero");
 
-        if(denominator<0) {
-            nominator=-nominator;
-            denominator=-denominator;
+        if(denominator.signum()<0) {
+            nominator=nominator.multiply(new BigInteger("-1"));
+            denominator=denominator.multiply(new BigInteger("-1"));;
         }
 
-        int a = Math.abs(nominator);
-        int b = Math.abs(denominator);
+        BigInteger gcd = nominator.gcd(denominator);
 
-        while(b!=0) {
-            int rem = a % b;
-            a = b;
-            b = rem;
-        }
-
-        this.nominator = nominator/a;
-        this.denominator = denominator/a;
+        this.nominator = nominator.divide(gcd);
+        this.denominator = denominator.divide(gcd);
     }
 
     @Override
@@ -32,31 +26,32 @@ public class BigRational {
     }
 
     public BigRational add(BigRational other) {
-        int rNum = nominator*other.denominator+denominator*other.nominator;
-        int rDen = denominator*other.denominator;
+        BigInteger rNum = nominator.multiply(other.denominator).add(denominator.multiply(other.nominator));
+        BigInteger rDen = denominator.multiply(other.denominator);
         return new BigRational(rNum, rDen);
     }
 
     public BigRational subtract(BigRational other) {
-        int rNum = nominator*other.denominator-denominator*other.nominator;
-        int rDen = denominator*other.denominator;
+        BigInteger rNum = nominator.multiply(other.denominator).subtract(denominator.multiply(other.nominator));
+        BigInteger rDen = denominator.multiply(other.denominator);
         return new BigRational(rNum, rDen);
     }
 
     public BigRational multiply(BigRational other) {
-        return new BigRational(nominator*other.nominator,
-                denominator*other.denominator);
+        return
+                new BigRational(nominator.multiply(other.nominator),
+                denominator.multiply(other.denominator));
     }
 
     public BigRational divide(BigRational other) {
-        return new BigRational(nominator*other.denominator,
-                denominator*other.nominator);
+        return new BigRational(nominator.multiply(other.denominator),
+                denominator.multiply(other.nominator));
     }
 
     public int compareTo(BigRational other) {
-        int lhs = nominator*other.denominator;
-        int rhs = denominator*other.nominator;
-        return Integer.compare(lhs, rhs);
+        BigInteger lhs = nominator.multiply(other.denominator);
+        BigInteger rhs = denominator.multiply(other.nominator);
+        return lhs.compareTo(rhs);
     }
 
     public static BigRational parse(String s) {
@@ -65,10 +60,10 @@ public class BigRational {
         int indexSlash = s.indexOf("/");
 
         if(indexSlash==-1) {
-            return new BigRational(Integer.parseInt(s),1);
+            return new BigRational(new BigInteger(s),new BigInteger("1"));
         }
-        int num = Integer.parseInt(s.substring(0,indexSlash));
-        int den = Integer.parseInt(s.substring(indexSlash+1));
+        BigInteger num = new BigInteger(s.substring(0,indexSlash));
+        BigInteger den = new BigInteger(s.substring(indexSlash+1));
         return new BigRational(num, den);
     }
 }

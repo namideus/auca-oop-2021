@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Lab03 {
+public class BigRationalTest {
     private static Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -14,9 +14,9 @@ public class Lab03 {
     }
 
     private static void readAndCompute() {
-        Rational r1 = readRational("Enter 1st rational (EOF for exit): ");
+        BigRational r1 = readRational("Enter 1st rational (EOF for exit): ");
         String op = readOperator();
-        Rational r2 = readRational("Enter 2nd rational (EOF for exit): ");
+        BigRational r2 = readRational("Enter 2nd rational (EOF for exit): ");
 
         switch (op) {
             case "+":
@@ -52,14 +52,14 @@ public class Lab03 {
         }
     }
 
-    private static Rational readRational(String msg) {
+    private static BigRational readRational(String msg) {
         while(true) {
                 System.out.print(msg);
                 if(!scan.hasNextLine()) {
                     System.exit(0);
                 }
                 try {
-                    return Rational.parse(scan.nextLine());
+                    return BigRational.parse(scan.nextLine());
                 } catch(RuntimeException e) {
                     System.out.println("Rational is not correct");
                     System.out.println(e.getMessage());
