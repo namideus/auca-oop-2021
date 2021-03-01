@@ -38,8 +38,7 @@ public class BigRational {
     }
 
     public BigRational multiply(BigRational other) {
-        return
-                new BigRational(nominator.multiply(other.nominator),
+        return new BigRational(nominator.multiply(other.nominator),
                 denominator.multiply(other.denominator));
     }
 
