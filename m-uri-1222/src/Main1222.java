@@ -20,23 +20,19 @@ public class Main1222 {
                 word = strScan.next();
                 cnt+=word.length()+1;
 
-                if(cnt==c || cnt-1==c)
-                {
+                if(cnt==c || cnt-1==c) {
                     ++ln;
                     cnt = 0;
-                } else if(cnt>c || cnt-2>c)
-                {
+                } else if(cnt>c || cnt-2>c) {
                     ++ln;
                     cnt = word.length()+1;
                 }
 
-                if(ln==l)
-                {
+                if(ln==l) {
                     ++p;
                     ln = 0;
                 }
             }
-
             if(cnt>0 || ln>0)
                 ++p;
             System.out.println(p);

@@ -2,40 +2,56 @@ import java.util.Scanner;
 
 public class Main1120 {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int max, n = scanner.nextInt();
-        scanner.nextLine();
-        StringBuilder list;
-        int[] cnt;
-        String line;
+        Scanner scan = new Scanner(System.in);
+        String b;
         char ch;
+        StringBuilder res;
+        int ok;
+        boolean flag;
 
-        while(!scanner.next().equals("0") && !scanner.next().equals("0"))
-        {
-            max = 0;
-            list = new StringBuilder();
-            cnt = new int[128];
-            line = scanner.nextLine();
+        while(scan.hasNext()) {
+            ch = scan.next().charAt(0);
+            b = scan.next();
 
-            for(int i=0; i<line.length(); ++i)
+            if(ch=='0' && b.equals("0"))
+                break;
+
+            res = new StringBuilder();
+            ok = 0;
+
+            for(int i=0; i<b.length(); i++)
             {
-                ch = Character.toLowerCase(line.charAt(i));
 
-                if(Character.isAlphabetic(ch))
+                if(ch != b.charAt(i))
                 {
-                    cnt[ch]++;
-                    if(cnt[ch]>max)
-                        max = cnt[ch];
+
+                    res.append(b.charAt(i));
+                    ok+=(b.charAt(i)-'0');
                 }
             }
+            flag = false;
 
-            for(int i=0; i<128; ++i)
-                if(max==cnt[i])
-                    list.append((char)i);
+            if(ok>0)
+            {
+                for(int i=0; i<res.length(); i++)
+                {
+                    if(flag)
+                        System.out.print(res.charAt(i));
 
-            System.out.println(list.toString());
+                    if(res.charAt(i)!='0')
+                    {
+                        if(!flag)
+                        {
+                            System.out.print(res.charAt(i));
+                            flag=true;
+                        }
+                    }
 
-            --n;
+                }
+                System.out.println();
+            }
+            else
+                System.out.println("0");
         }
     }
 }
