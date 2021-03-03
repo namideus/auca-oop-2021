@@ -24,10 +24,11 @@ public class Problem05 {
         System.out.println("After insertions:");
         System.out.println(list);
 
-        for (int i = 0; i < list.size(); ++i) {
+        for (int i = 0; i < list.size();) {
             if (list.get(i) % 2 > 0) {
-                list.remove(list.get(i));
-            }
+                list.remove(i);
+            } else
+                i++;
         }
 
         System.out.println("After deletions:");
