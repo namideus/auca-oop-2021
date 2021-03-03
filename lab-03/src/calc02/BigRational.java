@@ -45,7 +45,8 @@ public class BigRational {
     }
 
     public BigRational divide(BigRational other) {
-        return new BigRational(nominator.multiply(other.denominator), denominator.multiply(other.nominator));
+        return new BigRational(nominator.multiply(other.denominator),
+                denominator.multiply(other.nominator));
     }
 
     public int compareTo(BigRational other) {
@@ -60,7 +61,7 @@ public class BigRational {
         int indexSlash = s.indexOf("/");
 
         if(indexSlash==-1) {
-            return new BigRational(new BigInteger(s),new BigInteger("1"));
+            return new BigRational(new BigInteger(s),BigInteger.ONE);
         }
         BigInteger num = new BigInteger(s.substring(0,indexSlash));
         BigInteger den = new BigInteger(s.substring(indexSlash+1));
