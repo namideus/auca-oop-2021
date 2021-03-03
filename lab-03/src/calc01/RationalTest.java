@@ -1,3 +1,5 @@
+package calc01;
+
 import java.util.Scanner;
 
 public class RationalTest {
@@ -61,7 +63,7 @@ public class RationalTest {
                 try {
                     return Rational.parse(scan.nextLine());
                 } catch(RuntimeException e) {
-                    System.out.println("Rational is not correct");
+                    System.out.println("calc01.Rational is not correct");
                     System.out.println(e.getMessage());
                 }
 

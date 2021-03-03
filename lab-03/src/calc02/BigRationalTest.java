@@ -1,3 +1,7 @@
+package calc02;
+
+import calc02.BigRational;
+
 import java.util.Scanner;
 
 public class BigRationalTest {
@@ -61,7 +65,7 @@ public class BigRationalTest {
                 try {
                     return BigRational.parse(scan.nextLine());
                 } catch(RuntimeException e) {
-                    System.out.println("Rational is not correct");
+                    System.out.println("calc01.Rational is not correct");
                     System.out.println(e.getMessage());
                 }
 

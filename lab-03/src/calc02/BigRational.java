@@ -1,3 +1,5 @@
+package calc02;
+
 import java.math.BigInteger;
 
 public class BigRational {
@@ -7,11 +9,11 @@ public class BigRational {
 
     public BigRational(BigInteger nominator, BigInteger denominator) {
         if(denominator.equals(BigInteger.ZERO))
-            throw new RuntimeException("Rational: denominator is zero");
+            throw new RuntimeException("calc01.Rational: denominator is zero");
 
         if(denominator.signum()<0) {
-            nominator=nominator.multiply(new BigInteger("-1"));
-            denominator=denominator.multiply(new BigInteger("-1"));
+            nominator=nominator.negate();
+            denominator=denominator.negate();
         }
 
         BigInteger gcd = nominator.gcd(denominator);

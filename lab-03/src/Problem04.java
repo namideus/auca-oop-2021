@@ -6,7 +6,7 @@ public class Problem04 {
         BigInteger b = new BigInteger("222222222222222222222222222222222222222222222222222");
         System.out.println(a.multiply(b));
         System.out.println(a.gcd(b));
-        // Home task: change class rational, create BigRational, represent it as BigInteger
+        // Home task: change class rational, create calc02.BigRational, represent it as BigInteger
         // BigInteger has GCD
     }
 }

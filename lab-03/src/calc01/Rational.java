@@ -1,4 +1,4 @@
-import java.math.BigInteger;
+package calc01;
 
 public class Rational {
 
@@ -8,7 +8,7 @@ public class Rational {
     public Rational(int nominator, int denominator)
     {
         if(denominator==0)
-            throw new RuntimeException("Rational: denominator is zero");
+            throw new RuntimeException("calc01.Rational: denominator is zero");
 
         if(denominator<0) {
             nominator=-nominator;
