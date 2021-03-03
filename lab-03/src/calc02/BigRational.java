@@ -45,6 +45,9 @@ public class BigRational {
     }
 
     public BigRational divide(BigRational other) {
+        if(other.nominator.equals(BigInteger.ZERO)) {
+            throw new RuntimeException("BigRational: division by zero");
+        }
         return new BigRational(nominator.multiply(other.denominator),
                 denominator.multiply(other.nominator));
     }
