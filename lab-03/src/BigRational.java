@@ -6,12 +6,12 @@ public class BigRational {
     private final BigInteger denominator;
 
     public BigRational(BigInteger nominator, BigInteger denominator) {
-        if(denominator.longValue()==0)
+        if(denominator.equals(BigInteger.ZERO))
             throw new RuntimeException("Rational: denominator is zero");
 
         if(denominator.signum()<0) {
             nominator=nominator.multiply(new BigInteger("-1"));
-            denominator=denominator.multiply(new BigInteger("-1"));;
+            denominator=denominator.multiply(new BigInteger("-1"));
         }
 
         BigInteger gcd = nominator.gcd(denominator);
@@ -22,7 +22,7 @@ public class BigRational {
 
     @Override
     public String toString() {
-        return nominator + "/" + denominator;
+        return this.nominator.toString() + "/" + this.denominator;
     }
 
     public BigRational add(BigRational other) {
@@ -43,8 +43,7 @@ public class BigRational {
     }
 
     public BigRational divide(BigRational other) {
-        return new BigRational(nominator.multiply(other.denominator),
-                denominator.multiply(other.nominator));
+        return new BigRational(nominator.multiply(other.denominator), denominator.multiply(other.nominator));
     }
 
     public int compareTo(BigRational other) {

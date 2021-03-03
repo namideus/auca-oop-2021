@@ -20,15 +20,13 @@ public class Main1120 {
             ok = 0;
 
             for(int i=0; i<b.length(); i++)
-            {
-
                 if(ch != b.charAt(i))
                 {
 
                     res.append(b.charAt(i));
                     ok+=(b.charAt(i)-'0');
                 }
-            }
+
             flag = false;
 
             if(ok>0)
@@ -39,13 +37,11 @@ public class Main1120 {
                         System.out.print(res.charAt(i));
 
                     if(res.charAt(i)!='0')
-                    {
                         if(!flag)
                         {
                             System.out.print(res.charAt(i));
                             flag=true;
                         }
-                    }
 
                 }
                 System.out.println();
