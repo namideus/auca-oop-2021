@@ -11,6 +11,7 @@ public class Problem04 {
             list.add(x);
         }
 
+        System.out.println("Before reversing:");
         System.out.println(list);
 
         int lft = 0;
@@ -23,6 +24,7 @@ public class Problem04 {
             --rgt;
         }
 
+        System.out.println("After reversing:");
         System.out.println(list);
     }
 }
