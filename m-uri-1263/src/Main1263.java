@@ -17,10 +17,10 @@ public class Main1263 {
             strScan = new Scanner(a);
 
             while(strScan.hasNext())
-                sb.append(strScan.next().charAt(0));
+                sb.append(Character.toLowerCase(strScan.next().charAt(0)));
 
             for(j=0; j<sb.length()-1; ++j) {
-                if(Character.toLowerCase(sb.charAt(j))==Character.toLowerCase(sb.charAt(j+1)))
+                if(sb.charAt(j)==sb.charAt(j+1))
                     f = true;
                 else {
                     if(f) {
