@@ -10,21 +10,20 @@ public class Main1237 {
             b = scan.nextLine();
             m = 0;
 
-            for(i=0; i<a.length(); ++i)
-            {
-                for(j=0; j<b.length(); ++j)
-                {
-                    if (a.charAt(i) == b.charAt(j))
-                    {
-                        for (k = j; k<=b.length(); ++k) {
-                            if(a.contains(b.substring(j, k))) {
-                                cnt = b.substring(j, k).length();
-                                m = Math.max(cnt, m);
-                            }
+            for(i=0; i<a.length(); ++i) {
+                for(j=0; j<b.length(); ++j) {
+                    if (a.charAt(i) == b.charAt(j)) {
+                        cnt = 0;
+                        for (k = i, c = j; k < a.length() && c<b.length(); ++k, ++c) {
+                            if (a.charAt(k) != b.charAt(c))
+                                break;
+                            cnt++;
                         }
+                        m = Math.max(cnt, m);
                     }
                 }
             }
+
             System.out.println(m);
         }
     }
