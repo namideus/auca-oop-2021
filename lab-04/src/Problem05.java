@@ -25,7 +25,7 @@ public class Problem05 {
         System.out.println(list);
 
         for (int i = 0; i < list.size();) {
-            if (list.get(i) % 2 > 0) {
+            if (list.get(i) % 2 != 0) {
                 list.remove(i);
             } else
                 i++;
