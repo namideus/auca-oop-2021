@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Problem05 {
+public class Problem08 {
     public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);
-        ArrayList<Integer> list = new ArrayList<>();
+        ArrayListInt list = new ArrayListInt(); // ArrayListInt
 
         while (scan.hasNextInt()) {
             int x = scan.nextInt();
