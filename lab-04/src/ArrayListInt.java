@@ -1,8 +1,8 @@
 public class ArrayListInt {
 
     private static final int DEFAULT_CAPACITY = 10;
-    private int size = 10;
     private int[] data = new int[DEFAULT_CAPACITY];
+    private int size;
 
     public ArrayListInt() { }
 
@@ -22,31 +22,36 @@ public class ArrayListInt {
 
     public void add(int x) {
       if(size==data.length)
-          grow();
+          ensureCapacity();
 
-      data[size++] = x;
+      data[size] = x;
+      ++size;
     }
 
     public void add(int index, int x) {
         rangeCheck(index);
 
         if(size==data.length)
-            grow();
+            ensureCapacity();
 
-        ++size; // Only needs to check the special condition size=index?
-        for(int i=index; i<size-1; ++i)
-            data[index+1] = data[index];
+        ++size;
+        // Overwriting problem
+        for(int i=size-1; i>index; --i)
+            data[i] = data[i-1];
+
         data[index] = x;
     }
 
     public void remove(int index) {
         rangeCheck(index);
-        --size;
-        for(int i=index; i<size; ++i)
-            data[index] = data[index+1];
+        if(size>0) {
+            --size;
+            for(int i = index; i < size; ++i)
+                data[i] = data[i + 1];
+        }
     }
 
-    private void grow() {
+    private void ensureCapacity() {
         int newCapacity = data.length + data.length/2;
         int[] newData = new int[newCapacity];
 
