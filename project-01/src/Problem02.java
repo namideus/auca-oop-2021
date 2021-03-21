@@ -14,7 +14,6 @@ public class Problem02 {
     public static long gcd(long m, long n) {
         if(m%n==0)
             return n;
-        else
-            return gcd(n, m%n);
+        return gcd(n, m%n);
     }
 }

@@ -11,7 +11,6 @@ public class Problem01 {
     public static BigInteger factorial(BigInteger n) {
         if(n.equals(BigInteger.ZERO) || n.equals(BigInteger.ONE))
             return BigInteger.ONE;
-        else
-            return factorial(n.subtract(BigInteger.ONE)).multiply(n);
+        return factorial(n.subtract(BigInteger.ONE)).multiply(n);
     }
 }
