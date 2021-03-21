@@ -1,6 +1,6 @@
 import processing.core.*;
 
-public class Main extends PApplet {
+public class UIMain extends PApplet {
 
     public void settings() {
         fullScreen();
@@ -14,7 +14,7 @@ public class Main extends PApplet {
     }
 
     public static void main(String[] args) {
-        PApplet.main("Main");
+        PApplet.main("UIMain");
     }
 
 }
