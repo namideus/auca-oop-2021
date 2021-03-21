@@ -8,8 +8,7 @@ public class Main1254 {
         boolean match, f, print;
         char ch;
 
-        while(scanner.hasNext())
-        {
+        while(scanner.hasNext()) {
             f = false;
             print = true;
 
@@ -18,30 +17,25 @@ public class Main1254 {
             scanner.nextLine();
             line = scanner.nextLine();
 
-            for(i=0; i<line.length(); ++i)
-            {
-                if(f)
-                {
+            for(i=0; i<line.length(); ++i) {
+                if(f) {
                     match = true;
 
-                    for(j=0, k=i; j<tag.length(); ++j,++k)
-                    {
+                    for(j=0, k=i; j<tag.length(); ++j,++k) {
                         if(Character.toLowerCase(line.charAt(k))!=Character.toLowerCase(tag.charAt(j))) {
                             match = false;
                             break;
                         }
                     }
 
-                    if(match)
-                    {
+                    if(match) {
                         i+=tag.length()-1;
                         print = false;
                         System.out.print(num);
                     }
                 }
 
-                if(print)
-                {
+                if(print) {
                     ch = line.charAt(i);
                     if(ch=='<')
                         f = true;

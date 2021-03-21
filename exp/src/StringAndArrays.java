@@ -12,8 +12,7 @@ public class StringAndArrays {
 
         char[] v = s.toCharArray();
 
-        for(int i=0; i<v.length; ++i)
-        {
+        for(int i=0; i<v.length; ++i) {
             if(Character.isUpperCase(v[i])) {
                 v[i] = Character.toLowerCase(v[i]);
             } else if(Character.isLowerCase(v[i])) {

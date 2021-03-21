@@ -9,16 +9,14 @@ public class Main2242 {
         boolean ok = true;
         char ch;
 
-        for(int i=0; i<s.length(); i++)
-        {
+        for(int i=0; i<s.length(); i++) {
             ch = s.charAt(i);
             if(ch=='a'||ch=='i'||ch=='o'||ch=='u'||ch=='e')
                 sBuild.append(ch);
         }
 
         for(int i=0, j = sBuild.length()-1; i<j; i++, j--)
-            if(sBuild.charAt(i) != sBuild.charAt(j))
-            {
+            if(sBuild.charAt(i) != sBuild.charAt(j)) {
                 ok = false;
                 break;
             }

@@ -49,6 +49,6 @@ public class Main1287 {
                 System.out.println("error");
             else
                 System.out.println(d);
-            }
+        }
     }
 }

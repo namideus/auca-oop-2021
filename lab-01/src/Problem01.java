@@ -93,8 +93,7 @@ public class Problem01 {
         }
 
         int numberOfSteps = inpLine.nextInt();
-        if(numberOfSteps<0)
-        {
+        if(numberOfSteps<0) {
             throw new RuntimeException("Negative integer in command 'Move': '"+line+"'");
         }
 
@@ -115,12 +114,9 @@ public class Problem01 {
         turtlesPenDown = false;
     }
 
-    public static void move(int steps) throws ArrayIndexOutOfBoundsException
-    {
-            for (int i = 0; i < steps; ++i)
-            {
-                switch(turtleDir)
-                {
+    public static void move(int steps) throws ArrayIndexOutOfBoundsException {
+            for (int i = 0; i < steps; ++i) {
+                switch(turtleDir) {
                     case EAST:
                         ++turtleCol;
                         break;
@@ -163,8 +159,7 @@ public class Problem01 {
         }
     }
 
-    private static void print()
-    {
+    private static void print() {
         for(int row = 0; row < CANVAS_SIZE; ++row) {
             for(int col = 0; col < CANVAS_SIZE; ++col) {
                 System.out.print(canvas[row][col]);

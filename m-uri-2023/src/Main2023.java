@@ -7,13 +7,13 @@ public class Main2023 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         String str,temp;
+
         Map<String, String> map = new TreeMap<>();
         while(scan.hasNextLine()) {
             str = scan.nextLine();
-            temp=str;
-            str = str.toLowerCase();
-            map.put(str,temp);
+            map.put(str.toLowerCase(),str);
         }
+
         System.out.println(map.values().toArray()[map.size()-1]);
     }
 }

@@ -1,26 +1,22 @@
-import java.util.Scanner;
+    import java.util.Scanner;
 
-public class Main2157 {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int a,b,t=scanner.nextInt();
-        scanner.nextLine();
-        StringBuilder sb;
-        while(t>0)
-        {
-            sb = new StringBuilder();
-            a = Integer.parseInt(scanner.next());
-            b = Integer.parseInt(scanner.next());
+    public class Main2157 {
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            int a,b,t=scanner.nextInt();
+            scanner.nextLine();
+            StringBuilder sb;
 
-            for(int i=a; i<=b; ++i)
-                sb.append(i);
-            System.out.print(sb.toString());
+            while(t>0) {
+                sb = new StringBuilder();
+                a = scanner.nextInt();
+                b = scanner.nextInt();
 
-            for(int i=sb.length()-1; i>=0; --i)
-                System.out.print(sb.charAt(i));
+                for(int i=a; i<=b; ++i)
+                    sb.append(i);
 
-            System.out.println();
-            --t;
+                System.out.println(sb.toString()+sb.reverse().toString());
+                --t;
+            }
         }
     }
-}

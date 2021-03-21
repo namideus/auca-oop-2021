@@ -10,8 +10,6 @@ public class Problem03 extends PApplet {
     public void setup() {
         frameRate(60);
 
-
-
         for(int i=0; i<stars.length; ++i) {
             stars[i] = new Star(this,
                     random(width), random(height), random(10, 30),

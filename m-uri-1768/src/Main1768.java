@@ -12,7 +12,7 @@ public class Main1768 {
 
             for(i=1; i<=n; i+=2)
             {
-                for(j = n/2-i/2; j>=1 ; j--)
+                for(j=n/2-i/2; j>=1; j--)
                     System.out.print(" ");
 
                 for(j=0; j<i; j++)

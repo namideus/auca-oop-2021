@@ -11,7 +11,8 @@ public class Main1871 {
             a = scanner.nextInt();
             b = scanner.nextInt();
 
-            if(a==0 && b==0) break;
+            if(a==0 && b==0)
+                break;
 
             s = a+b;
             q = s+"";

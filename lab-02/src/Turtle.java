@@ -50,12 +50,9 @@ public class Turtle {
         turtleDir = (turtleDir+1) % 4;
     }
 
-    public void move(int steps) throws ArrayIndexOutOfBoundsException
-    {
-        for (int i = 0; i < steps; ++i)
-        {
-            switch(turtleDir)
-            {
+    public void move(int steps) throws ArrayIndexOutOfBoundsException {
+        for (int i = 0; i < steps; ++i) {
+            switch(turtleDir) {
                 case EAST:
                     ++turtleCol;
                     break;
