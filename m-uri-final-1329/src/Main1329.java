@@ -10,8 +10,7 @@ public class Main1329 {
 
             n = scan.nextInt();
 
-            if(n==0)
-                break;
+            if(n==0) break;
 
             cnt[0] = cnt[1] = 0;
 
