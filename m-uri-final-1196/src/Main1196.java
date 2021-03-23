@@ -11,8 +11,7 @@ public class Main1196 {
         {
             s = scan.nextLine();
 
-            for(i=0; i<s.length(); i++)
-            {
+            for(i=0; i<s.length(); i++) {
                 c = s.charAt(i);
 
                 if(c!=' ')
