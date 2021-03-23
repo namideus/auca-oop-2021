@@ -4,7 +4,7 @@ import static java.lang.Math.abs;
 
 public class Main1136 {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
+            Scanner scan = new Scanner(System.in);
         int i,j,n,b,c;
 
         while(scan.hasNextInt()) {
