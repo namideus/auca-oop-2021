@@ -15,17 +15,21 @@ import java.util.Queue;
 public class Game {
     // start,finish,g[1001][1001],used[1001],from[1001],dist[1001];
 
-    public static final String BEGINNER = "beginner",
-                               INTERMEDIATE = "intermediate",
-                               EXPERT = "expert",
-                               CUSTOM = "custom";
-    private int height, width, mines, flags;
+    public static final String BEGINNER = "beginner";
+    public static final String INTERMEDIATE = "intermediate";
+    public static final String EXPERT = "expert";
+    public static final String CUSTOM = "custom";
+    private int height;
+    private int width;
+    private int mine;
+    private int flags;
     public String mode;
     private char[][] board;
 
     // First constructor
-    public Game(String mode) {
+    public Game(String mode, int mine) {
         switch (mode) {
+            case Game.CUSTOM:
             case Game.BEGINNER:
                 height = width = 9;
                 break;
@@ -40,9 +44,25 @@ public class Game {
                 throw new RuntimeException("Undefined mode!");
         }
         this.mode = mode;
-        board = new char[height][width];
+        this.mine = mine;
+        fillBoard();
+    }
 
-        // Fill the board array
+    // Second constructor
+    public Game(int height, int width, int mine) {
+        this(CUSTOM, mine);
+        if(height>0 && width>0) {
+            this.height = height;
+            this.width = width;
+        } else {
+            throw new RuntimeException("Invalid height and/or width!");
+        }
+        fillBoard();
+    }
+
+    // Fill the board array
+    private void fillBoard() {
+        board = new char[height][width];
         for(int row = 0; row < height; ++row) {
             for(int col = 0; col < width; ++col) {
                 board[row][col] = '.';
@@ -50,20 +70,7 @@ public class Game {
         }
     }
 
-    // Second constructor
-    public Game(String mode, int height, int width) {
-        this(mode);
-        if(height>0)
-            this.height = height;
-        else
-            throw new RuntimeException("Invalid int height!");
-
-        if(width>0)
-            this.width = width;
-        else
-            throw new RuntimeException("Invalid int width!");
-    }
-
+    // Flood fill algorithm
     public void floodFill(int x, int y) {
         // Check for boundaries of grid
         if(x>=0 && x<width && y>=0 && y<height) {
@@ -75,6 +82,8 @@ public class Game {
                 floodFill(x, y - 1);
             } else
                 return;
+        } else {
+            throw new RuntimeException("Outside boundaries!");
         }
 
        /* int start = 0,v;
@@ -113,7 +122,7 @@ public class Game {
 
     // Print the board array
     public void print() {
-        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode, width, height, mines, flags);
+        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode, width, height, mine, flags);
         for(int row = 0; row < height; ++row) {
             for(int col = 0; col < width; ++col) {
                 System.out.print(board[row][col]);

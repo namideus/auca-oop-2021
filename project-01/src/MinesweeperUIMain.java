@@ -14,7 +14,7 @@ public class MinesweeperUIMain extends PApplet {
     }
 
     public static void main(String[] args) {
-        PApplet.main("UIMain");
+        PApplet.main("MinesweeperUIMain");
     }
 
 }
