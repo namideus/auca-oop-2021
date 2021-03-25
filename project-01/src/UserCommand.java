@@ -5,6 +5,7 @@ public class UserCommand {
     public static final String RIGHT = "right";
     public static final String MOVE = "move";
     public static final String SHOW = "show";
+    public static final String HELP = "help";
     public static final String QUIT = "quit";
 
     private final String command;
@@ -14,6 +15,7 @@ public class UserCommand {
         line = line.trim();
         switch (line) {
             case SHOW:
+            case HELP:
             case QUIT:
                 command = line;
                 steps = 0;

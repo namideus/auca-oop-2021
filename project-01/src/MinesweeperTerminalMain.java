@@ -19,6 +19,8 @@ public class MinesweeperTerminalMain {
             } else {
                 game = new Game(Game.BEGINNER);
             }
+            game.help();
+            game.print();
             run();
         } catch(RuntimeException e) {
             // System.out.println("Your program has a problem in line: "+nLine+":");
@@ -36,12 +38,17 @@ public class MinesweeperTerminalMain {
             switch (cmd.getCommand()) {
                 case UserCommand.LEFT:
                     game.left(cmd.getRow(), cmd.getCol());
+                    game.print();
                     break;
                 case UserCommand.RIGHT:
                     game.right(cmd.getRow(), cmd.getCol());
+                    game.print();
                     break;
                 case UserCommand.SHOW:
                     game.print();
+                    break;
+                case UserCommand.HELP:
+                    game.help();
                     break;
             }
             System.out.print("cmd: ");

@@ -113,13 +113,27 @@ public class Game {
 
     // Print the board array
     public void print() {
-        System.out.printf("Game(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode, width, height, mines, flags);
+        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode, width, height, mines, flags);
         for(int row = 0; row < height; ++row) {
             for(int col = 0; col < width; ++col) {
                 System.out.print(board[row][col]);
             }
             System.out.println();
         }
+    }
+
+    public void help() {
+        System.out.println("Help:");
+        System.out.println("left <row> <col>");
+        System.out.println("\t- left click with coordinates (row, col)");
+        System.out.println("right <row> <col>");
+        System.out.println("\t- right click with coordinates (row, col)");
+        System.out.println("show");
+        System.out.println("\t- show all mines (cheating)");
+        System.out.println("quit");
+        System.out.println("\t- quit the game (EOF work too)");
+        System.out.println("help");
+        System.out.println("\t- this text");
     }
 
 //    public void set(int row, int col) {
