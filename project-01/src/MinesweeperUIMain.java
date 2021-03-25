@@ -1,6 +1,6 @@
 import processing.core.*;
 
-public class UIMain extends PApplet {
+public class MinesweeperUIMain extends PApplet {
 
     public void settings() {
         fullScreen();

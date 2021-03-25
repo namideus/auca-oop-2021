@@ -31,7 +31,6 @@ public class Problem02 {
 
         ++nLine;
         UserCommand cmd = new UserCommand(scanner.nextLine());
-
         while(!cmd.getCommand().equals(UserCommand.EXIT))
         {
             switch (cmd.getCommand()) {
