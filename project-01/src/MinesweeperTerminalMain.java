@@ -8,13 +8,11 @@ import java.util.Scanner;
  * */
 
 public class MinesweeperTerminalMain {
-    private static String strMode;
     private static Game game;
 
     public static void main(String[] args) {
         try {
 
-            // game = new Game(args);
             if(args.length==0) {
                 game = new Game(Game.BEGINNER);
             } else if(args.length==1) {
