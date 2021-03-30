@@ -19,44 +19,52 @@ public class Game {
     public static final String INTERMEDIATE = "intermediate";
     public static final String EXPERT = "expert";
     public static final String CUSTOM = "custom";
+    private boolean leftClicked;
     private int height;
     private int width;
-    private int mine;
+    private int mines;
     private int flags;
     public String mode;
     private char[][] board;
 
+//    public Game(String[] args) {
+//    }
+
     // First constructor
-    public Game(String mode, int mine) {
+    public Game(String mode) {
         switch (mode) {
-            case Game.CUSTOM:
             case Game.BEGINNER:
                 height = width = 9;
                 break;
             case Game.INTERMEDIATE:
                 height = width = 16;
+                mines = 40;
                 break;
             case Game.EXPERT:
                 height = 16;
                 width = 30;
+                mines = 99;
                 break;
             default:
-                throw new RuntimeException("Undefined mode!");
+                usage(mode);
+                throw new RuntimeException("");
         }
         this.mode = mode;
-        this.mine = mine;
         fillBoard();
     }
 
     // Second constructor
-    public Game(int height, int width, int mine) {
-        this(CUSTOM, mine);
-        if(height>0 && width>0) {
+    public Game(int height, int width, int mines) {
+        this.mode = CUSTOM;
+
+        if(height>0 && width>0 && mines>=0) {
             this.height = height;
             this.width = width;
+            this.mines = mines;
         } else {
-            throw new RuntimeException("Invalid height and/or width!");
+            throw new RuntimeException("Invalid height and/or width and/or mines!");
         }
+
         fillBoard();
     }
 
@@ -70,6 +78,11 @@ public class Game {
         }
     }
 
+    // Seed mines on the field
+    private void seedMines() {
+        board[(int)(Math.random()*width+1)][(int)(Math.random()*height+1)] = '.'; // Whaat?
+    }
+
     // Flood fill algorithm
     public void floodFill(int x, int y) {
         // Check for boundaries of grid
@@ -80,8 +93,7 @@ public class Game {
                 floodFill(x - 1, y);
                 floodFill(x, y + 1);
                 floodFill(x, y - 1);
-            } else
-                return;
+            }
         } else {
             throw new RuntimeException("Outside boundaries!");
         }
@@ -112,17 +124,21 @@ public class Game {
     // Left
     public void left(int x, int y) {
         floodFill(x,y);
+
+        seedMines();
     }
 
     // Right
     public void right(int x, int y) {
         floodFill(x,y);
+
+        seedMines();
     }
 
 
     // Print the board array
     public void print() {
-        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode, width, height, mine, flags);
+        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode, width, height, mines, flags);
         for(int row = 0; row < height; ++row) {
             for(int col = 0; col < width; ++col) {
                 System.out.print(board[row][col]);
@@ -131,6 +147,7 @@ public class Game {
         }
     }
 
+    // Help info
     public void help() {
         System.out.println("Help:");
         System.out.println("left <row> <col>");
@@ -143,6 +160,22 @@ public class Game {
         System.out.println("\t- quit the game (EOF work too)");
         System.out.println("help");
         System.out.println("\t- this text");
+    }
+
+    // Usage info
+    private void usage(String mode) {
+        System.out.println("Unknown mode: "+mode+
+                "\nUsage: " +
+                "\njava -jar Minesweeper.jar beginner" +
+                "\n\t- game in the beginner mode: width=9, height=9, mines=10" +
+                "\njava -jar Minesweeper.jar intermediate" +
+                "\n\t- game in the intermediate mode: width=16, height=16, mines=40" +
+                "\njava -jar Minesweeper.jar expert" +
+                "\n\t- game in the expert mode: width=9, height=9, mines=10" +
+                "\njava -jar Minesweeper.jar" +
+                "\n\t- equivalent to \"java -jar Minesweeper.jar beginner\"" +
+                "\njava -jar Minesweeper.jar <width> <height> <mines>" +
+                "\n\t- game with the specified width, height and number of mines");
     }
 
 //    public void set(int row, int col) {

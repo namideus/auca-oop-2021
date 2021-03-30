@@ -14,16 +14,14 @@ public class MinesweeperTerminalMain {
     public static void main(String[] args) {
         try {
 
-            if(args.length==1)
-                game = new Game(args[0],0);
-            else if(args.length==2) {
-                try {
-                    game = new Game(Integer.parseInt(args[0]), Integer.parseInt(args[1]),0);
-                } catch (NumberFormatException e) {
-                    game = new Game(args[0], Integer.parseInt(args[1]));
-                }
-            } else if(args.length==3)
-                game = new Game(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+            // game = new Game(args);
+            if(args.length==0) {
+                game = new Game(Game.BEGINNER);
+            } else if(args.length==1) {
+                game = new Game(args[0]);
+            } else if(args.length==3) {
+                game = new Game(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[1]));
+            }
 
             game.help();
             game.print();
@@ -61,7 +59,5 @@ public class MinesweeperTerminalMain {
             System.out.print("cmd: ");
             cmd = new UserCommand(scanner.nextLine());
         }
-
-        //System.out.println("the field will be mined after first left click\n");
     }
 }
