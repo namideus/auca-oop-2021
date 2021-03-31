@@ -6,7 +6,8 @@ public class Main1171 {
         int[] arr = new int[2001];
         int n, t = scan.nextInt();
         scan.nextLine();
-        Set<Integer> set = new HashSet<>();
+
+        Set<Integer> set = new TreeSet<>();
 
         while(t>0) {
             n = scan.nextInt();
@@ -14,9 +15,8 @@ public class Main1171 {
             ++arr[n];
             --t;
         }
-        List<Integer> list = new ArrayList<>(set);
-        list.sort(null);
-        for(int i : list)
+
+        for(int i : set)
             System.out.printf("%d aparece %d vez(es)\n", i, arr[i]);
     }
 }
