@@ -4,7 +4,7 @@
     <root id="archive" name="auca-oop-2021.jar">
       <element id="module-output" name="exp" />
       <element id="module-output" name="m-uri-1581" />
-      <element id="module-output" name="m-uri-final-1196" />
+      <element id="module-output" name="f-uri-1196" />
       <element id="module-output" name="m-uri-1768" />
       <element id="module-output" name="m-uri-1239" />
       <element id="module-output" name="m-uri-1305" />
@@ -13,10 +13,10 @@
       <element id="module-output" name="m-uri-1255" />
       <element id="module-output" name="m-uri-1551" />
       <element id="module-output" name="m-uri-2651" />
-      <element id="module-output" name="m-uri-final-1285" />
+      <element id="module-output" name="f-uri-1285" />
       <element id="module-output" name="m-uri-1871" />
-      <element id="module-output" name="m-uri-final-1136" />
-      <element id="module-output" name="m-uri-final-1129" />
+      <element id="module-output" name="f-uri-1136" />
+      <element id="module-output" name="f-uri-1129" />
       <element id="module-output" name="m-uri-1516" />
       <element id="module-output" name="m-uri-2174" />
       <element id="module-output" name="m-uri-1276" />
@@ -24,16 +24,16 @@
       <element id="module-output" name="m-uri-1287" />
       <element id="module-output" name="m-uri-1272" />
       <element id="module-output" name="m-uri-2242" />
-      <element id="module-output" name="m-uri-final-1618" />
+      <element id="module-output" name="f-uri-1618" />
       <element id="module-output" name="m-uri-2866" />
-      <element id="module-output" name="m-uri-final-1743" />
-      <element id="module-output" name="m-uri-final-1217" />
-      <element id="module-output" name="m-uri-final-1318" />
+      <element id="module-output" name="f-uri-1743" />
+      <element id="module-output" name="f-uri-1217" />
+      <element id="module-output" name="f-uri-1318" />
       <element id="module-output" name="lab-01" />
       <element id="module-output" name="m-uri-2694" />
       <element id="module-output" name="m-uri-1332" />
       <element id="module-output" name="m-uri-1238" />
-      <element id="module-output" name="m-uri-final-1609" />
+      <element id="module-output" name="f-uri-1609" />
       <element id="module-output" name="m-uri-1278" />
       <element id="module-output" name="m-uri-1234" />
       <element id="module-output" name="m-uri-1241" />
@@ -51,10 +51,10 @@
       <element id="module-output" name="m-uri-1257" />
       <element id="module-output" name="m-uri-1277" />
       <element id="module-output" name="m-uri-2484" />
-      <element id="module-output" name="m-uri-final-1553" />
+      <element id="module-output" name="f-uri-1553" />
       <element id="module-output" name="m-uri-1263" />
       <element id="module-output" name="m-uri-2253" />
-      <element id="module-output" name="m-uri-final-1329" />
+      <element id="module-output" name="f-uri-1329" />
       <element id="module-output" name="m-uri-1024" />
       <element id="module-output" name="midterm" />
       <element id="module-output" name="m-uri-1262" />
@@ -67,7 +67,7 @@
       <element id="module-output" name="m-uri-1607" />
       <element id="module-output" name="m-uri-1254" />
       <element id="module-output" name="m-uri-1222" />
-      <element id="module-output" name="m-uri-final-1574" />
+      <element id="module-output" name="f-uri-1574" />
       <element id="module-output" name="m-uri-1235" />
       <element id="module-output" name="m-uri-2108" />
       <element id="module-output" name="m-uri-2023" />

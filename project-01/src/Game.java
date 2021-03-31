@@ -63,6 +63,7 @@ public class Game {
             this.minesNumber = mines;
         } else
             throw new RuntimeException("Invalid height and/or width and/or mines!");
+
         setup();
     }
 

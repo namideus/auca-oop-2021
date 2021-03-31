@@ -4,10 +4,27 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/auca-oop-2021.iml" filepath="$PROJECT_DIR$/.idea/auca-oop-2021.iml" />
       <module fileurl="file://$PROJECT_DIR$/exp/exp.iml" filepath="$PROJECT_DIR$/exp/exp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1129/f-uri-1129.iml" filepath="$PROJECT_DIR$/f-uri-1129/f-uri-1129.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1136/f-uri-1136.iml" filepath="$PROJECT_DIR$/f-uri-1136/f-uri-1136.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1171/f-uri-1171.iml" filepath="$PROJECT_DIR$/f-uri-1171/f-uri-1171.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1196/f-uri-1196.iml" filepath="$PROJECT_DIR$/f-uri-1196/f-uri-1196.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1217/f-uri-1217.iml" filepath="$PROJECT_DIR$/f-uri-1217/f-uri-1217.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1245/f-uri-1245.iml" filepath="$PROJECT_DIR$/f-uri-1245/f-uri-1245.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1285/f-uri-1285.iml" filepath="$PROJECT_DIR$/f-uri-1285/f-uri-1285.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1318/f-uri-1318.iml" filepath="$PROJECT_DIR$/f-uri-1318/f-uri-1318.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1329/f-uri-1329.iml" filepath="$PROJECT_DIR$/f-uri-1329/f-uri-1329.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1383/f-uri-1383.iml" filepath="$PROJECT_DIR$/f-uri-1383/f-uri-1383.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1533/f-uri-1533.iml" filepath="$PROJECT_DIR$/f-uri-1533/f-uri-1533.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1553/f-uri-1553.iml" filepath="$PROJECT_DIR$/f-uri-1553/f-uri-1553.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1574/f-uri-1574.iml" filepath="$PROJECT_DIR$/f-uri-1574/f-uri-1574.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1609/f-uri-1609.iml" filepath="$PROJECT_DIR$/f-uri-1609/f-uri-1609.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1618/f-uri-1618.iml" filepath="$PROJECT_DIR$/f-uri-1618/f-uri-1618.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1743/f-uri-1743.iml" filepath="$PROJECT_DIR$/f-uri-1743/f-uri-1743.iml" />
       <module fileurl="file://$PROJECT_DIR$/lab-01/lab-01.iml" filepath="$PROJECT_DIR$/lab-01/lab-01.iml" />
       <module fileurl="file://$PROJECT_DIR$/lab-02/lab-02.iml" filepath="$PROJECT_DIR$/lab-02/lab-02.iml" />
       <module fileurl="file://$PROJECT_DIR$/lab-03/lab-03.iml" filepath="$PROJECT_DIR$/lab-03/lab-03.iml" />
       <module fileurl="file://$PROJECT_DIR$/lab-04/lab-04.iml" filepath="$PROJECT_DIR$/lab-04/lab-04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab-05/lab-05.iml" filepath="$PROJECT_DIR$/lab-05/lab-05.iml" />
       <module fileurl="file://$PROJECT_DIR$/m-uri-1024/m-uri-1024.iml" filepath="$PROJECT_DIR$/m-uri-1024/m-uri-1024.iml" />
       <module fileurl="file://$PROJECT_DIR$/m-uri-1120/m-uri-1120.iml" filepath="$PROJECT_DIR$/m-uri-1120/m-uri-1120.iml" />
       <module fileurl="file://$PROJECT_DIR$/m-uri-1168/m-uri-1168.iml" filepath="$PROJECT_DIR$/m-uri-1168/m-uri-1168.iml" />
@@ -58,22 +75,6 @@
       <module fileurl="file://$PROJECT_DIR$/m-uri-2651/m-uri-2651.iml" filepath="$PROJECT_DIR$/m-uri-2651/m-uri-2651.iml" />
       <module fileurl="file://$PROJECT_DIR$/m-uri-2694/m-uri-2694.iml" filepath="$PROJECT_DIR$/m-uri-2694/m-uri-2694.iml" />
       <module fileurl="file://$PROJECT_DIR$/m-uri-2866/m-uri-2866.iml" filepath="$PROJECT_DIR$/m-uri-2866/m-uri-2866.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1129/m-uri-final-1129.iml" filepath="$PROJECT_DIR$/m-uri-final-1129/m-uri-final-1129.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1136/m-uri-final-1136.iml" filepath="$PROJECT_DIR$/m-uri-final-1136/m-uri-final-1136.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1171/m-uri-final-1171.iml" filepath="$PROJECT_DIR$/m-uri-final-1171/m-uri-final-1171.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1196/m-uri-final-1196.iml" filepath="$PROJECT_DIR$/m-uri-final-1196/m-uri-final-1196.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1217/m-uri-final-1217.iml" filepath="$PROJECT_DIR$/m-uri-final-1217/m-uri-final-1217.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1245/m-uri-final-1245.iml" filepath="$PROJECT_DIR$/m-uri-final-1245/m-uri-final-1245.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1285/m-uri-final-1285.iml" filepath="$PROJECT_DIR$/m-uri-final-1285/m-uri-final-1285.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1318/m-uri-final-1318.iml" filepath="$PROJECT_DIR$/m-uri-final-1318/m-uri-final-1318.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1329/m-uri-final-1329.iml" filepath="$PROJECT_DIR$/m-uri-final-1329/m-uri-final-1329.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1383/m-uri-final-1383.iml" filepath="$PROJECT_DIR$/m-uri-final-1383/m-uri-final-1383.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1533/m-uri-final-1533.iml" filepath="$PROJECT_DIR$/m-uri-final-1533/m-uri-final-1533.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1553/m-uri-final-1553.iml" filepath="$PROJECT_DIR$/m-uri-final-1553/m-uri-final-1553.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1574/m-uri-final-1574.iml" filepath="$PROJECT_DIR$/m-uri-final-1574/m-uri-final-1574.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1609/m-uri-final-1609.iml" filepath="$PROJECT_DIR$/m-uri-final-1609/m-uri-final-1609.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1618/m-uri-final-1618.iml" filepath="$PROJECT_DIR$/m-uri-final-1618/m-uri-final-1618.iml" />
-      <module fileurl="file://$PROJECT_DIR$/m-uri-final-1743/m-uri-final-1743.iml" filepath="$PROJECT_DIR$/m-uri-final-1743/m-uri-final-1743.iml" />
       <module fileurl="file://$PROJECT_DIR$/midterm/midterm.iml" filepath="$PROJECT_DIR$/midterm/midterm.iml" />
       <module fileurl="file://$PROJECT_DIR$/project-01/project-01.iml" filepath="$PROJECT_DIR$/project-01/project-01.iml" />
     </modules>
