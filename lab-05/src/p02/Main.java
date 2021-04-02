@@ -20,7 +20,7 @@ public class Main extends JFrame {
         setLayout(new BorderLayout());
 
         mainPanel = new JPanel();
-        mainPanel.setBackground(Color.WHITE);
+        mainPanel.setBackground(Color.RED);
         add(mainPanel, BorderLayout.CENTER);
 
         controlPanel = new JPanel();

@@ -26,8 +26,8 @@ public class Game {
     public String mode;
     private boolean[][] flags;
     private boolean[][] revealed;
-    private char[][] board;
-    private int[][] mines;
+    //private char[][] board;
+    private int[][] board;
 
     // First constructor
     public Game(String mode) {
@@ -69,12 +69,12 @@ public class Game {
 
     // Set up the game matrices
     private void setup() {
-        board = new char[height][width];
+        board = new int[height][width];
         revealed = new boolean[height][width];
         flags = new boolean[height][width];
         for(int x=0; x<width; x++){
             for(int y=0; y<height; y++){
-                mines[x][y]=0;
+                board[x][y]=0;
                 flags[x][y]=false;
                 revealed[x][y]=false;
             }
@@ -83,7 +83,7 @@ public class Game {
 
     // Fill the board array
     private void fillBoard() {
-        board = new char[height][width];
+        board = new int[height][width];
         revealed = new boolean[height][width];
 
         for(int row = 0; row < height; ++row) {
@@ -100,7 +100,7 @@ public class Game {
         for (int offsetX=-1; offsetX<=1; offsetX++) {
             for (int offsetY=-1; offsetY<=1; offsetY++) {
                 if (isOutBounds(offsetX+x, offsetY+y))continue;
-                i+=mines[offsetX+x][offsetY+y];
+                i+=board[offsetX+x][offsetY+y];
             }
         }
         return i;
@@ -122,14 +122,14 @@ public class Game {
     }
 
     // Seed mines on the field
-    private void seedMines() {
+    private void placeMines() {
         int i=0;
         while(i<minesNumber) {
             int x=(int)(Math.random()*width+1);
             int y=(int)(Math.random()*height+1);
-            if(mines[x][y]==1)
+            if(board[x][y]==1)
                 continue;
-            mines[x][y]=1;
+            board[x][y]=1;
             i++;
         }
     }
@@ -138,25 +138,25 @@ public class Game {
     private void clearMines() {
         for (int x=0; x<width; x++)
             for (int y=0; y<height; y++)
-                mines[x][y]=0;
+                board[x][y]=0;
     }
 
     // Left
     public void left(int x, int y) {
-        seedMines();
-        seedMines();
+       // seedMines();
+       // seedMines();
     }
 
     // Right
     public void right(int x, int y) {
         //seedMines();
-        seedMines();
+        //seedMines();
     }
 
 
     // Print the board array
     public void print() {
-        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode, width, height, mines, flags);
+        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode, width, height, minesNumber, flags);
         for(int row = 0; row < height; ++row) {
             for(int col = 0; col < width; ++col) {
                 System.out.print(board[row][col]);
