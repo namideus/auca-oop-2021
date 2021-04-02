@@ -1,11 +1,10 @@
-package p04;
+package p05;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 public class Main extends JFrame {
+
     Main() {
         setTitle("Chessboard");
         setLayout(new GridLayout(8,8,0,0));
@@ -17,6 +16,7 @@ public class Main extends JFrame {
             }
         }
     }
+
     static class DrawRect extends JPanel {
         private final int colorCode;
         public DrawRect(int c) {
@@ -25,10 +25,16 @@ public class Main extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor((colorCode==0)? Color.BLACK : Color.WHITE);
+
+            if (colorCode==0)
+                g.setColor(Color.BLACK);
+            else
+                g.setColor(Color.WHITE);
+
             g.fillRect(0, 0, getWidth(), getHeight());
         }
     }
+
     public static void main(String[] args) {
         Main frame = new Main();
         frame.setSize(600,600);
