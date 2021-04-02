@@ -19,15 +19,19 @@ public class Game {
     public static final String INTERMEDIATE = "intermediate";
     public static final String EXPERT = "expert";
     public static final String CUSTOM = "custom";
-    private boolean leftClicked;
-    private int height;
-    private int width;
-    private int minesNumber;
+    private final int MINE = -1;
+    private final int FLAG = -2;
+    private final int height;
+    private final int width;
+    private final int minesNumber;
+    private int flags;
     public String mode;
-    private boolean[][] flags;
-    private boolean[][] revealed;
-    //private char[][] board;
+
+    private char[][] charBoard, myBoard, realBoard;
     private int[][] board;
+
+    private int[] xs = { 1, -1, 0, 1,-1, 0, -1, 1};
+    private int[] ys = { 1, -1, 1, 0, 0,-1, 1 , -1 };
 
     // First constructor
     public Game(String mode) {
@@ -50,7 +54,8 @@ public class Game {
                 throw new RuntimeException("");
         }
         this.mode = mode;
-        setup();
+
+        //setup();
     }
 
     // Second constructor
@@ -64,53 +69,62 @@ public class Game {
         } else
             throw new RuntimeException("Invalid height and/or width and/or mines!");
 
-        setup();
+        //setup();
+    }
+
+
+    public void setUp() {
+        board = new int[width][height];
+        //myBoard = new char[width][height];
+        //realBoard = new char[width][height];
+        charBoard = new char[width][height];
+
+        initialize();
+        placeMines();
     }
 
     // Set up the game matrices
-    private void setup() {
-        board = new int[height][width];
-        revealed = new boolean[height][width];
-        flags = new boolean[height][width];
-        for(int x=0; x<width; x++){
-            for(int y=0; y<height; y++){
-                board[x][y]=0;
-                flags[x][y]=false;
-                revealed[x][y]=false;
+    public void initialize() {
+        for(int x=0; x<width; x++) {
+            for(int y=0; y<height; y++) {
+                charBoard[x][y]='.';
+                board[x][y] = 0;
             }
         }
     }
 
-    // Fill the board array
-    private void fillBoard() {
-        board = new int[height][width];
-        revealed = new boolean[height][width];
-
-        for(int row = 0; row < height; ++row) {
-            for(int col = 0; col < width; ++col) {
-                board[row][col] = '.';
-            }
-        }
+    // Check if it is a mine
+    public boolean isMine(int x, int y) {
+        return board[x][y]==-1;
     }
 
-    // How many mines are near
-    int calcNear(int x, int y) {
-        if(isOutBounds(x,y))return 0;
-        int i=0;
-        for (int offsetX=-1; offsetX<=1; offsetX++) {
-            for (int offsetY=-1; offsetY<=1; offsetY++) {
-                if (isOutBounds(offsetX+x, offsetY+y))continue;
-                i+=board[offsetX+x][offsetY+y];
-            }
-        }
-        return i;
+    // Count the number of mines around row and col
+    public int countAdjacentMines(int x, int y) {
+        if(!isValid(x,y))
+            return 0;
+
+        int count=0;
+        for (int k=0; k<8; ++k)
+            if (isValid(xs[k]+x, ys[k]+y))
+                if(isMine(xs[k]+x,ys[k]+y))
+                    ++count;
+
+        return count;
     }
 
-    void reveal(int x, int y){
-        if(isOutBounds(x,y)) return;
-        if(revealed[x][y]) return;
-        revealed[x][y]=true;
-        if(calcNear(x,y)!=0)return;
+    // Reveal?
+    public void reveal(int x, int y){
+        if(!isValid(x,y))
+            return;
+
+        if(charBoard[x][y]=='#')
+            return;
+
+        charBoard[x][y]='#';
+
+        if(countAdjacentMines(x,y)!=0)
+            return;
+
         reveal(x-1,y-1);
         reveal(x-1,y+1);
         reveal(x+1,y-1);
@@ -125,45 +139,49 @@ public class Game {
     private void placeMines() {
         int i=0;
         while(i<minesNumber) {
-            int x=(int)(Math.random()*width+1);
-            int y=(int)(Math.random()*height+1);
-            if(board[x][y]==1)
+            int x=(int)(Math.random()*width);
+            int y=(int)(Math.random()*height);
+
+            if(board[x][y]==-1)
                 continue;
-            board[x][y]=1;
+
+            board[x][y]=-1;
+
             i++;
         }
     }
 
-    // Clear mines
-    private void clearMines() {
-        for (int x=0; x<width; x++)
-            for (int y=0; y<height; y++)
-                board[x][y]=0;
-    }
-
     // Left
     public void left(int x, int y) {
-       // seedMines();
-       // seedMines();
+
     }
 
     // Right
     public void right(int x, int y) {
-        //seedMines();
-        //seedMines();
+
     }
 
-
-    // Print the board array
+    // Print the board
     public void print() {
-        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode, width, height, minesNumber, flags);
+        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n",
+                mode, width, height, minesNumber, flags);
+
         for(int row = 0; row < height; ++row) {
             for(int col = 0; col < width; ++col) {
-                System.out.print(board[row][col]);
+                System.out.print(charBoard[row][col]);
             }
             System.out.println();
         }
     }
+
+    // If col and row are valid
+    public boolean isValid(int x, int y) {
+        return x>=0 && y>=0 && x<width && y<height;
+    }
+
+
+
+
 
     // Help info
     public void help() {
@@ -194,10 +212,5 @@ public class Game {
                 "\n\t- equivalent to \"java -jar Minesweeper.jar beginner\"" +
                 "\njava -jar Minesweeper.jar <width> <height> <mines>" +
                 "\n\t- game with the specified width, height and number of mines");
-    }
-
-    // True if x and y are out of bounds
-    public boolean isOutBounds(int x, int y) {
-        return x<0||y<0||x>=width||y>=height;
     }
 }
