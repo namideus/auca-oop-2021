@@ -1,12 +1,11 @@
-package p02;
+package p02.v3;
 
 import javax.swing.*;
-import java.awt.event.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Main extends JFrame {
+public class MainP0203 extends JFrame {
 
     JPanel mainPanel;
     JPanel controlPanel;
@@ -16,7 +15,7 @@ public class Main extends JFrame {
     JButton blueButton = new JButton("Blue");
 
     // Layout
-    Main() {
+    MainP0203() {
         setLayout(new BorderLayout());
 
         mainPanel = new JPanel();
@@ -30,13 +29,19 @@ public class Main extends JFrame {
         controlPanel.add(blueButton);
         add(controlPanel, BorderLayout.SOUTH);
 
-        redButton.addActionListener(new ButtonListener(this, Color.RED));
-        greenButton.addActionListener(new ButtonListener(this, Color.GREEN));
-        blueButton.addActionListener(new ButtonListener(this, Color.BLUE));
+        redButton.addActionListener(actionEvent -> {
+            mainPanel.setBackground(Color.RED);
+        });
+        greenButton.addActionListener(actionEvent -> {
+            mainPanel.setBackground(Color.GREEN);
+        });
+        blueButton.addActionListener(actionEvent -> {
+            mainPanel.setBackground(Color.BLUE);
+        });
     }
 
     public static void main(String[] args) {
-        Main frame = new Main();
+        MainP0203 frame = new MainP0203();
         frame.setTitle("Javax Swing Application");
         frame.setSize(600,600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,20 +49,4 @@ public class Main extends JFrame {
     }
 }
 
-// Button listener
-class ButtonListener implements ActionListener {
-
-    private final Main frame;
-    private final Color color;
-
-    public ButtonListener(Main frame, Color color) {
-        this.frame = frame;
-        this.color = color;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        frame.mainPanel.setBackground(this.color);
-    }
-}
 

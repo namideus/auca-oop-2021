@@ -1,16 +1,16 @@
-package p03;
+package p03.v2;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-public class Main extends JFrame {
+public class MainP0302 extends JFrame {
 
     JPanel mainPanel;
 
     // Layout
-    Main() {
+    MainP0302() {
         setTitle("Mouse move");
         setLayout(new BorderLayout());
         mainPanel = new JPanel();
@@ -30,7 +30,7 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
-        Main frame = new Main();
+        MainP0302 frame = new MainP0302();
         frame.setSize(600,600);
         frame.setVisible(true);
     }
