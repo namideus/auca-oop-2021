@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * author Iman Augustine
  *
@@ -87,63 +89,60 @@ public class MinesweeperGame {
 
     // Print the board
     public void printBoard() {
-        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode, width, height, maxMines, flags);
+        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode.toUpperCase(), width, height, maxMines, flags);
 
-        for(int row = 0; row < height; ++row) {
-            for(int col = 0; col < width; ++col) {
-                System.out.print(charBoard[row][col]);
+        for(int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                System.out.print(charBoard[i][j] + " ");
             }
             System.out.println();
         }
     }
 
     // Count the number of mines around row and col
-    public int countAdjacentMines(int x, int y) {
-        if(!isValid(x,y))
+    public int countAdjacentMines(int row, int col) {
+        if(!isValid(row, col))
             return 0;
 
         int count=0;
-        for (int k=0; k<8; ++k) {
-            if (isValid(xs[k] + x, ys[k] + y)) {
-                if (isMine(xs[k] + x, ys[k] + y)) {
-                    ++count;
-                }
-            }
-        }
+        for (int k=0; k<8; ++k)
+            //if (isValid(xs[k] + row, ys[k] + col)) {
+            count+=(isValid(xs[k] + row, ys[k] + col) && isMine(xs[k] + row, ys[k] + col))? 1 : 0;
+            //}
 
         return count;
     }
 
     // A recursive function to play the Minesweeper Game
-    public boolean playMinesweeperUtil(int x, int y) {
+    public boolean playMinesweeperUtil(int row, int col) {
         // Base case
-        if(charBoard[x][y]!='.')
+        if(charBoard[row][col]!='.')
             return false;
 
         // You opened a mine
         // You are going to lose
-        if(realBoard[x][y]==MINE) {
-            charBoard[x][y]='*';
+        if(realBoard[row][col] == MINE) {
+            charBoard[row][col] = '*';
 
             for (int i=0; i<maxMines; i++)
                 // Reveal all mines
                 charBoard[minesLocation[i][0]][minesLocation[i][1]] = '*';
 
-            printBoard();
-            System.out.println("\nYou lost!");
+            // printBoard();
+            //System.out.println("\nYou lost! Next time you will be better!");
             return true;
         } else {
-            int count = countAdjacentMines(x,y);
+            int count = countAdjacentMines(row, col);
             --movesLeft;
 
-            charBoard[x][y] = String.valueOf(count).charAt(0);
-            realBoard[x][y] = count;
+            charBoard[row][col] = String.valueOf(count).charAt(0);
+            realBoard[row][col] = count;
 
             if(count==0) {
                 for (int k=0; k<8; ++k) {
-                    if (isValid(xs[k] + x, ys[k] + y)) {
-                        if (!isMine(xs[k] + x, ys[k] + y)) {
-                            playMinesweeperUtil(xs[k] + x, ys[k] + y);
+                    if (isValid(xs[k] + row, ys[k] + col)) {
+                        if (!isMine(xs[k] + row, ys[k] + col)) {
+                            playMinesweeperUtil(xs[k] + row, ys[k] + col);
                         }
                     }
                 }
@@ -154,8 +153,8 @@ public class MinesweeperGame {
 
     // Place mines on the field
     private void placeMines() {
-        int i=0;
-        while(i<maxMines) {
+        for(int i=0;i<maxMines; ++i) {
+
             int x=(int)(Math.random()*width);
             int y=(int)(Math.random()*height);
 
@@ -166,16 +165,14 @@ public class MinesweeperGame {
             minesLocation[i][1] = y;
 
             realBoard[x][y] = MINE;
-
-            i++;
         }
     }
 
-
+    // Set up the Minesweeper Game boards
     public void setUp() {
         // Initialize variables and matrices
-        realBoard = new int[width][height];
-        charBoard = new char[width][height];
+        realBoard = new int[height][width];
+        charBoard = new char[height][width];
         minesLocation = new int[maxMines][2];
         movesLeft = width*height - maxMines;
 
@@ -188,12 +185,9 @@ public class MinesweeperGame {
 
     // Set up the game matrices
     public void initialize() {
-        for(int x=0; x<width; x++) {
-            for(int y=0; y<height; y++) {
-                charBoard[x][y]='.';
-                realBoard[x][y] = 0;
-            }
-        }
+        for(int i=0; i<width; i++)
+            for(int j=0; j<height; j++)
+                charBoard[i][j]='.';
     }
 
     public int getMovesLeft() {
@@ -201,17 +195,14 @@ public class MinesweeperGame {
     }
 
     // Left
-    public boolean left(int x, int y) {
-        return playMinesweeperUtil(x,y);
+    public boolean left(int row, int col) {
+        return playMinesweeperUtil(row, col);
     }
 
     // Right
     public void right(int x, int y) {
 
     }
-
-
-
 
     // Help info
     public void help() {
@@ -242,5 +233,83 @@ public class MinesweeperGame {
                 "\n\t- equivalent to \"java -jar Minesweeper.jar beginner\"" +
                 "\njava -jar Minesweeper.jar <width> <height> <mines>" +
                 "\n\t- game with the specified width, height and number of mines");
+    }
+}
+
+// User command
+class UserCommand {
+    public static final String LEFT = "left";
+    public static final String RIGHT = "right";
+    public static final String SHOW = "show";
+    public static final String HELP = "help";
+    public static final String QUIT = "quit";
+
+    private final String command;
+    private int row, col;
+
+    public UserCommand(String line) {
+        line = line.trim();
+        switch (line) {
+            case SHOW:
+            case HELP:
+            case QUIT:
+                command = line;
+                return;
+        }
+
+        Scanner inpLine = new Scanner(line);
+        if(!inpLine.hasNext()) {
+            throw new RuntimeException("Wrong command: '"+line+"'");
+        }
+
+        String userCommand = inpLine.next();
+        if(!userCommand.equals(LEFT) && !userCommand.equals(RIGHT)) {
+            throw new RuntimeException("Unknown command: '"+line+"'");
+        }
+
+        if(!inpLine.hasNextInt()) {
+            throw new RuntimeException("No integer in command "+userCommand+": '"+line+"'");
+        }
+
+        int row = inpLine.nextInt();
+        if(row<0) {
+            throw new RuntimeException("Negative row in command "+userCommand+": '"+line+"'");
+        }
+
+        if (!inpLine.hasNext()) {
+            throw new RuntimeException("Not enough parameters in command "+userCommand+": '"+line+"'");
+        }
+
+        int col = inpLine.nextInt();
+        if(col<0) {
+            throw new RuntimeException("Negative col in command "+userCommand+": '"+line+"'");
+        }
+
+        if (inpLine.hasNext()) {
+            throw new RuntimeException("Too many parameters in command "+userCommand+": '"+line+"'");
+        }
+
+        command = userCommand;
+        this.row = row;
+        this.col = col;
+    }
+
+    // Getter
+    public String getCommand() {
+        return command;
+    }
+
+    public int getRow() {
+        if(!command.equals(LEFT) && !command.equals(RIGHT)) {
+            throw new RuntimeException("Undefined row or col: current command is not "+LEFT+" or "+RIGHT);
+        }
+        return this.row;
+    }
+
+    public int getCol() {
+        if(!command.equals(LEFT) && !command.equals(RIGHT)) {
+            throw new RuntimeException("Undefined row or col: current command is not "+LEFT+" or "+RIGHT);
+        }
+        return this.col;
     }
 }

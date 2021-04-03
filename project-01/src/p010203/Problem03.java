@@ -1,3 +1,5 @@
+package p010203;
+
 import java.util.Scanner;
 
 public class Problem03 {
