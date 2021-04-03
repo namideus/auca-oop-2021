@@ -2,11 +2,6 @@ import processing.core.*;
 
 public class MinesweeperUIMain extends PApplet {
 
-    final int WIDTH = 500;
-    final int HEIGHT = 500;
-    final int BLOCKX = WIDTH / 8;
-    final int BLOCKY = HEIGHT / 8;
-
     public void settings() {
         fullScreen();
     }
