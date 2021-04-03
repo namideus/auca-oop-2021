@@ -62,7 +62,7 @@ public class MinesweeperTerminalMain {
             }
             // Game is over, you lost!
             if(isGameOver) {
-                System.out.println("\nYou lost! Next time you will be better!");
+                System.out.println("\nYou lost! Next time you will be better!"t);
                 break;
             }
             System.out.print("cmd: ");

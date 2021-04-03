@@ -124,8 +124,8 @@ public class MinesweeperGame {
         if(realBoard[row][col] == MINE) {
             charBoard[row][col] = '*';
 
+            // Reveal all mines
             for (int i=0; i<maxMines; i++)
-                // Reveal all mines
                 charBoard[minesLocation[i][0]][minesLocation[i][1]] = '*';
 
             // printBoard();
@@ -135,7 +135,7 @@ public class MinesweeperGame {
             int count = countAdjacentMines(row, col);
             --movesLeft;
 
-            charBoard[row][col] = String.valueOf(count).charAt(0);
+            charBoard[row][col] = (count==0) ? '#': String.valueOf(count).charAt(0);
             realBoard[row][col] = count;
 
             if(count==0) {
