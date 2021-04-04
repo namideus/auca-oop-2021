@@ -19,9 +19,10 @@ public class MinesweeperGame {
     public static final String CUSTOM = "custom";
     private final int MINE = -1;
     private final int FLAG = -2;
-    private final int height;
-    private final int width;
-    private final int maxMines;
+    private boolean isMined = false;
+    private int height;
+    private int width;
+    private int maxMines;
     private int flags = 0, movesLeft;
     public String mode;
 
@@ -53,11 +54,9 @@ public class MinesweeperGame {
                 maxMines = 99;
                 break;
             default:
-                usage(mode);
-                throw new RuntimeException("");
+                usage("Unknown mode: "+mode);
         }
         this.mode = mode;
-
         // Setup the game critical data
         setUp();
     }
@@ -65,14 +64,12 @@ public class MinesweeperGame {
     // Constructor for custom Minesweeper Game
     public MinesweeperGame(int height, int width, int mines) {
         this.mode = CUSTOM;
-
-        if(height>0 && width>0 && mines>=0) {
+        if(height>0 && width>0 && mines>0 && mines<height * width) {
             this.height = height;
             this.width = width;
             this.maxMines = mines;
         } else
-            throw new RuntimeException("Invalid height and/or width and/or mines!");
-
+            usage("Incorrect mode: mines >= width * height");
         // Setup the game critical data
         setUp();
     }
@@ -89,7 +86,11 @@ public class MinesweeperGame {
 
     // Print the board
     public void printBoard() {
-        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode.toUpperCase(), width, height, maxMines, flags);
+        if(!isMined)
+            System.out.println("the field will be mined after the first left click");
+
+        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n",
+                mode.toUpperCase(), width, height, maxMines, flags);
 
         for(int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j)
@@ -103,28 +104,25 @@ public class MinesweeperGame {
         if(!isValid(row, col))
             return 0;
 
-        int count=0;
+        int count=0; // Counter
         for (int k=0; k<8; ++k)
-            //if (isValid(xs[k] + row, ys[k] + col)) {
             count+=(isValid(xs[k] + row, ys[k] + col) && isMine(xs[k] + row, ys[k] + col))? 1 : 0;
-            //}
-
         return count;
     }
 
     // Place mines on the field
     private void placeMines() {
         for(int i=0;i<maxMines; ++i) {
-
-            int x=(int)(Math.random()*width);
-            int y=(int)(Math.random()*height);
-
+            // Random position of mines
+            int x=(int)(Math.random()*height);
+            int y=(int)(Math.random()*width);
+            // Already mined, continue
             if(realBoard[x][y]==MINE)
                 continue;
-
+            // Save mine's position
             minesLocation[i][0] = x;
             minesLocation[i][1] = y;
-
+            // Mine
             realBoard[x][y] = MINE;
         }
     }
@@ -136,18 +134,16 @@ public class MinesweeperGame {
         charBoard = new char[height][width];
         minesLocation = new int[maxMines][2];
         movesLeft = width*height - maxMines;
-
         // Initialize
         initialize();
-
         // Place the mines randomly
-        placeMines();
+        // placeMines();
     }
 
     // Set up the game matrices
     public void initialize() {
-        for(int i=0; i<width; i++)
-            for(int j=0; j<height; j++)
+        for(int i=0; i<height; i++)
+            for(int j=0; j<width; j++)
                 charBoard[i][j]='.';
     }
 
@@ -158,6 +154,12 @@ public class MinesweeperGame {
 
     // A recursive function to play the Minesweeper Game
     public boolean left(int row, int col) {
+        // Place mines randomly on first left click
+        if(!isMined) {
+            isMined = true;
+            placeMines();
+        }
+
         // Base case
         if(charBoard[row][col]!='.')
             return false;
@@ -178,7 +180,7 @@ public class MinesweeperGame {
             int count = countAdjacentMines(row, col);
             --movesLeft;
 
-            //
+            // Set counter or empty chart
             charBoard[row][col] = (count==0) ? '#': String.valueOf(count).charAt(0);
             realBoard[row][col] = count;
 
@@ -203,6 +205,7 @@ public class MinesweeperGame {
 
         if(isMine(row, col)) {
             charBoard[row][col] = 'F';
+            realBoard[row][col] = FLAG;
             ++flags;
         }
 
@@ -231,8 +234,8 @@ public class MinesweeperGame {
     }
 
     // Usage info
-    private void usage(String mode) {
-        System.out.println("Unknown mode: "+mode+
+    public void usage(String message) {
+        System.out.println(message+
                 "\nUsage: " +
                 "\njava -jar Minesweeper.jar beginner" +
                 "\n\t- game in the beginner mode: width=9, height=9, mines=10" +
@@ -244,8 +247,15 @@ public class MinesweeperGame {
                 "\n\t- equivalent to \"java -jar Minesweeper.jar beginner\"" +
                 "\njava -jar Minesweeper.jar <width> <height> <mines>" +
                 "\n\t- game with the specified width, height and number of mines");
+        throw new RuntimeException("");
     }
 }
+
+
+
+
+
+
 
 // User command
 class UserCommand {

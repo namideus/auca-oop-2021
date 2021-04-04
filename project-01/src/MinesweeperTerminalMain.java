@@ -20,6 +20,12 @@ public class MinesweeperTerminalMain {
                 game = new MinesweeperGame(args[0]);
             } else if(args.length==3) {
                 game = new MinesweeperGame(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+            } else {
+                game = new MinesweeperGame(MinesweeperGame.BEGINNER);
+                StringBuilder msg = new StringBuilder("Incorrect app args: ");
+                for(int i=0;i<args.length;++i)
+                    msg.append(args[i]).append( i<args.length-1 ? ", " : "" );
+                game.usage(msg.toString());
             }
 
             game.help();
@@ -41,11 +47,11 @@ public class MinesweeperTerminalMain {
         while(!cmd.getCommand().equals(UserCommand.QUIT)) {
             switch (cmd.getCommand()) {
                 case UserCommand.LEFT:
-                    isGameOver = game.left(cmd.getRow()-1, cmd.getCol()-1);
+                    isGameOver = game.left(cmd.getRow(), cmd.getCol());
                     game.printBoard();
                     break;
                 case UserCommand.RIGHT:
-                    game.right(cmd.getRow()-1, cmd.getCol()-1);
+                    game.right(cmd.getRow(), cmd.getCol());
                     game.printBoard();
                     break;
                 case UserCommand.SHOW:
@@ -62,7 +68,7 @@ public class MinesweeperTerminalMain {
             }
             // Game is over, you lost!
             if(isGameOver) {
-                System.out.println("\nYou lost! Next time you will be better!");
+                System.out.println("\nNext time you will be better\nBye\n");
                 break;
             }
             System.out.print("cmd: ");
