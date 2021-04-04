@@ -112,44 +112,6 @@ public class MinesweeperGame {
         return count;
     }
 
-    // A recursive function to play the Minesweeper Game
-    public boolean playMinesweeperUtil(int row, int col) {
-        // Base case
-        if(charBoard[row][col]!='.')
-            return false;
-
-        // You opened a mine
-        // You are going to lose
-        if(isMine(row, col)) {
-            charBoard[row][col] = '*';
-
-            // Reveal all mines
-            for (int i=0; i<maxMines; i++)
-                charBoard[minesLocation[i][0]][minesLocation[i][1]] = '*';
-
-            // printBoard();
-            //System.out.println("\nYou lost! Next time you will be better!");
-            return true;
-        } else {
-            int count = countAdjacentMines(row, col);
-            --movesLeft;
-
-            charBoard[row][col] = (count==0) ? '#': String.valueOf(count).charAt(0);
-            realBoard[row][col] = count;
-
-            if(count==0) {
-                for (int k=0; k<8; ++k) {
-                    if (isValid(xs[k] + row, ys[k] + col)) {
-                        if (!isMine(xs[k] + row, ys[k] + col)) {
-                            playMinesweeperUtil(xs[k] + row, ys[k] + col);
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     // Place mines on the field
     private void placeMines() {
         for(int i=0;i<maxMines; ++i) {
@@ -189,13 +151,49 @@ public class MinesweeperGame {
                 charBoard[i][j]='.';
     }
 
+    // Gets moves left
     public int getMovesLeft() {
         return this.movesLeft;
     }
 
-    // Left
+    // A recursive function to play the Minesweeper Game
     public boolean left(int row, int col) {
-        return playMinesweeperUtil(row, col);
+        // Base case
+        if(charBoard[row][col]!='.')
+            return false;
+
+        // You opened a mine
+        // You are going to lose
+        if(isMine(row, col)) {
+            charBoard[row][col] = '*';
+
+            // Reveal all mines
+            for (int i=0; i<maxMines; i++)
+                charBoard[minesLocation[i][0]][minesLocation[i][1]] = '*';
+
+            // printBoard();
+            //System.out.println("\nYou lost! Next time you will be better!");
+            return true;
+        } else {
+            int count = countAdjacentMines(row, col);
+            --movesLeft;
+
+            //
+            charBoard[row][col] = (count==0) ? '#': String.valueOf(count).charAt(0);
+            realBoard[row][col] = count;
+
+            // If count is zero
+            if(count==0) {
+                for (int k=0; k<8; ++k) {
+                    if (isValid(xs[k] + row, ys[k] + col)) {
+                        if (!isMine(xs[k] + row, ys[k] + col)) {
+                            left(xs[k] + row, ys[k] + col);
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     // Right
