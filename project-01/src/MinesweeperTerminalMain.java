@@ -45,7 +45,7 @@ public class MinesweeperTerminalMain {
                     game.printBoard();
                     break;
                 case UserCommand.RIGHT:
-                    game.right(cmd.getRow(), cmd.getCol());
+                    game.right(cmd.getRow()-1, cmd.getCol()-1);
                     game.printBoard();
                     break;
                 case UserCommand.SHOW:
@@ -57,12 +57,12 @@ public class MinesweeperTerminalMain {
             }
             // Game is not over and no moves left, you won!
             if(!isGameOver && game.getMovesLeft()==0) {
-                System.out.println("You won!");
+                System.out.println("\nCongratulations!\nBye\n");
                 break;
             }
             // Game is over, you lost!
             if(isGameOver) {
-                System.out.println("\nYou lost! Next time you will be better!"t);
+                System.out.println("\nYou lost! Next time you will be better!");
                 break;
             }
             System.out.print("cmd: ");

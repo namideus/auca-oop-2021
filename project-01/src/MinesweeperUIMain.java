@@ -55,7 +55,6 @@ public class MinesweeperUIMain extends PApplet {
     public void onClick(float x, float y, float w, float h, float dif, String level) {
         if(mousePressed) {
             if (mouseX > x && mouseX < x + w && mouseY > y + dif && mouseY < y + dif + h) {
-                println("The mouse is pressed and over the button");
                 fill(GRAY);
                 rect(x,y+dif,w,h);
                 //do stuff

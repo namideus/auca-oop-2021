@@ -22,7 +22,7 @@ public class MinesweeperGame {
     private final int height;
     private final int width;
     private final int maxMines;
-    private int flags, movesLeft;
+    private int flags = 0, movesLeft;
     public String mode;
 
     // Matrices
@@ -92,9 +92,8 @@ public class MinesweeperGame {
         System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode.toUpperCase(), width, height, maxMines, flags);
 
         for(int i = 0; i < height; ++i) {
-            for (int j = 0; j < width; ++j) {
+            for (int j = 0; j < width; ++j)
                 System.out.print(charBoard[i][j] + " ");
-            }
             System.out.println();
         }
     }
@@ -121,7 +120,7 @@ public class MinesweeperGame {
 
         // You opened a mine
         // You are going to lose
-        if(realBoard[row][col] == MINE) {
+        if(isMine(row, col)) {
             charBoard[row][col] = '*';
 
             // Reveal all mines
@@ -200,8 +199,22 @@ public class MinesweeperGame {
     }
 
     // Right
-    public void right(int x, int y) {
+    public void right(int row, int col) {
+        if(charBoard[row][col]!='.')
+            return;
 
+        if(isMine(row, col)) {
+            charBoard[row][col] = 'F';
+            ++flags;
+        }
+
+        for (int k=0; k<8; ++k) {
+            if (isValid(xs[k] + row, ys[k] + col) && isMine(xs[k] + row, ys[k] + col)) {
+                charBoard[xs[k] + row][ys[k] + col] = 'F';
+                realBoard[xs[k] + row][ys[k] + col] = FLAG;
+                ++flags;
+            }
+        }
     }
 
     // Help info
