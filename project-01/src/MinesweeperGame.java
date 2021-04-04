@@ -89,7 +89,7 @@ public class MinesweeperGame {
         if(!isMined)
             System.out.println("the field will be mined after the first left click");
 
-        System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n",
+        System.out.printf("Game(%s, width=%d, height=%d, mines=%d, flags=%d)\n",
                 mode.toUpperCase(), width, height, maxMines, flags);
 
         // Print
@@ -225,7 +225,7 @@ public class MinesweeperGame {
 
     // Help info
     public void help() {
-        System.out.println("\nHelp:");
+        System.out.println("Help:");
         System.out.println("left <row> <col>");
         System.out.println("\t- left click with coordinates (row, col)");
         System.out.println("right <row> <col>");
