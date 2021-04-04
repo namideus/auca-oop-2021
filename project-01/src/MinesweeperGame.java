@@ -92,6 +92,7 @@ public class MinesweeperGame {
         System.out.printf("\nGame(%s, width=%d, height=%d, mines=%d, flags=%d)\n",
                 mode.toUpperCase(), width, height, maxMines, flags);
 
+        // Print
         for(int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j)
                 System.out.print(charBoard[i][j] + " ");
@@ -150,6 +151,10 @@ public class MinesweeperGame {
     // Gets moves left
     public int getMovesLeft() {
         return this.movesLeft;
+    }
+
+    public boolean isMined() {
+        return this.isMined;
     }
 
     // A recursive function to play the Minesweeper Game
@@ -220,7 +225,7 @@ public class MinesweeperGame {
 
     // Help info
     public void help() {
-        System.out.println("Help:");
+        System.out.println("\nHelp:");
         System.out.println("left <row> <col>");
         System.out.println("\t- left click with coordinates (row, col)");
         System.out.println("right <row> <col>");
@@ -230,7 +235,7 @@ public class MinesweeperGame {
         System.out.println("quit");
         System.out.println("\t- quit the game (EOF work too)");
         System.out.println("help");
-        System.out.println("\t- this text");
+        System.out.println("\t- this text\n");
     }
 
     // Usage info

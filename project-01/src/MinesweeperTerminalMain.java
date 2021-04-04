@@ -40,11 +40,13 @@ public class MinesweeperTerminalMain {
     // Run program until quit command
     private static void run() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("cmd: ");
-        UserCommand cmd = new UserCommand(scanner.nextLine());
         boolean isGameOver = false;
 
-        while(!cmd.getCommand().equals(UserCommand.QUIT)) {
+        while(true) {
+            System.out.print("cmd: ");
+            UserCommand cmd = new UserCommand(scanner.nextLine());
+            System.out.println();
+
             switch (cmd.getCommand()) {
                 case UserCommand.LEFT:
                     isGameOver = game.left(cmd.getRow(), cmd.getCol());
@@ -60,6 +62,12 @@ public class MinesweeperTerminalMain {
                 case UserCommand.HELP:
                     game.help();
                     break;
+                case UserCommand.QUIT:
+                    if(!game.isMined())
+                        System.out.println("the field will be mined after the first left click");
+                    System.out.println("Next time you will be better\nBye\n");
+                    System.exit(0);
+                    break;
             }
             // Game is not over and no moves left, you won!
             if(!isGameOver && game.getMovesLeft()==0) {
@@ -71,8 +79,6 @@ public class MinesweeperTerminalMain {
                 System.out.println("\nNext time you will be better\nBye\n");
                 break;
             }
-            System.out.print("cmd: ");
-            cmd = new UserCommand(scanner.nextLine());
         }
     }
 }
