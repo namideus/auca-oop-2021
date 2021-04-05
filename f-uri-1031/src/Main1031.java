@@ -2,8 +2,7 @@ import java.util.Scanner;
 
 public class Main1031 {
 
-    static int mod(int x, int n)
-    {
+    static int mod(int x, int n) {
         if(x<0)
             x = x%n + n;
 
@@ -13,8 +12,7 @@ public class Main1031 {
         return x;
     }
 
-    static int f(int n, int k)
-    {
+    static int f(int n, int k) {
         int last = 0;
 
         for(int i=2; i<=n; i++)
