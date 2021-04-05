@@ -12,7 +12,7 @@ public class Main1285 {
             c = 0;
 
             for (int d = n; d <= m; d++) {
-                cnt = new int[5001];
+                cnt = new int[10];
                 mx = 0;
                 num = d;
 
