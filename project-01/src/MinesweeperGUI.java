@@ -96,6 +96,7 @@ public class MinesweeperGUI extends PApplet {
                 this.mode = level;
                 fill(GRAY);
                 rect(x,y+dif,w,h);
+                // drawSmile(true);
                 //do stuff
             }
         }

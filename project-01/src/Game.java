@@ -92,6 +92,23 @@ public class Game {
         return realBoard[x][y]==MINE;
     }
 
+    @Deprecated
+    // Print the board
+    public void printBoard() {
+        if(!isMined)
+            System.out.println("the field will be mined after the first left click");
+
+        System.out.printf("Game(%s, width=%d, height=%d, mines=%d, flags=%d)\n",
+                mode.toUpperCase(), width, height, maxMines, flags);
+
+        // Print
+        for(int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j)
+                System.out.print(charBoard[i][j] + " ");
+            System.out.println();
+        }
+    }
+
     // Count the number of mines around row and col
     public int countAdjacentMines(int row, int col) {
         if(!isValid(row, col))
