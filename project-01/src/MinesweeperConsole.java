@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -7,29 +8,26 @@ import java.util.Scanner;
  *
  * */
 
-public class MinesweeperTerminalMain {
-    private static MinesweeperGame game;
+public class MinesweeperConsole {
+
+    // Game
+    private static Game game;
 
     public static void main(String[] args) {
         // Drive the Minesweeper game
         try {
-
             if(args.length==0) {
-                game = new MinesweeperGame(MinesweeperGame.BEGINNER);
+                game = new Game(Game.BEGINNER);
             } else if(args.length==1) {
-                game = new MinesweeperGame(args[0]);
+                game = new Game(args[0]);
             } else if(args.length==3) {
-                game = new MinesweeperGame(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+                game = new Game(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
             } else {
-                game = new MinesweeperGame(MinesweeperGame.BEGINNER);
-                StringBuilder msg = new StringBuilder("Incorrect app args: ");
-                for(int i=0;i<args.length;++i)
-                    msg.append(args[i]).append( i<args.length-1 ? ", " : "" );
-                game.usage(msg.toString());
+                Game.usage("Incorrect app args: " + Arrays.toString(args));
             }
 
-            game.help();
-            game.printBoard();
+            System.out.println(Game.help());
+            System.out.println(game);
 
             run();
         } catch(RuntimeException e) {
@@ -50,17 +48,18 @@ public class MinesweeperTerminalMain {
             switch (cmd.getCommand()) {
                 case UserCommand.LEFT:
                     isGameOver = game.left(cmd.getRow(), cmd.getCol());
-                    game.printBoard();
+                    System.out.println(game);
                     break;
                 case UserCommand.RIGHT:
                     game.right(cmd.getRow(), cmd.getCol());
-                    game.printBoard();
+                    //game.printBoard();
+                    System.out.println(game);
                     break;
                 case UserCommand.SHOW:
-                    game.printBoard();
+                    System.out.println(game);
                     break;
                 case UserCommand.HELP:
-                    game.help();
+                    System.out.println(Game.help());
                     break;
                 case UserCommand.QUIT:
                     if(!game.isMined())

@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.Arrays;
 
 /**
  * author Iman Augustine
@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  * * */
 
-public class MinesweeperGame {
+public class Game {
 
     // Variables
     public static final String BEGINNER = "beginner";
@@ -36,19 +36,17 @@ public class MinesweeperGame {
     private final int[] ys = { 1, -1, 1, 0, 0,-1, 1 , -1 };
 
     // Constructor for three modes of Minesweeper Game
-    public MinesweeperGame(String mode) {
+    public Game(String mode) {
         switch (mode) {
-            case MinesweeperGame.BEGINNER:
-                height = 9;
-                width = 9;
+            case Game.BEGINNER:
+                height = width = 9;
                 maxMines = 9;
                 break;
-            case MinesweeperGame.INTERMEDIATE:
-                height = 16;
-                width = 16;
+            case Game.INTERMEDIATE:
+                height = width = 16;
                 maxMines = 40;
                 break;
-            case MinesweeperGame.EXPERT:
+            case Game.EXPERT:
                 height = 16;
                 width = 30;
                 maxMines = 99;
@@ -57,19 +55,29 @@ public class MinesweeperGame {
                 usage("Unknown mode: "+mode);
         }
         this.mode = mode;
+
         // Setup the game critical data
         setUp();
     }
 
     // Constructor for custom Minesweeper Game
-    public MinesweeperGame(int height, int width, int mines) {
+    public Game(int height, int width, int mines) {
         this.mode = CUSTOM;
-        if(height>0 && width>0 && mines>0 && mines<height * width) {
-            this.height = height;
-            this.width = width;
-            this.maxMines = mines;
-        } else
-            usage("Incorrect mode: mines >= width * height");
+
+        if(height < 1) {
+            throw new IllegalArgumentException("Height cannot be less than 1: " + height);
+        }
+        if(width < 1) {
+            throw new IllegalArgumentException("Width cannot be less than 1: " + width);
+        }
+        if(mines < 1 || mines>=height*width) {
+            throw new IllegalArgumentException("Incorrect number of mines: " + mines);
+        }
+        this.height = height;
+        this.width = width;
+        this.maxMines = mines;
+
+        //usage("Incorrect mode: mines >= width * height");
         // Setup the game critical data
         setUp();
     }
@@ -82,22 +90,6 @@ public class MinesweeperGame {
     // Check if it is a mine
     public boolean isMine(int x, int y) {
         return realBoard[x][y]==MINE;
-    }
-
-    // Print the board
-    public void printBoard() {
-        if(!isMined)
-            System.out.println("the field will be mined after the first left click");
-
-        System.out.printf("Game(%s, width=%d, height=%d, mines=%d, flags=%d)\n",
-                mode.toUpperCase(), width, height, maxMines, flags);
-
-        // Print
-        for(int i = 0; i < height; ++i) {
-            for (int j = 0; j < width; ++j)
-                System.out.print(charBoard[i][j] + " ");
-            System.out.println();
-        }
     }
 
     // Count the number of mines around row and col
@@ -153,11 +145,17 @@ public class MinesweeperGame {
         return this.movesLeft;
     }
 
+    // Get flags count
+    public int getFlags() {
+        return flags;
+    }
+
     public boolean isMined() {
         return this.isMined;
     }
 
     // A recursive function to play the Minesweeper Game
+    // Only works on left click at x y
     public boolean left(int row, int col) {
         // Place mines randomly on first left click
         if(!isMined) {
@@ -203,7 +201,7 @@ public class MinesweeperGame {
         return false;
     }
 
-    // Right
+    // Right click at x, y
     public void right(int row, int col) {
         if(charBoard[row][col]!='.')
             return;
@@ -223,23 +221,43 @@ public class MinesweeperGame {
         }
     }
 
+    // To string
+    @Override
+    public String toString() {
+        String warning = "the field will be mined after the first left click";
+        String header = String.format("Game(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode.toUpperCase(), width, height, maxMines, flags);
+        StringBuilder r = new StringBuilder();
+        if(!isMined)
+            r.append(warning).append("\n");
+
+        r.append(header);
+
+        for(int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                r.append(charBoard[i][j]).append(" ");
+            }
+            r.append("\n");
+        }
+
+        return r.toString();
+    }
+
     // Help info
-    public void help() {
-        System.out.println("Help:");
-        System.out.println("left <row> <col>");
-        System.out.println("\t- left click with coordinates (row, col)");
-        System.out.println("right <row> <col>");
-        System.out.println("\t- right click with coordinates (row, col)");
-        System.out.println("show");
-        System.out.println("\t- show all mines (cheating)");
-        System.out.println("quit");
-        System.out.println("\t- quit the game (EOF work too)");
-        System.out.println("help");
-        System.out.println("\t- this text\n");
+    public static String help() {
+        return "Help:" +
+                "\nleft <row> <col>" +
+                "\n\t- left click with coordinates (row, col)" +
+                "\nright <row> <col>" +
+                "\n\t- right click with coordinates (row, col)" +
+                "\nshow" +
+                "\n\t- show all mines (cheating)" +
+                "\nquit" +
+                "\n\t- quit the game (EOF work too)" +
+                "\nhelp\n\t- this text\n";
     }
 
     // Usage info
-    public void usage(String message) {
+    public static void usage(String message) {
         System.out.println(message+
                 "\nUsage: " +
                 "\njava -jar Minesweeper.jar beginner" +
@@ -262,80 +280,3 @@ public class MinesweeperGame {
 
 
 
-// User command
-class UserCommand {
-    public static final String LEFT = "left";
-    public static final String RIGHT = "right";
-    public static final String SHOW = "show";
-    public static final String HELP = "help";
-    public static final String QUIT = "quit";
-
-    private final String command;
-    private int row, col;
-
-    public UserCommand(String line) {
-        line = line.trim();
-        switch (line) {
-            case SHOW:
-            case HELP:
-            case QUIT:
-                command = line;
-                return;
-        }
-
-        Scanner inpLine = new Scanner(line);
-        if(!inpLine.hasNext()) {
-            throw new RuntimeException("Wrong command: '"+line+"'");
-        }
-
-        String userCommand = inpLine.next();
-        if(!userCommand.equals(LEFT) && !userCommand.equals(RIGHT)) {
-            throw new RuntimeException("Unknown command: '"+line+"'");
-        }
-
-        if(!inpLine.hasNextInt()) {
-            throw new RuntimeException("No integer in command "+userCommand+": '"+line+"'");
-        }
-
-        int row = inpLine.nextInt();
-        if(row<0) {
-            throw new RuntimeException("Negative row in command "+userCommand+": '"+line+"'");
-        }
-
-        if (!inpLine.hasNext()) {
-            throw new RuntimeException("Not enough parameters in command "+userCommand+": '"+line+"'");
-        }
-
-        int col = inpLine.nextInt();
-        if(col<0) {
-            throw new RuntimeException("Negative col in command "+userCommand+": '"+line+"'");
-        }
-
-        if (inpLine.hasNext()) {
-            throw new RuntimeException("Too many parameters in command "+userCommand+": '"+line+"'");
-        }
-
-        command = userCommand;
-        this.row = row;
-        this.col = col;
-    }
-
-    // Getter
-    public String getCommand() {
-        return command;
-    }
-
-    public int getRow() {
-        if(!command.equals(LEFT) && !command.equals(RIGHT)) {
-            throw new RuntimeException("Undefined row or col: current command is not "+LEFT+" or "+RIGHT);
-        }
-        return this.row;
-    }
-
-    public int getCol() {
-        if(!command.equals(LEFT) && !command.equals(RIGHT)) {
-            throw new RuntimeException("Undefined row or col: current command is not "+LEFT+" or "+RIGHT);
-        }
-        return this.col;
-    }
-}
