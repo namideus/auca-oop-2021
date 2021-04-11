@@ -28,6 +28,8 @@ public class MinesweeperGUI extends PApplet {
     private float startButtonW;
     private float startButtonH;
 
+    private Coord[] coords;
+
     int begin;
     int duration = 0;
     int time = 0;
@@ -65,44 +67,20 @@ public class MinesweeperGUI extends PApplet {
     public void draw() {
         background(0, 0, 0);
 
+        // Draw the field
         drawField();
 
+        // Adapt widgets
         calculatePosition();
 
-        //-----------SMILE-------------------------
-        fill(169,169,169);
-        rect(startButtonX,startButtonY,startButtonW,startButtonH);
-        onRestartClick(startButtonX, startButtonY, startButtonW, startButtonH);
-        drawSmile(smileX, smileY,isSad);
-        //onClick(x,y,w,h,0, Game.BEGINNER);
-        //-----------------------------------------
-        // Mines and timer
-        textSize(60);
-        fill(255, 0, 0);
-        text(String.format("%03d",(game.getMaxMines())-game.getFlags()),minesTextX, smileY+15f); // Mines' number
-        //  if (time > 0)
-        time = duration + (millis() + begin)/1000;
-        text(String.format("%03d", time),timerTextX, smileY+15f); // Timer is seconds
+        // Mode switch buttons
+        drawModeButtons();
 
-        // Mode buttons
-        fill(169,169,169);
-        rect(modeButtonX,modeButtonY,modeButtonW,modeButtonH);
-        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,0, Game.BEGINNER);
+        // Draw a smile
+        drawSmile(smileX, smileY, isSad);
 
-        fill(169,169,169);
-        rect(modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH);
-        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,dif, Game.INTERMEDIATE);
-
-        fill(169,169,169);
-        rect(modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH);
-        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,2*dif, Game.EXPERT);
-
-        // Texts on mode buttons
-        textSize(20);
-        fill(0, 255, 0);
-        text(Game.BEGINNER,modeButtonX+50f, modeButtonY+27f);
-        text(Game.INTERMEDIATE,modeButtonX+30f, modeButtonY+dif+27f);
-        text(Game.EXPERT,modeButtonX+60f, modeButtonY+2*dif+27f);
+        // Draw texts
+        drawTexts();
     }
 
     // Draw field
@@ -123,6 +101,41 @@ public class MinesweeperGUI extends PApplet {
         timerTextX = width/2f+cellSide*game.getWidth()/2f-110f;
     }
 
+    public void drawModeButtons() {
+        // Restart button
+        fill(169,169,169);
+        rect(startButtonX,startButtonY,startButtonW,startButtonH);
+        onRestartClick(startButtonX, startButtonY, startButtonW, startButtonH);
+        // Mode buttons
+        fill(169,169,169);
+        rect(modeButtonX,modeButtonY,modeButtonW,modeButtonH);
+        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,0, Game.BEGINNER);
+
+        fill(169,169,169);
+        rect(modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH);
+        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,dif, Game.INTERMEDIATE);
+
+        fill(169,169,169);
+        rect(modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH);
+        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,2*dif, Game.EXPERT);
+    }
+
+    public void drawTexts() {
+        // Mines and timer
+        textSize(60);
+        fill(255, 0, 0);
+        text(String.format("%03d",(game.getMaxMines())-game.getFlags()),minesTextX, smileY+15f); // Mines' number
+        //  if (time > 0)
+        time = duration + (millis() + begin)/1000;
+        text(String.format("%03d", time),timerTextX, smileY+15f); // Timer is seconds
+        // Texts on mode buttons
+        textSize(20);
+        fill(0, 255, 0);
+        text(Game.BEGINNER,modeButtonX+50f, modeButtonY+27f);
+        text(Game.INTERMEDIATE,modeButtonX+30f, modeButtonY+dif+27f);
+        text(Game.EXPERT,modeButtonX+60f, modeButtonY+2*dif+27f);
+    }
+
     // Draw sad or happy smile
     public void drawSmile(float x, float y, boolean sad) {
         //-----------SMILE----------------------------------------------------
@@ -137,18 +150,19 @@ public class MinesweeperGUI extends PApplet {
         circle(x+10f, y-10f, 3);
         //black
         // draw the pupils
-        // ellipse(75, 85, 10, 10);
-        // ellipse(125, 85, 10, 10);
+//        circle(x-10f, y-10f, 10);
+//        circle(x+10f, y-10f, 10);
         //red
         //fill(255, 0, 0);
         //draw the mouth
         fill(255, 255, 0);
        // strokeWeight(2f);
 
-        if(!sad)
-            arc(x, y+7f, 25, 18, 0, PI);
-        else
-            arc(x, y+13f, 25, 18, -PI, 0);
+        if(!sad) {
+            arc(x, y + 7f, 25, 18, 0, PI);
+        } else {
+            arc(x, y + 13f, 25, 18, -PI, 0);
+        }
         //-------------------------------------------------------------------
     }
 
@@ -198,6 +212,23 @@ public class MinesweeperGUI extends PApplet {
 
     public static void main(String[] args) {
         PApplet.main("MinesweeperGUI");
+    }
+
+    protected static class Coord {
+        private int x,y;
+
+        public Coord(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public int x() {
+            return x;
+        }
+
+        public int y() {
+            return y;
+        }
     }
 
 }
