@@ -167,6 +167,21 @@ public class Game {
         return flags;
     }
 
+    // Get number of mines
+    public int getMaxMines() {
+        return maxMines;
+    }
+
+    // Get height
+    public int getHeight() {
+        return height;
+    }
+
+    // Get width
+    public int getWidth() {
+        return width;
+    }
+
     public boolean isMined() {
         return this.isMined;
     }
