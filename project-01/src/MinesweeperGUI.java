@@ -6,7 +6,7 @@ public class MinesweeperGUI extends PApplet {
     private Game game;
     private String mode;
 
-    private final float cellSide = 40f;
+    private final float cellSide = 35f;
 
     private float x;
     private float y;
@@ -52,6 +52,7 @@ public class MinesweeperGUI extends PApplet {
     public void draw() {
         background(0, 0, 0);
 
+        drawField();
 
         //-----------SMILE-------------------------
         fill(169,169,169);
@@ -69,15 +70,15 @@ public class MinesweeperGUI extends PApplet {
         // Mode buttons
         fill(169,169,169);
         rect(x,y,w,h);
-        onClick(x,y,w,h,0, Game.BEGINNER);
+        onModeClick(x,y,w,h,0, Game.BEGINNER);
 
         fill(169,169,169);
         rect(x,y+dif,w,h);
-        onClick(x,y,w,h,dif, Game.INTERMEDIATE);
+        onModeClick(x,y,w,h,dif, Game.INTERMEDIATE);
 
         fill(169,169,169);
         rect(x,y+2*dif,w,h);
-        onClick(x,y,w,h,2*dif, Game.EXPERT);
+        onModeClick(x,y,w,h,2*dif, Game.EXPERT);
         // Texts on mode buttons
         textSize(20);
         fill(0, 255, 0);
@@ -86,15 +87,18 @@ public class MinesweeperGUI extends PApplet {
         text(Game.EXPERT,x+60f, y+2*dif+27f);
     }
 
+    // Draw field
     public void drawField() {
-        for(int i=0; i<game.getHeight(); ++i) {
-            for(int j=0; j<game.getWidth(); ++j) {
-
+        for(int i=0; i<game.getWidth(); ++i) {
+            for(int j=0; j<game.getHeight(); ++j) {
+                fill(169,169,169);
+                rect(i*cellSide+width/2f-cellSide*game.getWidth()/2f, j*cellSide+height/2f-cellSide*game.getHeight()/2f, cellSide, cellSide);
+                //onModeClick(i*cellSide,j*cellSide, cellSide, cellSide,cellSide,Game.BEGINNER);
             }
         }
     }
 
-    public void drawButtons() {
+    public void calculatePosition() {
 
     }
 
@@ -118,7 +122,7 @@ public class MinesweeperGUI extends PApplet {
         //fill(255, 0, 0);
         //draw the mouth
         fill(255, 255, 0);
-        strokeWeight(2f);
+       // strokeWeight(2f);
 
         if(!sad)
             arc(x, y+7f, 25, 18, 0, PI);
@@ -127,7 +131,7 @@ public class MinesweeperGUI extends PApplet {
         //-------------------------------------------------------------------
     }
 
-    public void onClick(float x, float y, float w, float h, float dif, String mode) {
+    public void onModeClick(float x, float y, float w, float h, float dif, String mode) {
         if(mousePressed) {
             if (mouseX > x && mouseX < x + w && mouseY > y + dif && mouseY < y + dif + h) {
                 this.mode = mode;
@@ -143,7 +147,6 @@ public class MinesweeperGUI extends PApplet {
     public void onRestartClick(float x, float y, float w, float h) {
         if(mousePressed) {
             if (mouseX > x && mouseX < x + w && mouseY > y  && mouseY < y + h) {
-                //game = new Game(mode);
                 fill(255,255,255);
                 rect(x,y,w,h);
                 // drawSmile(true);
@@ -152,16 +155,22 @@ public class MinesweeperGUI extends PApplet {
         }
     }
 
+    // Mouse pressed
     @Override
     public void mousePressed() {
         super.mousePressed();
 
         if (mouseButton == LEFT) {
-            isSad = true;
+
+//            if (mouseX > x && mouseX < x + w && mouseY > y  && mouseY < y + h) {
+//                //game = new Game(mode);
+//                fill(255,255,255);
+//                rect(x,y,w,h);
+//                // drawSmile(true);
+//                //do stuff
+//            }
         } else if (mouseButton == RIGHT) {
-            isSad = false;
-        } else {
-            fill(126);
+
         }
     }
 
