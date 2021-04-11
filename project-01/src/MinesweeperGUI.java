@@ -28,6 +28,10 @@ public class MinesweeperGUI extends PApplet {
     private float startButtonW;
     private float startButtonH;
 
+    int begin;
+    int duration = 0;
+    int time = 0;
+
     // Settings
     public void settings() {
         fullScreen();
@@ -35,6 +39,10 @@ public class MinesweeperGUI extends PApplet {
 
     // Setup
     public void setup() {
+        frameRate(30);
+
+        begin = millis();
+
         smileX = width/2f;
         smileY = 150f;
         isSad = false;
@@ -69,10 +77,12 @@ public class MinesweeperGUI extends PApplet {
         //onClick(x,y,w,h,0, Game.BEGINNER);
         //-----------------------------------------
         // Mines and timer
-        textSize(40);
+        textSize(60);
         fill(255, 0, 0);
         text(String.format("%03d",(game.getMaxMines())-game.getFlags()),minesTextX, smileY+15f); // Mines' number
-        text(String.format("%03d",game.getFlags()),timerTextX, smileY+15f); // Timer is seconds
+        //  if (time > 0)
+        time = duration + (millis() + begin)/1000;
+        text(String.format("%03d", time),timerTextX, smileY+15f); // Timer is seconds
 
         // Mode buttons
         fill(169,169,169);
@@ -101,18 +111,16 @@ public class MinesweeperGUI extends PApplet {
             for(int j=0; j<game.getHeight(); ++j) {
                 fill(169,169,169);
                 rect(i*cellSide+width/2f-cellSide*game.getWidth()/2f, j*cellSide+height/2f-cellSide*game.getHeight()/2f, cellSide, cellSide);
-                //y = height/2f-cellSide*game.getHeight()/2f+cellSide*game.getHeight()/2f-50f;
-                //onModeClick(i*cellSide,j*cellSide, cellSide, cellSide,cellSide,Game.BEGINNER);
             }
         }
     }
 
     public void calculatePosition() {
         modeButtonX = width/2f+cellSide*game.getWidth()/2f+30f;
-        smileY = height/2f-cellSide*game.getHeight()/2f-60f;
+        smileY = height/2f-cellSide*game.getHeight()/2f-40f;
         startButtonY = smileY-35f;
         minesTextX = width/2f-cellSide*game.getWidth()/2f;
-        timerTextX = width/2f+cellSide*game.getWidth()/2f-70f;
+        timerTextX = width/2f+cellSide*game.getWidth()/2f-110f;
     }
 
     // Draw sad or happy smile
@@ -151,6 +159,7 @@ public class MinesweeperGUI extends PApplet {
                 game = new Game(mode);
                 fill(255,255,255);
                 rect(x,y+dif,w,h);
+
                 // drawSmile(true);
                 //do stuff
             }
