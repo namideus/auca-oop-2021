@@ -8,15 +8,20 @@ public class MinesweeperGUI extends PApplet {
 
     private final float cellSide = 35f;
 
-    private float x;
-    private float y;
-    private float w;
-    private float h;
+    private float modeButtonX;
+    private float modeButtonY;
+    private float modeButtonW;
+    private float modeButtonH;
     private float dif;
 
     private float smileX;
     private float smileY;
     private boolean isSad;
+
+    private float minesTextX;
+    private float minesTextY;
+    private float timerTextX;
+    private float timerTextY;
 
     private float startButtonX;
     private float startButtonY;
@@ -39,11 +44,11 @@ public class MinesweeperGUI extends PApplet {
         startButtonW = 70f;
         startButtonH = 70f;
 
-        x = width/2f+200f;
-        y = 250f;
-        w = 190f;
-        h = 40f;
         dif = 70f;
+        modeButtonX = 0f;
+        modeButtonY = height/2f-dif;
+        modeButtonW = 190f;
+        modeButtonH = 40f;
 
         game = new Game(Game.BEGINNER);
     }
@@ -69,22 +74,23 @@ public class MinesweeperGUI extends PApplet {
 
         // Mode buttons
         fill(169,169,169);
-        rect(x,y,w,h);
-        onModeClick(x,y,w,h,0, Game.BEGINNER);
+        rect(modeButtonX,modeButtonY,modeButtonW,modeButtonH);
+        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,0, Game.BEGINNER);
 
         fill(169,169,169);
-        rect(x,y+dif,w,h);
-        onModeClick(x,y,w,h,dif, Game.INTERMEDIATE);
+        rect(modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH);
+        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,dif, Game.INTERMEDIATE);
 
         fill(169,169,169);
-        rect(x,y+2*dif,w,h);
-        onModeClick(x,y,w,h,2*dif, Game.EXPERT);
+        rect(modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH);
+        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,2*dif, Game.EXPERT);
+
         // Texts on mode buttons
         textSize(20);
         fill(0, 255, 0);
-        text(Game.BEGINNER,x+50f, y+27f);
-        text(Game.INTERMEDIATE,x+30f, y+dif+27f);
-        text(Game.EXPERT,x+60f, y+2*dif+27f);
+        text(Game.BEGINNER,modeButtonX+50f, modeButtonY+27f);
+        text(Game.INTERMEDIATE,modeButtonX+30f, modeButtonY+dif+27f);
+        text(Game.EXPERT,modeButtonX+60f, modeButtonY+2*dif+27f);
     }
 
     // Draw field
@@ -93,6 +99,9 @@ public class MinesweeperGUI extends PApplet {
             for(int j=0; j<game.getHeight(); ++j) {
                 fill(169,169,169);
                 rect(i*cellSide+width/2f-cellSide*game.getWidth()/2f, j*cellSide+height/2f-cellSide*game.getHeight()/2f, cellSide, cellSide);
+                modeButtonX = width/2f+cellSide*game.getWidth()/2f+30f;
+
+                //y = height/2f-cellSide*game.getHeight()/2f+cellSide*game.getHeight()/2f-50f;
                 //onModeClick(i*cellSide,j*cellSide, cellSide, cellSide,cellSide,Game.BEGINNER);
             }
         }
