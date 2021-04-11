@@ -25,7 +25,6 @@ public class Main1245 {
                         break;
                     }
                 }
-
             System.out.println(cnt);
         }
     }

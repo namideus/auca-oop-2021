@@ -1,7 +1,12 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="auca-oop-2021:jar">
+  <artifact type="apk" name="auca-oop-2021:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/auca_oop_2021_jar</output-path>
-    <root id="archive" name="auca-oop-2021.jar">
+    <properties id="android-properties">
+      <options>
+        <option name="keyStoreUrl" value="file://" />
+      </options>
+    </properties>
+    <root id="archive" name="auca-oop-2021_jar.apk">
       <element id="module-output" name="exp" />
       <element id="module-output" name="m-uri-1581" />
       <element id="module-output" name="f-uri-1196" />
