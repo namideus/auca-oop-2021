@@ -1,5 +1,14 @@
 import processing.core.*;
 
+/**
+ * @author Iman Augustine
+ *
+ * GUI for Minesweeper Game, OOP Shostak, 2021.
+ *
+ * Library: Processing3.0
+ *
+ * */
+
 public class MinesweeperGUI extends PApplet {
 
     // Globals
@@ -28,11 +37,12 @@ public class MinesweeperGUI extends PApplet {
     private float startButtonW;
     private float startButtonH;
 
-    private Coord[] coords;
+    private int[][] Xcoord;
+    private int[] Ycoord;
 
-    int begin;
-    int duration = 0;
-    int time = 0;
+    private int begin;
+    private int duration = 0;
+    private int time = 0;
 
     // Settings
     public void settings() {
@@ -109,15 +119,15 @@ public class MinesweeperGUI extends PApplet {
         // Mode buttons
         fill(169,169,169);
         rect(modeButtonX,modeButtonY,modeButtonW,modeButtonH);
-        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,0, Game.BEGINNER);
+        switchMode(modeButtonX,modeButtonY,modeButtonW,modeButtonH,0, Game.BEGINNER);
 
         fill(169,169,169);
         rect(modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH);
-        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,dif, Game.INTERMEDIATE);
+        switchMode(modeButtonX,modeButtonY,modeButtonW,modeButtonH,dif, Game.INTERMEDIATE);
 
         fill(169,169,169);
         rect(modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH);
-        onModeClick(modeButtonX,modeButtonY,modeButtonW,modeButtonH,2*dif, Game.EXPERT);
+        switchMode(modeButtonX,modeButtonY,modeButtonW,modeButtonH,2*dif, Game.EXPERT);
     }
 
     public void drawTexts() {
@@ -166,7 +176,7 @@ public class MinesweeperGUI extends PApplet {
         //-------------------------------------------------------------------
     }
 
-    public void onModeClick(float x, float y, float w, float h, float dif, String mode) {
+    public void switchMode(float x, float y, float w, float h, float dif, String mode) {
         if(mousePressed) {
             if (mouseX > x && mouseX < x + w && mouseY > y + dif && mouseY < y + dif + h) {
                 this.mode = mode;
@@ -212,23 +222,6 @@ public class MinesweeperGUI extends PApplet {
 
     public static void main(String[] args) {
         PApplet.main("MinesweeperGUI");
-    }
-
-    protected static class Coord {
-        private int x,y;
-
-        public Coord(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public int x() {
-            return x;
-        }
-
-        public int y() {
-            return y;
-        }
     }
 
 }

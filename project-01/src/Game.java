@@ -83,8 +83,8 @@ public class Game {
     }
 
     // If col and row are valid
-    public boolean isValid(int x, int y) {
-        return x>=0 && y>=0 && x<width && y<height;
+    public boolean isValid(int row, int col) {
+        return row>=0 && col>=0 && row<height && col<width;
     }
 
     // Check if it is a mine
@@ -92,22 +92,22 @@ public class Game {
         return realBoard[x][y]==MINE;
     }
 
-    @Deprecated
-    // Print the board
-    public void printBoard() {
-        if(!isMined)
-            System.out.println("the field will be mined after the first left click");
-
-        System.out.printf("Game(%s, width=%d, height=%d, mines=%d, flags=%d)\n",
-                mode.toUpperCase(), width, height, maxMines, flags);
-
-        // Print
-        for(int i = 0; i < height; ++i) {
-            for (int j = 0; j < width; ++j)
-                System.out.print(charBoard[i][j] + " ");
-            System.out.println();
-        }
-    }
+//    @Deprecated
+//    // Print the board
+//    public void printBoard() {
+//        if(!isMined)
+//            System.out.println("the field will be mined after the first left click");
+//
+//        System.out.printf("Game(%s, width=%d, height=%d, mines=%d, flags=%d)\n",
+//                mode.toUpperCase(), width, height, maxMines, flags);
+//
+//        // Print
+//        for(int i = 0; i < height; ++i) {
+//            for (int j = 0; j < width; ++j)
+//                System.out.print(charBoard[i][j] + " ");
+//            System.out.println();
+//        }
+//    }
 
     // Count the number of mines around row and col
     public int countAdjacentMines(int row, int col) {
@@ -121,13 +121,13 @@ public class Game {
     }
 
     // Place mines on the field
-    private void placeMines() {
+    private void placeMines(int userX, int userY) {
         for(int i=0;i<maxMines; ++i) {
             // Random position of mines
             int x=(int)(Math.random()*height);
             int y=(int)(Math.random()*width);
             // Already mined, continue
-            if(realBoard[x][y]==MINE)
+            if(realBoard[x][y]==MINE || userX==x && userY==y)
                 continue;
             // Save mine's position
             minesLocation[i][0] = x;
@@ -189,42 +189,44 @@ public class Game {
     // A recursive function to play the Minesweeper Game
     // Only works on left click at x y
     public boolean left(int row, int col) {
+        if(!isValid(row, col))
+            throw new RuntimeException("Invalid parameters passed in left() function");
+
         // Place mines randomly on first left click
         if(!isMined) {
             isMined = true;
-            placeMines();
-        }
-
-        // Base case
-        if(charBoard[row][col]!='.')
-            return false;
-
-        // You opened a mine
-        // You are going to lose
-        if(isMine(row, col)) {
-            charBoard[row][col] = '*';
-
-            // Reveal all mines
-            for (int i=0; i<maxMines; i++)
-                charBoard[minesLocation[i][0]][minesLocation[i][1]] = '*';
-
-            // printBoard();
-            //System.out.println("\nYou lost! Next time you will be better!");
-            return true;
+            placeMines(row, col);
         } else {
-            int count = countAdjacentMines(row, col);
-            --movesLeft;
+            // Base case
+            if (charBoard[row][col] != '.' && charBoard[row][col] != 'F')
+                return false;
 
-            // Set counter or empty chart
-            charBoard[row][col] = (count==0) ? '#': String.valueOf(count).charAt(0);
-            realBoard[row][col] = count;
+            // You opened a mine
+            // You are going to lose
+            if (isMine(row, col)) {
+                charBoard[row][col] = '*';
 
-            // If count is zero
-            if(count==0) {
-                for (int k=0; k<8; ++k) {
-                    if (isValid(xs[k] + row, ys[k] + col)) {
-                        if (!isMine(xs[k] + row, ys[k] + col)) {
-                            left(xs[k] + row, ys[k] + col);
+                // Reveal all mines
+                for (int i = 0; i < maxMines; i++) {
+                    charBoard[minesLocation[i][0]][minesLocation[i][1]] = '*';
+                }
+
+                return true;
+            } else {
+                int count = countAdjacentMines(row, col);
+                --movesLeft;
+
+                // Set counter or empty chart
+                charBoard[row][col] = (count == 0) ? '#' : String.valueOf(count).charAt(0);
+                realBoard[row][col] = count;
+
+                // If count is zero
+                if (count == 0) {
+                    for (int k = 0; k < 8; ++k) {
+                        if (isValid(xs[k] + row, ys[k] + col)) {
+                            if (!isMine(xs[k] + row, ys[k] + col)) {
+                                left(xs[k] + row, ys[k] + col);
+                            }
                         }
                     }
                 }
@@ -235,20 +237,27 @@ public class Game {
 
     // Right click at x, y
     public void right(int row, int col) {
+        if(!isValid(row, col))
+            throw new RuntimeException("Invalid parameters passed in right() function");
+
         if(charBoard[row][col]!='.')
             return;
 
+        if(charBoard[row][col]=='F' && isMine(row, col)) {
+            charBoard[row][col] = '.';
+            --flags;
+        }
+
         if(isMine(row, col)) {
             charBoard[row][col] = 'F';
-            realBoard[row][col] = FLAG;
             ++flags;
         }
 
         for (int k=0; k<8; ++k) {
-            if (isValid(xs[k] + row, ys[k] + col) && isMine(xs[k] + row, ys[k] + col)) {
-                charBoard[xs[k] + row][ys[k] + col] = 'F';
-                realBoard[xs[k] + row][ys[k] + col] = FLAG;
-                ++flags;
+            if (isValid(xs[k] + row, ys[k] + col))
+                if(isMine(xs[k] + row, ys[k] + col)) {
+                    charBoard[xs[k] + row][ys[k] + col] = 'F';
+                    ++flags;
             }
         }
     }

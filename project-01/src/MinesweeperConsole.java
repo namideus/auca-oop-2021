@@ -15,7 +15,7 @@ public class MinesweeperConsole {
 
     public static void main(String[] args) {
         // Drive the Minesweeper game
-        //try {
+        try {
             if(args.length==0) {
                 game = new Game(Game.BEGINNER);
             } else if(args.length==1) {
@@ -30,9 +30,9 @@ public class MinesweeperConsole {
             System.out.println(game);
 
             run();
-//        } catch(RuntimeException e) {
-//            System.out.println("\t"+e.getMessage());
-//        }
+        } catch(RuntimeException e) {
+            System.out.println("\t"+e.getMessage());
+        }
     }
 
     // Run program until quit command
