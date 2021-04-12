@@ -1,9 +1,10 @@
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main1218 {
     public static void main(String[] args) {
-        Scanner strScan, scan = new Scanner(System.in);
-
+        Scanner scan = new Scanner(System.in);
+        StringTokenizer stStr;
         int sze, n, t, i, f, m;
         char g;
         String str;
@@ -19,11 +20,11 @@ public class Main1218 {
             f = m = 0;
 
             str = scan.nextLine();
-            strScan = new Scanner(str);
+            stStr = new StringTokenizer(str);
 
-            while(strScan.hasNextInt()) {
-                sze = strScan.nextInt();
-                g = strScan.next().charAt(0);
+            while(stStr.hasMoreTokens()) {
+                sze = Integer.parseInt(stStr.nextToken());
+                g = stStr.nextToken().charAt(0);
 
                 if(sze==n)
                     if(g=='M')
