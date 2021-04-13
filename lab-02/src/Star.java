@@ -25,7 +25,7 @@ public class Star
         this.dAngle = dAngle;
     }
 
-    public void draw() { ;
+    public void draw() {
         canvas.pushMatrix();
         canvas.translate(this.x,this.y);
         canvas.rotate(angle);

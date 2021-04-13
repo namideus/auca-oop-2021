@@ -35,9 +35,6 @@ public class MinesweeperGUI extends PApplet {
     private float startButtonW;
     private float startButtonH;
 
-    private int[][] Xcoord;
-    private int[] Ycoord;
-
     private int begin;
     private int duration = 0;
     private int time = 0;
@@ -148,7 +145,7 @@ public class MinesweeperGUI extends PApplet {
         // Restart button
         fill(169,169,169);
         rect(startButtonX,startButtonY,startButtonW,startButtonH);
-        onRestartClick(startButtonX, startButtonY, startButtonW, startButtonH);
+        onResetClick(startButtonX, startButtonY, startButtonW, startButtonH);
         // Mode buttons
         fill(169,169,169);
         rect(modeButtonX,modeButtonY,modeButtonW,modeButtonH);
@@ -214,8 +211,22 @@ public class MinesweeperGUI extends PApplet {
     }
 
     public void drawMine(float x, float y) {
+        float r = 10f;
         fill(130,130,130);
         rect(x, y, cellSide, cellSide);
+
+        pushMatrix();
+        translate(x+18f,y+18f);
+        pushStyle();
+        stroke(0);
+        strokeWeight(3f);
+
+        for(int i=0; i<5; ++i) {
+            rotate((float) (Math.PI/5));
+            line(-r,0,r,0);
+        }
+        popStyle();
+        popMatrix();
     }
 
     public void drawFlag(float x, float y) {
@@ -230,6 +241,8 @@ public class MinesweeperGUI extends PApplet {
         fill(255, 255, 0);
         //draw the head
         circle(x, y, 50);
+        pushStyle();
+        strokeWeight(3f);
         //white
         fill(0);
         //draw the eyes
@@ -237,19 +250,19 @@ public class MinesweeperGUI extends PApplet {
         circle(x+10f, y-10f, 3);
         //black
         // draw the pupils
-//        circle(x-10f, y-10f, 10);
-//        circle(x+10f, y-10f, 10);
+        // circle(x-10f, y-10f, 10);
+        // circle(x+10f, y-10f, 10);
         //red
         //fill(255, 0, 0);
         //draw the mouth
         fill(255, 255, 0);
        // strokeWeight(2f);
-
         if(!sad) {
             arc(x, y + 7f, 25, 18, 0, PI);
         } else {
             arc(x, y + 13f, 25, 18, -PI, 0);
         }
+        popStyle();
         //-------------------------------------------------------------------
     }
 
@@ -258,20 +271,19 @@ public class MinesweeperGUI extends PApplet {
             if (mouseX > x && mouseX < x + w && mouseY > y + dif && mouseY < y + dif + h) {
                 this.mode = mode;
                 game = new Game(mode);
-                fill(255,255,255);
+                fill(130,130,130);
                 rect(x,y+dif,w,h);
-
-                // drawSmile(true);
-                //do stuff
             }
         }
     }
 
-    public void onRestartClick(float x, float y, float w, float h) {
+    //
+    public void onResetClick(float x, float y, float w, float h) {
         if(mousePressed) {
             if (mouseX > x && mouseX < x + w && mouseY > y  && mouseY < y + h) {
-                fill(255,255,255);
+                fill(130,130,130);
                 rect(x,y,w,h);
+                resetGame();
                 // drawSmile(true);
                 //do stuff
             }
@@ -286,7 +298,6 @@ public class MinesweeperGUI extends PApplet {
                     fill(255, 255, 255);
                     rect(x, y, w, h);
                     isGameOver = game.left(row, col);
-                    System.out.print(game);
                 }
             } else if(mouseButton==RIGHT) {
                 if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
@@ -294,7 +305,6 @@ public class MinesweeperGUI extends PApplet {
                     rect(x, y, w, h);
                     drawSmile(smileX, smileY, true);
                     game.right(row, col);
-                    System.out.print(game);
                 }
             }
         }
@@ -302,18 +312,6 @@ public class MinesweeperGUI extends PApplet {
 
     public void resetGame() {
 
-    }
-
-    // Mouse pressed
-    @Override
-    public void mousePressed() {
-        super.mousePressed();
-
-        if (mouseButton == LEFT) {
-
-        } else if (mouseButton == RIGHT) {
-
-        }
     }
 
     public static void main(String[] args) {
