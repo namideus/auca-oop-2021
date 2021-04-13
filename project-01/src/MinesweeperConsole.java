@@ -61,8 +61,6 @@ public class MinesweeperConsole {
                     System.out.println(Game.help());
                     break;
                 case UserCommand.QUIT:
-                    if(!game.isMined())
-                        System.out.println("the field will be mined after the first left click");
                     System.out.println("Next time you will be better\nBye\n");
                     System.exit(0);
                     break;

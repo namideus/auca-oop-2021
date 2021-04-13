@@ -163,6 +163,14 @@ public class Game {
         return width;
     }
 
+    public char[][] getCharBoard() {
+        return this.charBoard;
+    }
+
+    public int[][] getRealBoard() {
+        return realBoard;
+    }
+
     public boolean isMined() {
         return this.isMined;
     }

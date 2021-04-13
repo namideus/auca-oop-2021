@@ -28,9 +28,7 @@ public class MinesweeperGUI extends PApplet {
     private boolean isSad;
 
     private float minesTextX;
-    private float minesTextY;
     private float timerTextX;
-    private float timerTextY;
 
     private float startButtonX;
     private float startButtonY;
@@ -43,6 +41,8 @@ public class MinesweeperGUI extends PApplet {
     private int begin;
     private int duration = 0;
     private int time = 0;
+
+    private boolean isGameOver = false;
 
     // Settings
     public void settings() {
@@ -91,14 +91,35 @@ public class MinesweeperGUI extends PApplet {
 
         // Draw texts
         drawTexts();
+
+        // Check game state
+        checkGameState();
     }
 
     // Draw field
     public void drawField() {
+        float x,y;
+        char cell;
         for(int i=0; i<game.getWidth(); ++i) {
             for(int j=0; j<game.getHeight(); ++j) {
-                fill(169,169,169);
-                rect(i*cellSide+width/2f-cellSide*game.getWidth()/2f, j*cellSide+height/2f-cellSide*game.getHeight()/2f, cellSide, cellSide);
+                x = i*cellSide+width/2f-cellSide*game.getWidth()/2f;
+                y = j*cellSide+height/2f-cellSide*game.getHeight()/2f;
+                cell = game.getCharBoard()[j][i];
+
+                if(cell=='.') {
+                    fill(169, 169, 169);
+                    rect(x, y, cellSide, cellSide);
+                } else if(cell>='1' && cell<='9') {
+                    drawDigit(x, y, cell - '0');
+                } else if(cell=='*'){
+                    drawMine(x,y);
+                } else if(cell=='F'){
+                    drawFlag(x,y);
+                } else if(cell=='#'){
+                    fill(130,130,130);
+                    rect(x, y, cellSide, cellSide);
+                }
+                onCellClick(j, i, x, y, cellSide, cellSide);
             }
         }
     }
@@ -109,6 +130,18 @@ public class MinesweeperGUI extends PApplet {
         startButtonY = smileY-35f;
         minesTextX = width/2f-cellSide*game.getWidth()/2f;
         timerTextX = width/2f+cellSide*game.getWidth()/2f-110f;
+    }
+
+    public void checkGameState() {
+        if(!isGameOver && game.getMovesLeft()==0) {
+            System.out.println("\nCongratulations!\nBye\n");
+        }
+
+        // Game is lost
+        if(isGameOver) {
+            isSad = true;
+            System.out.println("\nNext time you will be better\nBye\n");
+        }
     }
 
     public void drawModeButtons() {
@@ -144,6 +177,50 @@ public class MinesweeperGUI extends PApplet {
         text(Game.BEGINNER,modeButtonX+50f, modeButtonY+27f);
         text(Game.INTERMEDIATE,modeButtonX+30f, modeButtonY+dif+27f);
         text(Game.EXPERT,modeButtonX+60f, modeButtonY+2*dif+27f);
+    }
+
+    public void drawDigit(float x, float y, int dig) {
+        fill(130,130,130);
+        rect(x, y, cellSide, cellSide);
+
+        textSize(25);
+        switch (dig) {
+            case 1:
+                fill(0, 0, 255);
+                break;
+            case 2:
+                fill(255, 0, 0);
+                break;
+            case 3:
+                fill(0, 128, 0);
+                break;
+            case 4:
+                fill(255, 192, 203);
+                break;
+            case 5:
+                fill(128,0,128);
+                break;
+            case 6:
+                fill(255,255,0);
+                break;
+            case 7:
+                fill(255,165,0);
+                break;
+            case 8:
+                fill(244,0,161);
+                break;
+        }
+        text(dig,x+11f, y+27f); // Adjacent numbers
+    }
+
+    public void drawMine(float x, float y) {
+        fill(130,130,130);
+        rect(x, y, cellSide, cellSide);
+    }
+
+    public void drawFlag(float x, float y) {
+        fill(130,130,130);
+        rect(x, y, cellSide, cellSide);
     }
 
     // Draw sad or happy smile
@@ -201,6 +278,32 @@ public class MinesweeperGUI extends PApplet {
         }
     }
 
+    // On possibly mine click
+    public void onCellClick(int row, int col, float x, float y, float w, float h) {
+        if(mousePressed) {
+            if(mouseButton==LEFT) {
+                if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
+                    fill(255, 255, 255);
+                    rect(x, y, w, h);
+                    isGameOver = game.left(row, col);
+                    System.out.print(game);
+                }
+            } else if(mouseButton==RIGHT) {
+                if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
+                    fill(255, 255, 255);
+                    rect(x, y, w, h);
+                    drawSmile(smileX, smileY, true);
+                    game.right(row, col);
+                    System.out.print(game);
+                }
+            }
+        }
+    }
+
+    public void resetGame() {
+
+    }
+
     // Mouse pressed
     @Override
     public void mousePressed() {
@@ -208,13 +311,6 @@ public class MinesweeperGUI extends PApplet {
 
         if (mouseButton == LEFT) {
 
-//            if (mouseX > x && mouseX < x + w && mouseY > y  && mouseY < y + h) {
-//                //game = new Game(mode);
-//                fill(255,255,255);
-//                rect(x,y,w,h);
-//                // drawSmile(true);
-//                //do stuff
-//            }
         } else if (mouseButton == RIGHT) {
 
         }
@@ -223,5 +319,4 @@ public class MinesweeperGUI extends PApplet {
     public static void main(String[] args) {
         PApplet.main("MinesweeperGUI");
     }
-
 }
