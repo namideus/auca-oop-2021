@@ -6,34 +6,38 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 public class Main extends JFrame {
+    private JPanel mainPanel;
     Main() {
-        setTitle("Chessboard");
-        setLayout(new GridLayout(8,8,0,0));
-        // 8x8 squares
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
-                boolean isBlack = (col % 2 == 0) == (row % 2 == 0);
-                add(new DrawRect(isBlack ? 0 : 1));
-            }
-        }
+        setLayout(new BorderLayout());
+        mainPanel = new CanvasPanel();
+        add(mainPanel, BorderLayout.CENTER);
     }
-    static class DrawRect extends JPanel {
-        private final int colorCode;
-        public DrawRect(int c) {
-            colorCode = c;
-        }
+
+    public static void main(String[] args) {
+        Main frame = new Main();
+        frame.setTitle("Chessboard");
+        frame.setSize(600,600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+    private static class CanvasPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor((colorCode==0)? Color.BLACK : Color.WHITE);
-            g.fillRect(0, 0, getWidth(), getHeight());
+            // Chessboard
+            int widthCell = Math.round(getWidth()/8f);
+            int heightCell =  Math.round(getHeight()/8f);
+
+            for (int r = 0; r < 8; r++) {
+                for (int c = 0; c < 8; c++) {
+                    if ((c%2==0 && r%2==0) || (r%2!=0 && c%2!=0))
+                        g.setColor(Color.BLACK);
+                    else
+                        g.setColor(Color.WHITE);
+                    g.fillRect(c * widthCell, r * heightCell, widthCell, heightCell);
+                }
+            }
         }
-    }
-    public static void main(String[] args) {
-        Main frame = new Main();
-        frame.setSize(600,600);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
     }
 }
