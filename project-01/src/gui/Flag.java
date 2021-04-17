@@ -20,7 +20,22 @@ public class Flag
 
     public void draw() {
         canvas.pushMatrix();
+        canvas.pushStyle();
+        canvas.strokeWeight(0f);
+        canvas.translate(this.x, this.y);
 
+        canvas.fill(200,200,200);
+        canvas.quad(0, 0, 0, height, 4f, height-4f, 4f, 4f);
+        canvas.quad(0, 0, width, 0, width-4f, 4f, 4f, 4f);
+
+        canvas.fill(120,120,120);
+        canvas.quad(0, height, width, height, width-4f, height-4f, 4f, height-4f);
+        canvas.quad(width, height, width, 0, width-4f, 4f, width-4f, height-4f);
+
+        canvas.fill(150,150,150);
+        canvas.rect(4f, 4f, width-8, height-8);
+
+        canvas.popStyle();
         canvas.popMatrix();
     }
 
