@@ -1,3 +1,5 @@
+package gui;
+
 import processing.core.*;
 
 /**
@@ -106,6 +108,8 @@ public class MinesweeperGUI extends PApplet {
                 if(cell=='.') {
                     fill(169, 169, 169);
                     rect(x, y, cellSide, cellSide);
+                    Button cellBtn = new Button(this, x,y,cellSide,cellSide, null);
+                    cellBtn.draw();
                 } else if(cell>='1' && cell<='9') {
                     drawDigit(x, y, cell - '0');
                 } else if(cell=='*'){
@@ -143,21 +147,34 @@ public class MinesweeperGUI extends PApplet {
 
     public void drawModeButtons() {
         // Restart button
-        fill(169,169,169);
-        rect(startButtonX,startButtonY,startButtonW,startButtonH);
+//        fill(169,169,169);
+//        rect(startButtonX,startButtonY,startButtonW,startButtonH);
+        Button reset = new Button(this, startButtonX,startButtonY,startButtonW,startButtonH, null);
+        reset.draw();
         onResetClick(startButtonX, startButtonY, startButtonW, startButtonH);
+
+        Button beginnerMode = new Button(this, modeButtonX,modeButtonY,modeButtonW,modeButtonH, null);
+        beginnerMode.draw();
+
+        Button intermediateMode = new Button(this, modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH, null);
+        intermediateMode.draw();
+
+        Button expertMode = new Button(this, modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH, null);
+        expertMode.draw();
+
+
         // Mode buttons
-        fill(169,169,169);
-        rect(modeButtonX,modeButtonY,modeButtonW,modeButtonH);
-        switchMode(modeButtonX,modeButtonY,modeButtonW,modeButtonH,0, Game.BEGINNER);
+//        fill(169,169,169);
+//        rect(modeButtonX,modeButtonY,modeButtonW,modeButtonH);
+         switchMode(modeButtonX,modeButtonY,modeButtonW,modeButtonH,0, Game.BEGINNER);
 
-        fill(169,169,169);
-        rect(modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH);
-        switchMode(modeButtonX,modeButtonY,modeButtonW,modeButtonH,dif, Game.INTERMEDIATE);
-
-        fill(169,169,169);
-        rect(modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH);
-        switchMode(modeButtonX,modeButtonY,modeButtonW,modeButtonH,2*dif, Game.EXPERT);
+//        fill(169,169,169);
+//        rect(modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH);
+         switchMode(modeButtonX,modeButtonY,modeButtonW,modeButtonH,dif, Game.INTERMEDIATE);
+//
+//        fill(169,169,169);
+//        rect(modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH);
+         switchMode(modeButtonX,modeButtonY,modeButtonW,modeButtonH,2*dif, Game.EXPERT);
     }
 
     public void drawTexts() {
@@ -284,37 +301,38 @@ public class MinesweeperGUI extends PApplet {
                 fill(130,130,130);
                 rect(x,y,w,h);
                 resetGame();
-                // drawSmile(true);
-                //do stuff
             }
         }
     }
 
     // On possibly mine click
     public void onCellClick(int row, int col, float x, float y, float w, float h) {
-        if(mousePressed) {
-            if(mouseButton==LEFT) {
-                if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
-                    fill(255, 255, 255);
-                    rect(x, y, w, h);
-                    isGameOver = game.left(row, col);
-                }
-            } else if(mouseButton==RIGHT) {
-                if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
-                    fill(255, 255, 255);
-                    rect(x, y, w, h);
-                    drawSmile(smileX, smileY, true);
-                    game.right(row, col);
+        if(!isGameOver) {
+            if (mousePressed) {
+                if (mouseButton == LEFT) {
+                    if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
+                        fill(255, 255, 255);
+                        rect(x, y, w, h);
+                        isGameOver = game.left(row, col);
+                    }
+                } else if (mouseButton == RIGHT) {
+                    if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
+                        fill(255, 255, 255);
+                        rect(x, y, w, h);
+                        drawSmile(smileX, smileY, true);
+                        game.right(row, col);
+                    }
                 }
             }
         }
     }
 
     public void resetGame() {
-
+        begin = millis();
+        duration = time = 0;
     }
 
     public static void main(String[] args) {
-        PApplet.main("MinesweeperGUI");
+        PApplet.main("gui.MinesweeperGUI");
     }
 }
