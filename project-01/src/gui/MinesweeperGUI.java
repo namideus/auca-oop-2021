@@ -26,7 +26,6 @@ public class MinesweeperGUI extends PApplet {
     private float modeButtonH;
     private float dif;
 
-    private float smileX;
     private float smileY;
     private boolean isSad;
 
@@ -58,7 +57,6 @@ public class MinesweeperGUI extends PApplet {
 
         begin = millis();
 
-        smileX = width/2f;
         smileY = 150f;
         isSad = false;
 
@@ -85,7 +83,7 @@ public class MinesweeperGUI extends PApplet {
         // Adapt widgets
         calculatePosition();
         // Mode switch buttons
-        this.addButtons();
+        addButtons();
         // Draw texts
         drawTexts();
         // Check game state
@@ -141,14 +139,10 @@ public class MinesweeperGUI extends PApplet {
     public void checkGameState() {
         if(!isGameOver && game.getMovesLeft()==0) {
             resetButton.setVictorious(true);
-            isGameOver = true;
-            //System.out.println("\nCongratulations!\nBye\n");
         }
-
         // Game is lost
         if(isGameOver) {
             resetButton.setIsSad(true);
-            isGameOver = true;
         }
     }
 
@@ -189,6 +183,13 @@ public class MinesweeperGUI extends PApplet {
         //  if (time > 0)
         time = duration + (millis() + begin)/1000;
         text(String.format("%03d", time),timerTextX, smileY+15f); // Timer is seconds
+
+        pushStyle();
+        textSize(16);
+        fill(231,84,128);
+        textAlign(CENTER);
+        text("Clone of Minesweeper (with Processing Library)\nby Altynbek uulu Yiman for OOP 2021",width/2f, height-height/6f);
+        popStyle();
     }
 
     public void drawFlag(float x, float y) {

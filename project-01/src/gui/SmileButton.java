@@ -4,10 +4,14 @@ import processing.core.PApplet;
 
 public class SmileButton //extends java.awt.Button
 {
-    private float x, y, width, height;
+    private float x;
+    private float y;
+    private float width;
+    private float height;
+    private final float borderWidth = 8f;
     private final PApplet canvas;
     private boolean isSad;
-    private boolean isVictorious;
+    private boolean isVictorious = false;
     private OnClickListener listener;
 
     public SmileButton(PApplet canvas, float x, float y, float width, float height) {
@@ -29,17 +33,18 @@ public class SmileButton //extends java.awt.Button
         canvas.translate(this.x, this.y);
 
         canvas.fill(200,200,200);
-        canvas.quad(0, 0, 0, height, 4f, height-4f, 4f, 4f);
-        canvas.quad(0, 0, width, 0, width-4f, 4f, 4f, 4f);
+        canvas.quad(0, 0, 0, height, borderWidth, height-borderWidth, borderWidth, borderWidth);
+        canvas.quad(0, 0, width, 0, width-borderWidth, borderWidth, borderWidth, borderWidth);
 
         canvas.fill(120,120,120);
-        canvas.quad(0, height, width, height, width-4f, height-4f, 4f, height-4f);
-        canvas.quad(width, height, width, 0, width-4f, 4f, width-4f, height-4f);
+        canvas.quad(0, height, width, height, width-borderWidth, height-borderWidth, borderWidth, height-borderWidth);
+        canvas.quad(width, height, width, 0, width-borderWidth, borderWidth, width-borderWidth, height-borderWidth);
 
         canvas.fill(150,150,150);
-        canvas.rect(4f, 4f, width-8, height-8);
+        canvas.rect(borderWidth, borderWidth, width-16, height-16);
 
 
+        // Draw the smile
         canvas.popStyle();
         canvas.popMatrix();
 
@@ -51,20 +56,38 @@ public class SmileButton //extends java.awt.Button
         canvas.strokeWeight(0f);
         canvas.circle(width/2f, height/2f, 50);
         canvas.strokeWeight(3f);
-        //white
-        canvas.fill(0);
-        //draw the eyes
-        canvas.circle(width/2f-10f, height/2f-10f, 3);
-        canvas.circle(width/2f+10f, height/2f-10f, 3);
-        //black
-        // draw the pupils
-        // circle(x-10f, y-10f, 10);
-        // circle(x+10f, y-10f, 10);
-        //red
-        //fill(255, 0, 0);
-        //draw the mouth
+
+        if(isVictorious) {
+            canvas.stroke(255,0,0);
+            //red
+            canvas.fill(255,0,0);
+            //draw the eyes
+            canvas.circle(width/2f-10f, height/2f-10f, 6);
+            canvas.circle(width/2f+10f, height/2f-10f, 6);
+            //black
+            // draw the pupils
+            // circle(x-10f, y-10f, 10);
+            // circle(x+10f, y-10f, 10);
+            //red
+            //fill(255, 0, 0);
+            //draw the mouth
+            // strokeWeight(2f);
+        } else {
+            //white
+            canvas.fill(0);
+            //draw the eyes
+            canvas.circle(width/2f-10f, height/2f-10f, 3);
+            canvas.circle(width/2f+10f, height/2f-10f, 3);
+            //black
+            // draw the pupils
+            // circle(x-10f, y-10f, 10);
+            // circle(x+10f, y-10f, 10);
+            //red
+            //fill(255, 0, 0);
+            //draw the mouth
+            // strokeWeight(2f);
+        }
         canvas.fill(255, 255, 0);
-        // strokeWeight(2f);
         if(!isSad) {
             canvas.arc(width/2f, height/2f+7f, 25, 18, 0, canvas.PI);
         } else {
@@ -83,15 +106,15 @@ public class SmileButton //extends java.awt.Button
         canvas.translate(this.x, this.y);
 
         canvas.fill(170,170,170);
-        canvas.quad(0, 0, 0, height, 4f, height-4f, 4f, 4f);
-        canvas.quad(0, 0, width, 0, width-4f, 4f, 4f, 4f);
+        canvas.quad(0, 0, 0, height, borderWidth, height-borderWidth, borderWidth, borderWidth);
+        canvas.quad(0, 0, width, 0, width-borderWidth, borderWidth, borderWidth, borderWidth);
 
         canvas.fill(170,170,170);
-        canvas.quad(0, height, width, height, width-4f, height-4f, 4f, height-4f);
-        canvas.quad(width, height, width, 0, width-4f, 4f, width-4f, height-4f);
+        canvas.quad(0, height, width, height, width-borderWidth, height-borderWidth, borderWidth, height-borderWidth);
+        canvas.quad(width, height, width, 0, width-borderWidth, borderWidth, width-borderWidth, height-borderWidth);
 
         canvas.fill(100,100,100);
-        canvas.rect(4f, 4f, width-8, height-8);
+        canvas.rect(borderWidth, borderWidth, width-16, height-16);
 
         canvas.popStyle();
         canvas.popMatrix();
@@ -105,9 +128,10 @@ public class SmileButton //extends java.awt.Button
         //draw the head
         canvas.strokeWeight(0f);
         canvas.circle(width/2f+2f, height/2f+2f, 50);
+
+        canvas.fill(0);
         canvas.strokeWeight(3f);
         //white
-        canvas.fill(0);
         //draw the eyes
         canvas.circle(width/2f-10f+2f, height/2f-10f+2f, 3);
         canvas.circle(width/2f+10f+2f, height/2f-10f+2f, 3);
@@ -125,11 +149,7 @@ public class SmileButton //extends java.awt.Button
         } else {
             canvas.arc(width/2f+2f, height/2f+13f+2f, 25, 18, -canvas.PI, 0);
         }
-        if(!isVictorious) {
-            canvas.arc(width/2f+2f, height/2f+7f+2f, 25, 18, 0, canvas.PI);
-        } else {
-            canvas.arc(width/2f+2f, height/2f+13f+2f, 25, 18, -canvas.PI, 0);
-        }
+
         canvas.popStyle();
         canvas.popMatrix();
     }
