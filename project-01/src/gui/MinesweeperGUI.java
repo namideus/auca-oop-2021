@@ -85,7 +85,7 @@ public class MinesweeperGUI extends PApplet {
         // Mode switch buttons
         addButtons();
         // Draw texts
-        drawTexts();
+        drawText();
         // Check game state
         checkGameState();
     }
@@ -175,7 +175,7 @@ public class MinesweeperGUI extends PApplet {
         });
     }
 
-    public void drawTexts() {
+    public void drawText() {
         // Mines and timer
         textSize(60);
         fill(255, 0, 0);
@@ -184,6 +184,7 @@ public class MinesweeperGUI extends PApplet {
         time = duration + (millis() + begin)/1000;
         text(String.format("%03d", time),timerTextX, smileY+15f); // Timer is seconds
 
+        // Signature
         pushStyle();
         textSize(16);
         fill(231,84,128);
