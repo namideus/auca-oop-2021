@@ -4,18 +4,17 @@ import processing.core.PApplet;
 
 public class Flag
 {
-    private  static final int N = 4;
     private float x,y,width,height;
-    private int textColorR,textColorG, textColorB;
-    private boolean bounceX,bounceY;
     private final PApplet canvas;
 
-    public Flag(PApplet canvas, float x, float y, float width, float height, String text) {
+    public Flag(PApplet canvas, float x, float y, float width, float height) {
         this.canvas = canvas;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+
+        draw();
     }
 
     public void draw() {
@@ -24,19 +23,17 @@ public class Flag
         canvas.strokeWeight(0f);
         canvas.translate(this.x, this.y);
 
-        canvas.fill(200,200,200);
-        canvas.quad(0, 0, 0, height, 4f, height-4f, 4f, 4f);
-        canvas.quad(0, 0, width, 0, width-4f, 4f, 4f, 4f);
-
-        canvas.fill(120,120,120);
-        canvas.quad(0, height, width, height, width-4f, height-4f, 4f, height-4f);
-        canvas.quad(width, height, width, 0, width-4f, 4f, width-4f, height-4f);
-
-        canvas.fill(150,150,150);
-        canvas.rect(4f, 4f, width-8, height-8);
+        canvas.fill(0);
+        canvas.rect(width/2f-1f, 6f, 2f, height-14f);
+        canvas.rect(7f, height-10f, 21f, 4f);
+        canvas.triangle(6f,13f,width/2f-1f, 6f,width/2f-1f, 18f);
+        canvas.fill(255,0,0);
+        canvas.triangle(8f,13f,width/2f-2f, 8f,width/2f-2f, 16f);
 
         canvas.popStyle();
         canvas.popMatrix();
+
+
     }
 
 

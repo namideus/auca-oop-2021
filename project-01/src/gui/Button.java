@@ -82,7 +82,6 @@ public class Button //extends java.awt.Button
 
     public void setOnClickListener(OnClickListener listener) {
         this.listener = listener;
-
         if(canvas.mousePressed) {
             if (canvas.mouseX > x && canvas.mouseX < x + width && canvas.mouseY > y && canvas.mouseY < y + height) {
                 if(this.listener!=null) {
@@ -95,7 +94,6 @@ public class Button //extends java.awt.Button
 
     public void setOnLeftClickListener(OnClickListener listener) {
         this.listener = listener;
-
         if(canvas.mousePressed) {
             if(canvas.mouseButton==canvas.LEFT) {
                 if (canvas.mouseX > x && canvas.mouseX < x + width && canvas.mouseY > y && canvas.mouseY < y + height) {
@@ -110,7 +108,6 @@ public class Button //extends java.awt.Button
 
     public void setOnRightClickListener(OnClickListener listener) {
         this.listener = listener;
-
         if(canvas.mousePressed) {
             if(canvas.mouseButton==canvas.RIGHT) {
                 if (canvas.mouseX > x && canvas.mouseX < x + width && canvas.mouseY > y && canvas.mouseY < y + height) {

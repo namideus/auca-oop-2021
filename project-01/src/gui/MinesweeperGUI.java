@@ -122,7 +122,8 @@ public class MinesweeperGUI extends PApplet {
         } else if(cell=='*')
             new Mine(this, x,y,cellSide,cellSide, 10f);
         else if(cell=='F')
-            drawFlag(x,y);
+            new Flag(this, x,y,cellSide,cellSide);
+            //drawFlag(x,y);
         else if(cell=='#')
             cellBtn.drawPressed();
     }
@@ -191,12 +192,6 @@ public class MinesweeperGUI extends PApplet {
         textAlign(CENTER);
         text("Clone of Minesweeper (with Processing Library)\nby Altynbek uulu Yiman for OOP 2021",width/2f, height-height/6f);
         popStyle();
-    }
-
-    public void drawFlag(float x, float y) {
-        fill(130,130,130);
-        strokeWeight(0f);
-        rect(x, y, cellSide, cellSide);
     }
 
     public static void main(String[] args) {
