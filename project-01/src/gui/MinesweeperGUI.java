@@ -1,5 +1,6 @@
 package gui;
 
+import com.sun.tools.javac.Main;
 import processing.core.*;
 
 /**
@@ -43,6 +44,9 @@ public class MinesweeperGUI extends PApplet {
 
     private boolean isGameOver = false;
 
+    private SmileButton resetButton;
+    private Button beginnerMode, intermediateMode, expertMode;
+
     // Settings
     public void settings() {
         fullScreen();
@@ -76,22 +80,14 @@ public class MinesweeperGUI extends PApplet {
     // Draw
     public void draw() {
         background(0, 0, 0);
-
         // Draw the field
         updateField();
-
         // Adapt widgets
         calculatePosition();
-
         // Mode switch buttons
         this.addButtons();
-
-        // Draw a smile
-        drawSmile(smileX, smileY, isSad);
-
         // Draw texts
         drawTexts();
-
         // Check game state
         checkGameState();
     }
@@ -101,36 +97,36 @@ public class MinesweeperGUI extends PApplet {
         float x,y;
         char cell;
         Button cellBtn;
+
         for(int i=0; i<game.getWidth(); ++i) {
             for(int j=0; j<game.getHeight(); ++j) {
+
                 x = i*cellSide+width/2f-cellSide*game.getWidth()/2f;
                 y = j*cellSide+height/2f-cellSide*game.getHeight()/2f;
 
                 cell = game.getCharBoard()[j][i];
                 cellBtn = new Button(this, x,y,cellSide,cellSide, null);
 
-                if(cell=='.') {
-                    int finalI = i, finalJ = j;
-                    if(!isGameOver) {
-                        cellBtn.setOnLeftClickListener(() -> {
-                            isGameOver = game.left(finalJ, finalI);
-                        });
-                        cellBtn.setOnRightClickListener(() -> {
-                            game.right(finalJ, finalI);
-                        });
-                    }
-                } else if(cell>='1' && cell<='9') {
-                    cellBtn.drawPressed();
-                    drawDigit(x, y, cell - '0');
-                } else if(cell=='*'){
-                    drawMine(x,y);
-                } else if(cell=='F'){
-                    drawFlag(x,y);
-                } else if(cell=='#'){
-                    cellBtn.drawPressed();
-                }
+                drawElement(cell,x,y,i,j,cellBtn);
             }
         }
+    }
+
+    // Draw digits
+    public void drawElement(char cell, float x, float y, int col, int row, Button cellBtn) {
+        if(cell=='.') {
+            if(!isGameOver) {
+                cellBtn.setOnLeftClickListener(() -> isGameOver = game.left(row, col));
+                cellBtn.setOnRightClickListener(() -> game.right(row, col));
+            }
+        } else if(Character.isDigit(cell)) {
+            new Digit(this, x,y,cellSide,cellSide, 25, cell - '0');
+        } else if(cell=='*')
+            new Mine(this, x,y,cellSide,cellSide, 10f);
+        else if(cell=='F')
+            drawFlag(x,y);
+        else if(cell=='#')
+            cellBtn.drawPressed();
     }
 
     public void calculatePosition() {
@@ -141,41 +137,43 @@ public class MinesweeperGUI extends PApplet {
         timerTextX = width/2f+cellSide*game.getWidth()/2f-110f;
     }
 
+    // Update game state all the time to identify loss or win
     public void checkGameState() {
         if(!isGameOver && game.getMovesLeft()==0) {
-            System.out.println("\nCongratulations!\nBye\n");
+            resetButton.setVictorious(true);
+            isGameOver = true;
+            //System.out.println("\nCongratulations!\nBye\n");
         }
 
         // Game is lost
         if(isGameOver) {
-            isSad = true;
-            System.out.println("\nNext time you will be better\nBye\n");
+            resetButton.setIsSad(true);
+            isGameOver = true;
         }
     }
 
     public void addButtons() {
-        Button resetButton = new Button(this, startButtonX,startButtonY,startButtonW,startButtonH, null);
+        resetButton = new SmileButton(this, startButtonX, startButtonY, startButtonW,startButtonH);
         resetButton.setOnClickListener(() -> {
-            System.out.println("Game reset");
             game = new Game(this.mode);
             isSad = isGameOver = false;
         });
 
-        Button beginnerMode = new Button(this, modeButtonX,modeButtonY,modeButtonW,modeButtonH, Game.BEGINNER);
+        beginnerMode = new Button(this, modeButtonX,modeButtonY,modeButtonW,modeButtonH, Game.BEGINNER);
         beginnerMode.setOnClickListener(() -> {
             this.mode = Game.BEGINNER;
             isSad = isGameOver = false;
             game = new Game(this.mode);
         });
 
-        Button intermediateMode = new Button(this, modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH, Game.INTERMEDIATE);
+        intermediateMode = new Button(this, modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH, Game.INTERMEDIATE);
         intermediateMode.setOnClickListener(() -> {
             this.mode = Game.INTERMEDIATE;
             isSad = isGameOver = false;
             game = new Game(this.mode);
         });
 
-        Button expertMode = new Button(this, modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH, Game.EXPERT);
+        expertMode = new Button(this, modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH, Game.EXPERT);
         expertMode.setOnClickListener(() -> {
             this.mode = Game.EXPERT;
             isSad = isGameOver = false;
@@ -193,93 +191,10 @@ public class MinesweeperGUI extends PApplet {
         text(String.format("%03d", time),timerTextX, smileY+15f); // Timer is seconds
     }
 
-    public void drawDigit(float x, float y, int dig) {
-        textSize(25);
-        switch (dig) {
-            case 1:
-                fill(0, 0, 255);
-                break;
-            case 2:
-                fill(255, 0, 0);
-                break;
-            case 3:
-                fill(0, 128, 0);
-                break;
-            case 4:
-                fill(255, 192, 203);
-                break;
-            case 5:
-                fill(128,0,128);
-                break;
-            case 6:
-                fill(255,255,0);
-                break;
-            case 7:
-                fill(255,165,0);
-                break;
-            case 8:
-                fill(244,0,161);
-                break;
-        }
-        text(dig,x+11f, y+27f); // Adjacent numbers
-    }
-
-    public void drawMine(float x, float y) {
-        float r = 10f;
-        fill(130,130,130);
-        strokeWeight(0f);
-        rect(x, y, cellSide, cellSide);
-
-        pushMatrix();
-        translate(x+18f,y+18f);
-        pushStyle();
-        stroke(0);
-        strokeWeight(3f);
-
-        for(int i=0; i<5; ++i) {
-            rotate((float) (Math.PI/5));
-            line(-r,0,r,0);
-        }
-        popStyle();
-        popMatrix();
-    }
-
     public void drawFlag(float x, float y) {
         fill(130,130,130);
         strokeWeight(0f);
         rect(x, y, cellSide, cellSide);
-    }
-
-    // Draw sad or happy smile
-    public void drawSmile(float x, float y, boolean sad) {
-        //-----------SMILE----------------------------------------------------
-        // Yellow color
-        fill(255, 255, 0);
-        //draw the head
-        circle(x, y, 50);
-        pushStyle();
-        strokeWeight(3f);
-        //white
-        fill(0);
-        //draw the eyes
-        circle(x-10f, y-10f, 3);
-        circle(x+10f, y-10f, 3);
-        //black
-        // draw the pupils
-        // circle(x-10f, y-10f, 10);
-        // circle(x+10f, y-10f, 10);
-        //red
-        //fill(255, 0, 0);
-        //draw the mouth
-        fill(255, 255, 0);
-       // strokeWeight(2f);
-        if(!sad) {
-            arc(x, y + 7f, 25, 18, 0, PI);
-        } else {
-            arc(x, y + 13f, 25, 18, -PI, 0);
-        }
-        popStyle();
-        //-------------------------------------------------------------------
     }
 
     public static void main(String[] args) {
