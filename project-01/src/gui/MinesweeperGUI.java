@@ -118,14 +118,16 @@ public class MinesweeperGUI extends PApplet {
                 cellBtn.setOnRightClickListener(() -> game.right(row, col));
             }
         } else if(Character.isDigit(cell)) {
-            new Digit(this, x,y,cellSide,cellSide, 25, cell - '0');
-        } else if(cell=='*')
-            new Mine(this, x,y,cellSide,cellSide, 10f);
-        else if(cell=='F')
-            new Flag(this, x,y,cellSide,cellSide);
-            //drawFlag(x,y);
-        else if(cell=='#')
             cellBtn.drawPressed();
+            new Digit(this, x,y,cellSide,cellSide, 25, cell - '0');
+        } else if(cell=='*') {
+            cellBtn.drawPressed();
+            new Mine(this, x, y, cellSide, cellSide, 10f);
+        } else if(cell=='F') {
+            new Flag(this, x, y, cellSide, cellSide);
+        } else if(cell=='#') {
+            cellBtn.drawPressed();
+        }
     }
 
     public void calculatePosition() {
