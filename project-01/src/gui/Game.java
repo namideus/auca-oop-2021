@@ -229,26 +229,36 @@ public class Game {
         if(!isValid(row, col))
             throw new RuntimeException("Invalid parameters passed in right() function");
 
-        if(charBoard[row][col]!='.')
-            return;
-
-        if(charBoard[row][col]=='F' && isMine(row, col)) {
-            charBoard[row][col] = '.';
-            --flags;
-        }
+//        if(charBoard[row][col]!='.')
+//            return;
+//
+//        if(charBoard[row][col]=='F' && isMine(row, col)) {
+//            charBoard[row][col] = '.';
+//            --flags;
+//        }
 
         if(isMine(row, col)) {
             charBoard[row][col] = 'F';
-            ++flags;
+            ++maxMines;
         }
 
-        for (int k=0; k<8; ++k) {
-            if (isValid(xs[k] + row, ys[k] + col))
-                if(isMine(xs[k] + row, ys[k] + col)) {
-                    charBoard[xs[k] + row][ys[k] + col] = 'F';
-                    ++flags;
-            }
+        if(charBoard[row][col]=='F') {
+            charBoard[row][col] = '.';
+            --maxMines;
         }
+
+//        if(isMine(row, col)) {
+//            charBoard[row][col] = 'F';
+//            ++flags;
+//        }
+//
+//        for (int k=0; k<8; ++k) {
+//            if (isValid(xs[k] + row, ys[k] + col))
+//                if(isMine(xs[k] + row, ys[k] + col)) {
+//                    charBoard[xs[k] + row][ys[k] + col] = 'F';
+//                    ++flags;
+//            }
+//        }
     }
 
     // To string

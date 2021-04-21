@@ -17,6 +17,7 @@ public class MinesweeperGUI extends PApplet {
     // Globals
     private Game game;
     private String mode;
+    private Timer timer;
 
     private final float cellSide = 35f;
 
@@ -38,8 +39,8 @@ public class MinesweeperGUI extends PApplet {
     private float startButtonH;
 
     private int begin;
-    private int duration = 0;
-    private int time = 0;
+    private int duration;
+    private int time;
 
     private boolean isGameOver = false;
 
@@ -56,6 +57,9 @@ public class MinesweeperGUI extends PApplet {
         frameRate(60);
 
         begin = millis();
+        duration = time = 0;
+
+        timer = new Timer(this, 3000);
 
         smileY = 150f;
         isSad = false;
@@ -130,6 +134,7 @@ public class MinesweeperGUI extends PApplet {
         }
     }
 
+    // Calculation coordinates of all widgets on screen
     public void calculatePosition() {
         modeButtonX = width/2f+cellSide*game.getWidth()/2f+30f;
         smileY = height/2f-cellSide*game.getHeight()/2f-40f;
@@ -141,10 +146,12 @@ public class MinesweeperGUI extends PApplet {
     // Update game state all the time to identify loss or win
     public void checkGameState() {
         if(!isGameOver && game.getMovesLeft()==0) {
+            timer.reset();
             resetButton.setVictorious(true);
         }
         // Game is lost
         if(isGameOver) {
+            timer.reset();
             resetButton.setIsSad(true);
         }
     }
@@ -152,30 +159,25 @@ public class MinesweeperGUI extends PApplet {
     public void addButtons() {
         resetButton = new SmileButton(this, startButtonX, startButtonY, startButtonW,startButtonH);
         resetButton.setOnClickListener(() -> {
-            game = new Game(this.mode);
-            isSad = isGameOver = false;
+            timer.reset();
+            setGame(this.mode);
         });
 
         beginnerMode = new Button(this, modeButtonX,modeButtonY,modeButtonW,modeButtonH, Game.BEGINNER);
-        beginnerMode.setOnClickListener(() -> {
-            this.mode = Game.BEGINNER;
-            isSad = isGameOver = false;
-            game = new Game(this.mode);
-        });
+        beginnerMode.setOnClickListener(() -> setGame(Game.BEGINNER));
 
         intermediateMode = new Button(this, modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH, Game.INTERMEDIATE);
-        intermediateMode.setOnClickListener(() -> {
-            this.mode = Game.INTERMEDIATE;
-            isSad = isGameOver = false;
-            game = new Game(this.mode);
-        });
+        intermediateMode.setOnClickListener(() -> setGame(Game.INTERMEDIATE));
 
         expertMode = new Button(this, modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH, Game.EXPERT);
-        expertMode.setOnClickListener(() -> {
-            this.mode = Game.EXPERT;
-            isSad = isGameOver = false;
-            game = new Game(this.mode);
-        });
+        expertMode.setOnClickListener(() -> setGame(Game.EXPERT));
+    }
+
+    public void setGame(String mode) {
+        timer.reset();
+        this.mode = mode;
+        isSad = isGameOver = false;
+        game = new Game(this.mode);
     }
 
     public void drawText() {
@@ -184,8 +186,7 @@ public class MinesweeperGUI extends PApplet {
         fill(255, 0, 0);
         text(String.format("%03d",(game.getMaxMines())-game.getFlags()),minesTextX, smileY+15f); // Mines' number
         //  if (time > 0)
-        time = duration + (millis() + begin)/1000;
-        text(String.format("%03d", time),timerTextX, smileY+15f); // Timer is seconds
+        text(String.format("%03d", timer.getEllapsedTime()), timerTextX, smileY+15f); // Timer is seconds
 
         // Signature
         pushStyle();

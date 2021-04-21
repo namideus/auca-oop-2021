@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/auca-oop-2021.iml" filepath="$PROJECT_DIR$/.idea/auca-oop-2021.iml" />
       <module fileurl="file://$PROJECT_DIR$/exp/exp.iml" filepath="$PROJECT_DIR$/exp/exp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/f-uri-1030/f-uri-1030.iml" filepath="$PROJECT_DIR$/f-uri-1030/f-uri-1030.iml" />
       <module fileurl="file://$PROJECT_DIR$/f-uri-1031/f-uri-1031.iml" filepath="$PROJECT_DIR$/f-uri-1031/f-uri-1031.iml" />
       <module fileurl="file://$PROJECT_DIR$/f-uri-1087/f-uri-1087.iml" filepath="$PROJECT_DIR$/f-uri-1087/f-uri-1087.iml" />
       <module fileurl="file://$PROJECT_DIR$/f-uri-1129/f-uri-1129.iml" filepath="$PROJECT_DIR$/f-uri-1129/f-uri-1129.iml" />
@@ -31,6 +32,7 @@
       <module fileurl="file://$PROJECT_DIR$/lab-03/lab-03.iml" filepath="$PROJECT_DIR$/lab-03/lab-03.iml" />
       <module fileurl="file://$PROJECT_DIR$/lab-04/lab-04.iml" filepath="$PROJECT_DIR$/lab-04/lab-04.iml" />
       <module fileurl="file://$PROJECT_DIR$/lab-05/lab-05.iml" filepath="$PROJECT_DIR$/lab-05/lab-05.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lab-06/lab-06.iml" filepath="$PROJECT_DIR$/lab-06/lab-06.iml" />
       <module fileurl="file://$PROJECT_DIR$/m-uri-1024/m-uri-1024.iml" filepath="$PROJECT_DIR$/m-uri-1024/m-uri-1024.iml" />
       <module fileurl="file://$PROJECT_DIR$/m-uri-1120/m-uri-1120.iml" filepath="$PROJECT_DIR$/m-uri-1120/m-uri-1120.iml" />
       <module fileurl="file://$PROJECT_DIR$/m-uri-1168/m-uri-1168.iml" filepath="$PROJECT_DIR$/m-uri-1168/m-uri-1168.iml" />
