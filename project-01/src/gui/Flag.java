@@ -13,8 +13,6 @@ public class Flag
         this.y = y;
         this.width = width;
         this.height = height;
-
-        draw();
     }
 
     public void draw() {
@@ -32,9 +30,13 @@ public class Flag
 
         canvas.popStyle();
         canvas.popMatrix();
-
-
     }
 
+    public float getX() {
+        return x;
+    }
 
+    public float getY() {
+        return y;
+    }
 }

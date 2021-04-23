@@ -10,7 +10,7 @@ package gui;
  *
  * * */
 
-public class Game {
+public class GameLogic {
 
     // Variables
     public static final String BEGINNER = "beginner";
@@ -36,17 +36,17 @@ public class Game {
     private final int[] ys = { 1, -1, 1, 0, 0,-1, 1 , -1 };
 
     // Constructor for three modes of Minesweeper Game
-    public Game(String mode) {
+    public GameLogic(String mode) {
         switch (mode) {
-            case Game.BEGINNER:
+            case GameLogic.BEGINNER:
                 height = width = 9;
                 maxMines = 9;
                 break;
-            case Game.INTERMEDIATE:
+            case GameLogic.INTERMEDIATE:
                 height = width = 16;
                 maxMines = 40;
                 break;
-            case Game.EXPERT:
+            case GameLogic.EXPERT:
                 height = 16;
                 width = 30;
                 maxMines = 99;
@@ -61,7 +61,7 @@ public class Game {
     }
 
     // Constructor for custom Minesweeper Game
-    public Game(int height, int width, int mines) {
+    public GameLogic(int height, int width, int mines) {
         this.mode = CUSTOM;
 
         if(height < 1) {
@@ -229,35 +229,39 @@ public class Game {
         if(!isValid(row, col))
             throw new RuntimeException("Invalid parameters passed in right() function");
 
-//        if(charBoard[row][col]!='.')
-//            return;
-//
-//        if(charBoard[row][col]=='F' && isMine(row, col)) {
-//            charBoard[row][col] = '.';
-//            --flags;
-//        }
+        if(charBoard[row][col]!='.')
+            return;
+
+        if(charBoard[row][col]=='F' && isMine(row, col)) {
+            charBoard[row][col] = '.';
+            --flags;
+        }
 
         if(isMine(row, col)) {
             charBoard[row][col] = 'F';
-            ++maxMines;
+            ++flags;
         }
 
-        if(charBoard[row][col]=='F') {
-            charBoard[row][col] = '.';
-            --maxMines;
+        for (int k=0; k<8; ++k) {
+            if (isValid(xs[k] + row, ys[k] + col))
+                if(isMine(xs[k] + row, ys[k] + col)) {
+                    charBoard[xs[k] + row][ys[k] + col] = 'F';
+                    ++flags;
+            }
         }
 
-//        if(isMine(row, col)) {
+   //     charBoard[row][col] = 'F';
+
+//        if(charBoard[row][col]=='.' && maxMines>0) {
 //            charBoard[row][col] = 'F';
-//            ++flags;
+//            System.out.println( charBoard[row][col] );
+//            --maxMines;
 //        }
 //
-//        for (int k=0; k<8; ++k) {
-//            if (isValid(xs[k] + row, ys[k] + col))
-//                if(isMine(xs[k] + row, ys[k] + col)) {
-//                    charBoard[xs[k] + row][ys[k] + col] = 'F';
-//                    ++flags;
-//            }
+//        if(charBoard[row][col] == 'F') {
+//            charBoard[row][col] = '.';
+//            System.out.println( charBoard[row][col] );
+//            ++maxMines;
 //        }
     }
 

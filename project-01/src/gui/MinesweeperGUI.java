@@ -1,6 +1,5 @@
 package gui;
 
-import com.sun.tools.javac.Main;
 import processing.core.*;
 
 /**
@@ -15,37 +14,25 @@ import processing.core.*;
 public class MinesweeperGUI extends PApplet {
 
     // Globals
-    private Game game;
+    private GameLogic game;
     private String mode;
     private Timer timer;
-
     private final float cellSide = 35f;
-
     private float modeButtonX;
     private float modeButtonY;
     private float modeButtonW;
     private float modeButtonH;
-    private float dif;
-
     private float smileY;
-    private boolean isSad;
-
     private float minesTextX;
     private float timerTextX;
-
     private float startButtonX;
     private float startButtonY;
     private float startButtonW;
     private float startButtonH;
 
-    private int begin;
-    private int duration;
-    private int time;
-
     private boolean isGameOver = false;
 
     private SmileButton resetButton;
-    private Button beginnerMode, intermediateMode, expertMode;
 
     // Settings
     public void settings() {
@@ -56,27 +43,20 @@ public class MinesweeperGUI extends PApplet {
     public void setup() {
         frameRate(60);
 
-        begin = millis();
-        duration = time = 0;
-
         timer = new Timer(this, 3000);
 
         smileY = 150f;
-        isSad = false;
-
         startButtonX = width/2f-35f;
         startButtonY = 115f;
         startButtonW = 70f;
         startButtonH = 70f;
-
-        dif = 70f;
         modeButtonX = 0f;
-        modeButtonY = height/2f-dif;
+        modeButtonY = height/2f-70f;
         modeButtonW = 190f;
         modeButtonH = 40f;
 
-        this.mode = Game.BEGINNER;
-        game = new Game(this.mode);
+        this.mode = GameLogic.BEGINNER;
+        game = new GameLogic(this.mode);
     }
 
     // Draw
@@ -123,12 +103,12 @@ public class MinesweeperGUI extends PApplet {
             }
         } else if(Character.isDigit(cell)) {
             cellBtn.drawPressed();
-            new Digit(this, x,y,cellSide,cellSide, 25, cell - '0');
+            (new Digit(this, x,y,cellSide,cellSide, 25, cell - '0')).draw();
         } else if(cell=='*') {
             cellBtn.drawPressed();
-            new Mine(this, x, y, cellSide, cellSide, 10f);
+            (new Mine(this, x, y, cellSide, cellSide, 10f)).draw(false);
         } else if(cell=='F') {
-            new Flag(this, x, y, cellSide, cellSide);
+            (new Flag(this, x, y, cellSide, cellSide)).draw();
         } else if(cell=='#') {
             cellBtn.drawPressed();
         }
@@ -156,39 +136,37 @@ public class MinesweeperGUI extends PApplet {
         }
     }
 
+    // Create buttons and set listeners
     public void addButtons() {
         resetButton = new SmileButton(this, startButtonX, startButtonY, startButtonW,startButtonH);
         resetButton.setOnClickListener(() -> {
             timer.reset();
             setGame(this.mode);
         });
-
-        beginnerMode = new Button(this, modeButtonX,modeButtonY,modeButtonW,modeButtonH, Game.BEGINNER);
-        beginnerMode.setOnClickListener(() -> setGame(Game.BEGINNER));
-
-        intermediateMode = new Button(this, modeButtonX,modeButtonY+dif,modeButtonW,modeButtonH, Game.INTERMEDIATE);
-        intermediateMode.setOnClickListener(() -> setGame(Game.INTERMEDIATE));
-
-        expertMode = new Button(this, modeButtonX,modeButtonY+2*dif,modeButtonW,modeButtonH, Game.EXPERT);
-        expertMode.setOnClickListener(() -> setGame(Game.EXPERT));
+        Button beginnerMode = new Button(this, modeButtonX, modeButtonY, modeButtonW, modeButtonH, GameLogic.BEGINNER);
+        beginnerMode.setOnClickListener(() -> setGame(GameLogic.BEGINNER));
+        Button intermediateMode = new Button(this, modeButtonX, modeButtonY + 70f, modeButtonW, modeButtonH, GameLogic.INTERMEDIATE);
+        intermediateMode.setOnClickListener(() -> setGame(GameLogic.INTERMEDIATE));
+        Button expertMode = new Button(this, modeButtonX, modeButtonY + 140f, modeButtonW, modeButtonH, GameLogic.EXPERT);
+        expertMode.setOnClickListener(() -> setGame(GameLogic.EXPERT));
     }
 
+    // Set game mode, timer and states
     public void setGame(String mode) {
         timer.reset();
         this.mode = mode;
-        isSad = isGameOver = false;
-        game = new Game(this.mode);
+        isGameOver = false;
+        game = new GameLogic(this.mode);
     }
 
+    // Draw some text
     public void drawText() {
         // Mines and timer
         textSize(60);
         fill(255, 0, 0);
         text(String.format("%03d",(game.getMaxMines())-game.getFlags()),minesTextX, smileY+15f); // Mines' number
-        //  if (time > 0)
         text(String.format("%03d", timer.getEllapsedTime()), timerTextX, smileY+15f); // Timer is seconds
-
-        // Signature
+        // Credits
         pushStyle();
         textSize(16);
         fill(231,84,128);
@@ -197,6 +175,7 @@ public class MinesweeperGUI extends PApplet {
         popStyle();
     }
 
+    // Program driver
     public static void main(String[] args) {
         PApplet.main("gui.MinesweeperGUI");
     }

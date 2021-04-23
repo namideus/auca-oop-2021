@@ -17,11 +17,9 @@ public class Digit
         this.height = height;
         this.size = size;
         this.digit = digit;
-
-        draw();
     }
 
-    private void draw() {
+    void draw() {
 //        canvas.pushMatrix();
 //        canvas.pushStyle();
 //        canvas.strokeWeight(0f);
