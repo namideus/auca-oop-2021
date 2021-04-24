@@ -120,6 +120,14 @@ public class Button //extends java.awt.Button
         }
     }
 
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
     interface OnClickListener {
         void onClick();
     }

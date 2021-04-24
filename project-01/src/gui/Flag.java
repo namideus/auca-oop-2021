@@ -2,9 +2,14 @@ package gui;
 
 import processing.core.PApplet;
 
+import java.util.Objects;
+
 public class Flag
 {
-    private float x,y,width,height;
+    private final float x;
+    private final float y;
+    private final float width;
+    private final float height;
     private final PApplet canvas;
 
     public Flag(PApplet canvas, float x, float y, float width, float height) {
@@ -28,15 +33,26 @@ public class Flag
         canvas.fill(255,0,0);
         canvas.triangle(8f,13f,width/2f-2f, 8f,width/2f-2f, 16f);
 
+
         canvas.popStyle();
         canvas.popMatrix();
     }
 
-    public float getX() {
-        return x;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flag flag = (Flag) o;
+        return  x == flag.x && y == flag.y;
     }
 
-    public float getY() {
-        return y;
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Flag(%f.1,%f.1,%f.1,%.1f)",x,y,width,height);
     }
 }

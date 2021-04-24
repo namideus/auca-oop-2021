@@ -2,6 +2,8 @@ package gui;
 
 import processing.core.*;
 
+import java.util.ArrayList;
+
 /**
  * @author Iman Augustine
  *
@@ -15,6 +17,7 @@ public class MinesweeperGUI extends PApplet {
 
     // Globals
     private GameLogic game;
+    private SmileButton resetButton;
     private String mode;
     private Timer timer;
     private final float cellSide = 35f;
@@ -29,10 +32,8 @@ public class MinesweeperGUI extends PApplet {
     private float startButtonY;
     private float startButtonW;
     private float startButtonH;
-
     private boolean isGameOver = false;
-
-    private SmileButton resetButton;
+    private boolean isGameWon = false;
 
     // Settings
     public void settings() {
@@ -42,9 +43,7 @@ public class MinesweeperGUI extends PApplet {
     // Setup
     public void setup() {
         frameRate(60);
-
         timer = new Timer(this, 3000);
-
         smileY = 150f;
         startButtonX = width/2f-35f;
         startButtonY = 115f;
@@ -54,7 +53,6 @@ public class MinesweeperGUI extends PApplet {
         modeButtonY = height/2f-70f;
         modeButtonW = 190f;
         modeButtonH = 40f;
-
         this.mode = GameLogic.BEGINNER;
         game = new GameLogic(this.mode);
     }
@@ -77,39 +75,39 @@ public class MinesweeperGUI extends PApplet {
     // Draw field
     public void updateField() {
         float x,y;
-        char cell;
-        Button cellBtn;
 
         for(int i=0; i<game.getWidth(); ++i) {
             for(int j=0; j<game.getHeight(); ++j) {
-
                 x = i*cellSide+width/2f-cellSide*game.getWidth()/2f;
                 y = j*cellSide+height/2f-cellSide*game.getHeight()/2f;
-
-                cell = game.getCharBoard()[j][i];
-                cellBtn = new Button(this, x,y,cellSide,cellSide, null);
-
-                drawElement(cell,x,y,i,j,cellBtn);
+                drawElement(game.getCharBoard()[j][i], x, y, i, j, new Button(this, x, y, cellSide,cellSide, null));
             }
         }
     }
 
     // Draw digits
     public void drawElement(char cell, float x, float y, int col, int row, Button cellBtn) {
-        if(cell=='.') {
-            if(!isGameOver) {
-                cellBtn.setOnLeftClickListener(() -> isGameOver = game.left(row, col));
-                cellBtn.setOnRightClickListener(() -> game.right(row, col));
+        if(cell==GameLogic.CELL || cell==GameLogic.FLAG_CH){
+            if(cell==GameLogic.FLAG_CH)
+                (new Flag(this, x, y, cellSide, cellSide)).draw();
+
+            if(!isGameOver && !isGameWon) {
+                cellBtn.setOnLeftClickListener(() -> {
+                    isGameOver = game.left(row, col);
+                    Mine.setExplodedRowCol(row, col);
+                });
+                cellBtn.setOnRightClickListener(() -> {
+                    game.right(row, col);
+                    delay(100);
+                });
             }
         } else if(Character.isDigit(cell)) {
             cellBtn.drawPressed();
             (new Digit(this, x,y,cellSide,cellSide, 25, cell - '0')).draw();
-        } else if(cell=='*') {
+        } else if(cell==GameLogic.MINE_CH) {
             cellBtn.drawPressed();
-            (new Mine(this, x, y, cellSide, cellSide, 10f)).draw(false);
-        } else if(cell=='F') {
-            (new Flag(this, x, y, cellSide, cellSide)).draw();
-        } else if(cell=='#') {
+            (new Mine(this, x, y, row, col, cellSide, cellSide, 10f)).draw();
+        } else if(cell==GameLogic.EMPTY) {
             cellBtn.drawPressed();
         }
     }
@@ -125,8 +123,10 @@ public class MinesweeperGUI extends PApplet {
 
     // Update game state all the time to identify loss or win
     public void checkGameState() {
+        // Game is won
         if(!isGameOver && game.getMovesLeft()==0) {
             timer.reset();
+            isGameWon = true;
             resetButton.setVictorious(true);
         }
         // Game is lost
@@ -155,8 +155,9 @@ public class MinesweeperGUI extends PApplet {
     public void setGame(String mode) {
         timer.reset();
         this.mode = mode;
-        isGameOver = false;
+        isGameOver = isGameWon = false;
         game = new GameLogic(this.mode);
+        delay(120);
     }
 
     // Draw some text

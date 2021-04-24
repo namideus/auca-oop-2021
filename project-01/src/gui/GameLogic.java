@@ -17,6 +17,10 @@ public class GameLogic {
     public static final String INTERMEDIATE = "intermediate";
     public static final String EXPERT = "expert";
     public static final String CUSTOM = "custom";
+    public static final char CELL = '.';
+    public static final char MINE_CH = '*';
+    public static final char FLAG_CH = 'F';
+    public static final char EMPTY = '#';
     private final int MINE = -1;
     private final int FLAG = -2;
     private boolean isMined = false;
@@ -229,26 +233,28 @@ public class GameLogic {
         if(!isValid(row, col))
             throw new RuntimeException("Invalid parameters passed in right() function");
 
-        if(charBoard[row][col]!='.')
+        if(charBoard[row][col]!='.' && charBoard[row][col]!='F')
             return;
 
-        if(charBoard[row][col]=='F' && isMine(row, col)) {
-            charBoard[row][col] = '.';
-            --flags;
-        }
-
-        if(isMine(row, col)) {
-            charBoard[row][col] = 'F';
-            ++flags;
-        }
-
-        for (int k=0; k<8; ++k) {
-            if (isValid(xs[k] + row, ys[k] + col))
-                if(isMine(xs[k] + row, ys[k] + col)) {
-                    charBoard[xs[k] + row][ys[k] + col] = 'F';
-                    ++flags;
+        if(isMined) {
+            if (isMine(row,col ) && charBoard[row][col] == 'F' && flags>0) {
+                charBoard[row][col] = '.';
+                --flags;
+                return;
+            }
+            if (isMine(row,col ) && charBoard[row][col] == '.' && flags<maxMines) {
+                charBoard[row][col] = 'F';
+                ++flags;
             }
         }
+
+//        for (int k=0; k<8; ++k) {
+//            if (isValid(xs[k] + row, ys[k] + col))
+//                if(isMine(xs[k] + row, ys[k] + col)) {
+//                    charBoard[xs[k] + row][ys[k] + col] = 'F';
+//                    ++flags;
+//            }
+//        }
 
    //     charBoard[row][col] = 'F';
 

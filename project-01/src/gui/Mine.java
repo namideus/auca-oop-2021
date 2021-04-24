@@ -4,33 +4,37 @@ import processing.core.PApplet;
 
 public class Mine
 {
-    private  static final int N = 5;
+    private static final int N = 5;
+    private static int explodedRow = -1, explodedCol = -1;
+    private int row, col;
     private float x,y,width,height,radius;
     private final PApplet canvas;
 
-    public Mine(PApplet canvas, float x, float y, float width, float height, float radius) {
+    public Mine(PApplet canvas, float x, float y, int row, int col, float width, float height, float radius) {
         this.canvas = canvas;
         this.x = x;
         this.y = y;
+        this.row = row;
+        this.col = col;
         this.width = width;
         this.height = height;
         this.radius = radius;
     }
 
-    void draw(boolean isRedBackground) {
+    void draw() {
         canvas.pushMatrix();
         canvas.pushStyle();
         canvas.strokeWeight(0f);
         canvas.translate(this.x, this.y);
-        if(isRedBackground)
+
+        if(row==explodedRow && col==explodedCol)
             canvas.fill(255,0,0);
         else
             canvas.fill(100,100,100);
-        canvas.rect(4f, 4f, width-8, height-8);
 
+        canvas.rect(4f, 4f, width-8, height-8);
         canvas.popStyle();
         canvas.popMatrix();
-
         canvas.pushMatrix();
         canvas.pushStyle();
         canvas.stroke(0);
@@ -46,5 +50,8 @@ public class Mine
         canvas.popMatrix();
     }
 
-
+    public static void setExplodedRowCol(int explodedRow, int explodedCol) {
+        Mine.explodedCol = explodedCol;
+        Mine.explodedRow = explodedRow;
+    }
 }
