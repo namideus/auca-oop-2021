@@ -247,28 +247,6 @@ public class GameLogic {
                 ++flags;
             }
         }
-
-//        for (int k=0; k<8; ++k) {
-//            if (isValid(xs[k] + row, ys[k] + col))
-//                if(isMine(xs[k] + row, ys[k] + col)) {
-//                    charBoard[xs[k] + row][ys[k] + col] = 'F';
-//                    ++flags;
-//            }
-//        }
-
-   //     charBoard[row][col] = 'F';
-
-//        if(charBoard[row][col]=='.' && maxMines>0) {
-//            charBoard[row][col] = 'F';
-//            System.out.println( charBoard[row][col] );
-//            --maxMines;
-//        }
-//
-//        if(charBoard[row][col] == 'F') {
-//            charBoard[row][col] = '.';
-//            System.out.println( charBoard[row][col] );
-//            ++maxMines;
-//        }
     }
 
     // To string

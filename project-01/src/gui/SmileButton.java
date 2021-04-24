@@ -64,28 +64,12 @@ public class SmileButton //extends java.awt.Button
             //draw the eyes
             canvas.circle(width/2f-10f, height/2f-10f, 6);
             canvas.circle(width/2f+10f, height/2f-10f, 6);
-            //black
-            // draw the pupils
-            // circle(x-10f, y-10f, 10);
-            // circle(x+10f, y-10f, 10);
-            //red
-            //fill(255, 0, 0);
-            //draw the mouth
-            // strokeWeight(2f);
         } else {
             //white
             canvas.fill(0);
             //draw the eyes
             canvas.circle(width/2f-10f, height/2f-10f, 3);
             canvas.circle(width/2f+10f, height/2f-10f, 3);
-            //black
-            // draw the pupils
-            // circle(x-10f, y-10f, 10);
-            // circle(x+10f, y-10f, 10);
-            //red
-            //fill(255, 0, 0);
-            //draw the mouth
-            // strokeWeight(2f);
         }
         canvas.fill(255, 255, 0);
         if(!isSad) {
@@ -135,12 +119,6 @@ public class SmileButton //extends java.awt.Button
         //draw the eyes
         canvas.circle(width/2f-10f+2f, height/2f-10f+2f, 3);
         canvas.circle(width/2f+10f+2f, height/2f-10f+2f, 3);
-        //black
-        // draw the pupils
-        // circle(x-10f, y-10f, 10);
-        // circle(x+10f, y-10f, 10);
-        //red
-        //fill(255, 0, 0);
         //draw the mouth
         canvas.fill(255, 255, 0);
         // strokeWeight(2f);
@@ -149,7 +127,6 @@ public class SmileButton //extends java.awt.Button
         } else {
             canvas.arc(width/2f+2f, height/2f+13f+2f, 25, 18, -canvas.PI, 0);
         }
-
         canvas.popStyle();
         canvas.popMatrix();
     }

@@ -2,7 +2,7 @@ package gui;
 
 import processing.core.PApplet;
 
-public class Button //extends java.awt.Button
+public class Button
 {
     private static final int N = 4;
     private float x,y,width,height;
