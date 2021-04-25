@@ -13,7 +13,9 @@ public class Main {
         rects.add(new Rect(300,500, 100, 100));
 
         while(true) {
+            System.out.print("x: ");
             int xClick = scan.nextInt();
+            System.out.print("y: ");
             int yClick = scan.nextInt();
 
             if(xClick+yClick==-2) break;

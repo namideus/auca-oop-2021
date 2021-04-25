@@ -1,11 +1,12 @@
-package prototype02;
+package prototype03;
 
 import prototype01.Rect;
+import prototype02.Circle;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainPrototype02 {
+public class MainPrototype03 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
@@ -43,4 +44,3 @@ public class MainPrototype02 {
         }
     }
 }
-
