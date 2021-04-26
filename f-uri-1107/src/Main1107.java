@@ -8,8 +8,8 @@ public class Main1107 {
         while(scan.hasNextInt()) {
             a = scan.nextInt();
             c = scan.nextInt();
-
             if(a+c==0) break;
+
             cnt = 0;
             b = false;
             tmp = w = a;
