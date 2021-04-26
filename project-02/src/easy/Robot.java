@@ -1,3 +1,5 @@
+package easy;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,7 +11,7 @@ public class Robot extends Actor {
     }
 
     private void initRobot() {
-        ImageIcon icon = new ImageIcon("resources/Robot.png");
+        ImageIcon icon = new ImageIcon("easy/resources/Robot.png");
         Image image = icon.getImage();
         setImage(image);
     }

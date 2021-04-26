@@ -1,3 +1,5 @@
+package easy;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -6,12 +8,11 @@ public class Wall extends Actor {
 
     public Wall(int x, int y) {
         super(x, y);
-
         initWall();
     }
 
     private void initWall() {
-        ImageIcon icon = new ImageIcon("resources/Wall.png");
+        ImageIcon icon = new ImageIcon("easy/resources/Wall.png");
         image = icon.getImage();
         setImage(image);
     }

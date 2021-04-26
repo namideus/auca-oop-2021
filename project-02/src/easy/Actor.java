@@ -1,3 +1,5 @@
+package easy;
+
 import java.awt.*;
 
 public class Actor {
@@ -40,14 +42,14 @@ public class Actor {
     }
 
     public boolean isRightCollision(Actor actor) {
-        return getX() - SPACE == actor.getX() && getY() == actor.getY();
+        return getX() + SPACE == actor.getX() && getY() == actor.getY();
     }
 
     public boolean isTopCollision(Actor actor) {
-        return getX() - SPACE == actor.getX() && getY() == actor.getY();
+        return getY() - SPACE == actor.getY() && getX() == actor.getX();
     }
 
     public boolean isBottomCollision(Actor actor) {
-        return getX() - SPACE == actor.getX() && getY() == actor.getY();
+        return getY() + SPACE == actor.getY() && getX() == actor.getX();
     }
 }

@@ -1,3 +1,5 @@
+package easy;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,7 +11,7 @@ public class Ground extends Actor {
     }
 
     private void initGround() {
-        ImageIcon icon = new ImageIcon("resources/Ground.png");
+        ImageIcon icon = new ImageIcon("easy/resources/Ground.png");
         Image image = icon.getImage();
         setImage(image);
     }
