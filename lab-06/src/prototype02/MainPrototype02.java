@@ -19,15 +19,14 @@ public class MainPrototype02 {
         circles.add(new Circle(600,500,10));
         circles.add(new Circle(10,10,10));
 
-        while(true)
-        {
+        while(true) {
             System.out.print("x: ");
             int xClick = scan.nextInt();
+
             System.out.print("y: ");
             int yClick = scan.nextInt();
 
-            if(xClick + yClick == -2)
-                break;
+            if(xClick + yClick == -2) break;
 
             for(Rect r : rects) {
                 if(r.contains(xClick, yClick)) {
@@ -36,7 +35,7 @@ public class MainPrototype02 {
             }
 
             for(Circle c : circles) {
-                if(c.contains(xClick, yClick)){
+                if(c.contains(xClick, yClick)) {
                     System.out.println(c);
                 }
             }

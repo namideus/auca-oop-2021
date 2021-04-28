@@ -2,7 +2,12 @@ package prototype03;
 
 public abstract class Figure {
 
-    public abstract String toString();
+    protected int x, y;
+
+    public Figure(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public abstract boolean contains(int xClick, int yClick);
 }

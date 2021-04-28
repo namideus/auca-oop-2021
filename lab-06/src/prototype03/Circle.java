@@ -1,16 +1,14 @@
 package prototype03;
 
-public class Circle extends Figure{
-    private int x;
-    private int y;
+public class Circle extends Figure {
+
     private int r;
 
     public Circle(int x, int y, int r) {
+        super(x,y);
         if(r<0)
             throw new IllegalArgumentException("Circle: radius < 0");
 
-        this.x = x;
-        this.y = y;
         this.r = r;
     }
 
