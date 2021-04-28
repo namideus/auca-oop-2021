@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 class MainProtoype05 extends JFrame {
 
-    static ArrayList<Figure> figures = Utils.createFigures();
+    static ArrayList<Figure> figures = new ArrayList<>();
 
     JPanel mainPanel;
     JPanel controlPanel;
@@ -56,6 +56,18 @@ class MainProtoype05 extends JFrame {
                     }
                 }
             }
+
+//            @Override
+//            public void mouseDragged(MouseEvent e) {
+//                super.mousePressed(e);
+//                for(Figure f : figures) {
+//                    if(f.contains(e.getX(), e.getY())) {
+//                        f.move(e.getX(), e.getY());
+//                        //f.draw(g);
+//                        repaint();
+//                    }
+//                }
+//            }
         });
     }
 
@@ -63,6 +75,7 @@ class MainProtoype05 extends JFrame {
         MainProtoype05 frame = new MainProtoype05();
         frame.setTitle("Javax Swing Application");
         frame.setSize(600,600);
+        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
