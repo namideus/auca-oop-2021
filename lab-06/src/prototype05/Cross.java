@@ -1,30 +1,40 @@
 package prototype05;
 
+import java.awt.*;
+
 public class Cross extends Figure {
-    private int x;
-    private int y;
-    private int w;
-    private int h;
+    private Rect hRect;
+    private Rect vRect;
 
-    public Cross(int x, int y, int w, int h) {
-        if(w<0)
-            throw new IllegalArgumentException("Rectangle: width < 0");
-        if(h<0)
-            throw new IllegalArgumentException("Rectangle: height < 0");
+    public Cross(int x, int y, int s1, int s2) {
+        super(x,y);
+        if(s1<1 && s2<1)
+            throw new IllegalArgumentException("Cross: incorrect size");
 
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
+        hRect = new Rect(x-s1 / 2, y-s2/2, s1, s2);
+        vRect = new Rect(x-s2 / 2, y-s1/2, s2, s1);
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        super.move(dx, dy);
+        vRect.move(dx, dy);
+        hRect.move(dx, dy);
     }
 
     @Override
     public boolean contains(int xClick, int yClick) {
-        return x<=xClick && xClick<=x+w && y<=yClick && yClick<=y+h;
+        return hRect.contains(xClick, yClick) || vRect.contains(xClick, yClick);
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        hRect.draw(g);
+        vRect.draw(g);
     }
 
     @Override
     public String toString() {
-        return String.format("Rect(%d, %d, %d, %d)",x,y,w,h);
+        return String.format("Cross(%s, %s)", hRect, vRect);
     }
 }

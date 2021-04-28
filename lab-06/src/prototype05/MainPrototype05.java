@@ -2,92 +2,79 @@ package prototype05;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class MainPrototype05 extends JFrame {
+class MainProtoype05 extends JFrame {
+
+    static ArrayList<Figure> figures = Utils.createFigures();
 
     JPanel mainPanel;
     JPanel controlPanel;
 
-    JButton rectButton = new JButton("Rect");
-    JButton circleButton = new JButton("Circle");
-    JButton crossButton = new JButton("Cross");
-
-    private ArrayList<Rect> rects;
-    private ArrayList<Rect> circles;
-    private ArrayList<Rect> crosses;
+    JButton rectButton = new JButton("Rectangle");
+    JButton circleButton = new JButton("Circle");;
+    JButton crossButton = new JButton("Cross");;
 
     // Layout
-    MainPrototype05() {
+    MainProtoype05() {
         setLayout(new BorderLayout());
 
         mainPanel = new CanvasPanel();
-        mainPanel.setFocusable(true);
         add(mainPanel, BorderLayout.CENTER);
-        mainPanel.addMouseListener(new MouseListener());
 
         controlPanel = new JPanel();
         controlPanel.setBackground(Color.DARK_GRAY);
+        controlPanel.setLayout(new GridLayout(1, 3));
         controlPanel.add(rectButton);
         controlPanel.add(circleButton);
         controlPanel.add(crossButton);
         add(controlPanel, BorderLayout.SOUTH);
 
-        rectButton.addActionListener(new ButtonListener(this));
-        circleButton.addActionListener(new ButtonListener(this));
-        crossButton.addActionListener(new ButtonListener(this));
+        rectButton.addActionListener(actionEvent -> {
+            figures.add(new Rect(0,0,100,100));
+            repaint();
+        });
+        circleButton.addActionListener(actionEvent -> {
+            figures.add(new Circle(150,50,50));
+            repaint();
+        });
+        crossButton.addActionListener(actionEvent -> {
+            figures.add(new Cross(250,50,100,10));
+            repaint();
+        });
+        mainPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                for(Figure f : figures) {
+                    if(f.contains(e.getX(), e.getY())) {
+                        JOptionPane.showMessageDialog(MainProtoype05.this, f.toString());
+                    }
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        MainProtoype05 frame = new MainProtoype05();
+        frame.setTitle("Javax Swing Application");
+        frame.setSize(600,600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 
     private static class CanvasPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            // Chessboard
-            int widthCell = 40;
-            int heightCell = 40;
-
-            g.setColor(Color.BLUE);
-            g.fillRect(10, 10, widthCell, heightCell);
-
-            g.setColor(Color.BLUE);
-            g.fillOval(10, 10, widthCell, heightCell);
-        }
-    }
-
-    public static void main(String[] args) {
-        MainPrototype05 frame = new MainPrototype05();
-        frame.setTitle("Graph Editor");
-        frame.setSize(600,600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-    }
-
-    private static class MouseListener extends MouseAdapter {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            super.mouseClicked(e);
-
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-            super.mouseDragged(e);
-        }
-    }
-
-    // Button listener
-    static class ButtonListener implements ActionListener {
-
-        private final MainPrototype05 frame;
-
-        public ButtonListener(MainPrototype05 frame) {
-            this.frame = frame;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent actionEvent) {
-            //
+            for(Figure f : figures) {
+                f.draw(g);
+            }
         }
     }
 }
+
