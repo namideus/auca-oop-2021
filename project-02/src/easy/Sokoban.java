@@ -23,7 +23,7 @@ public class Sokoban extends JFrame {
         Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
         setMaximumSize(DimMax);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        board = new Board();
+        board = new GameLogic();
         board.setFocusable(true);
         add(board, BorderLayout.CENTER);
 

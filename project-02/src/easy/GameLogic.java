@@ -5,7 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-public class Board extends JPanel {
+public class GameLogic extends JPanel {
     private ArrayList<String[][]> levels;
 
     private String level =  "#####\n" +
