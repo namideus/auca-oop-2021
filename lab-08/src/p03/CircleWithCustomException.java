@@ -1,24 +1,24 @@
-package p02;
+package p03;
 
-public class CircleWithException {
+public class CircleWithCustomException {
     private double radius;
 
     private static int numberOfObjects = 0;
 
-    public CircleWithException() throws IllegalArgumentException {
+    public CircleWithCustomException() throws InvalidRadiusException {
         this(1.0);
     }
 
-    public CircleWithException(double radius) throws IllegalArgumentException {
+    public CircleWithCustomException(double radius) throws InvalidRadiusException {
         setRadius(radius);
         ++numberOfObjects;
     }
 
-    public void setRadius(double radius) throws IllegalArgumentException{
+    public void setRadius(double radius) throws InvalidRadiusException{
         if(radius>=0) {
             this.radius = radius;
         } else
-            throw new IllegalArgumentException("Radius cannot be negative");
+            throw new InvalidRadiusException(radius);
     }
 
     public double getRadius() {

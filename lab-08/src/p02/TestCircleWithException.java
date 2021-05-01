@@ -3,7 +3,7 @@ package p02;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Main {
+public class TestCircleWithException {
     public static void main(String[] args) {
         try {
             CircleWithException c1 = new CircleWithException(5);
