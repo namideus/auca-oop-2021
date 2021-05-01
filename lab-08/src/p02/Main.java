@@ -5,18 +5,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        int n;
-        while(true) {
-            try {
-                System.out.print("Enter an integer: ");
-                n = scan.nextInt();
-                System.out.printf("The number entered is %d\n", n);
-                break;
-            } catch (InputMismatchException error) {
-                System.out.println("Try again. (Incorrect input: an integer is required)");
-                scan.next();
-            }
+        try {
+            CircleWithException c1 = new CircleWithException(5);
+            CircleWithException c2 = new CircleWithException(-5);
+            CircleWithException c3 = new CircleWithException(0);
+
+        } catch (IllegalArgumentException error) {
+            System.out.println(error);
         }
+
+        System.out.println("Number of objects created: " + CircleWithException.getNumberOfObjects());
     }
 }
