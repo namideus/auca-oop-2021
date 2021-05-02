@@ -25,6 +25,8 @@ public class GameLogic extends JPanel {
     private int w = 0;
     private int h = 0;
 
+    private boolean isCompleted = false;
+
     private ArrayList<String[][]> levels;
 
     private String level =  "#####\n" +
@@ -115,6 +117,21 @@ public class GameLogic extends JPanel {
         world.addAll(goals);
         world.addAll(boxes);
         world.addAll(robot);
+
+        for(int i = 0; i < world.size(); ++i) {
+            Actor item = world.get(i);
+
+            if(item instanceof Robot || item instanceof BlueBox) {
+                g.drawImage(item.getImage(), item.getX() + 2, item.getY()+2, this);
+            } else {
+                g.drawImage(item.getImage(), item.getX() , item.getY(), this);
+            }
+
+            if(isCompleted) {
+                g.setColor(new Color(0,0,0));
+                g.drawString("Comlpleted", 25, 20);
+            }
+        }
     }
 
     @Override
@@ -127,7 +144,24 @@ public class GameLogic extends JPanel {
     private class CanvasPanelListener extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent keyEvent) {
-            int code = keyEvent.getKeyCode();
+
+            if(isCompleted)
+                return;
+
+            int key = keyEvent.getKeyCode();
+
+            switch(key) {
+                case KeyEvent.VK_UP:
+                    breakl
+                    // game.moveUp();
+                } else if(code==KeyEvent.VK_DOWN) {
+                    // game.moveDown();
+                } else if(code==KeyEvent.VK_LEFT) {
+                    // game.moveLeft();
+                } else if(code==KeyEvent.VK_RIGHT) {
+                    // game.moveRight();
+                }
+            }
 
             if(code==KeyEvent.VK_F1) {
                 JOptionPane.showMessageDialog(null, "Move robot!");
