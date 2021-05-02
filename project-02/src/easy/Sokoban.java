@@ -5,8 +5,39 @@ import java.awt.*;
 
 public class Sokoban extends JFrame {
 
-    private JPanel board;
+    private final int OFFSET = 30;
+
+    public Sokoban() {
+
+        initUI();
+    }
+
+    private void initUI() {
+
+        GameLogic game = new GameLogic();
+        add(game);
+
+        setTitle("Sokoban");
+
+        setSize(game.getWidth() + OFFSET,
+                game.getHeight() + 2 * OFFSET);
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+    }
+
+    public static void main(String[] args) {
+
+        EventQueue.invokeLater(() -> {
+
+            Sokoban game = new Sokoban();
+            game.setVisible(true);
+        });
+    }
+
+    /*private JPanel game;
     private JPanel controlPanel;
+    private final int OFFSET = 30;
 
     JButton redButton = new JButton("Red");
     JButton greenButton = new JButton("Green");
@@ -20,12 +51,9 @@ public class Sokoban extends JFrame {
         setTitle("MiniSokoban");
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
-        setMaximumSize(DimMax);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        board = new GameLogic();
-        board.setFocusable(true);
-        add(board, BorderLayout.CENTER);
+        game = new GameLogic();
+        setSize(game.getWidth() + OFFSET, game.getHeight() + 2 * OFFSET);
+        add(game, BorderLayout.CENTER);
 
         controlPanel = new JPanel();
         controlPanel.setBackground(Color.DARK_GRAY);
@@ -36,11 +64,11 @@ public class Sokoban extends JFrame {
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(()->{
+//        EventQueue.invokeLater(()->{
                 Sokoban game = new Sokoban();
                 game.setVisible(true);
-            }
-        );
-    }
+//            }
+//        );
+    }*/
 }
 

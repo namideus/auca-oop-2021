@@ -39,6 +39,7 @@ public class GameLogic extends JPanel {
                             " #####";
 
     public GameLogic() {
+        addKeyListener(new CanvasPanelListener());
         setFocusable(true);
         initWorld();
     }
@@ -116,20 +117,20 @@ public class GameLogic extends JPanel {
         world.addAll(grounds);
         world.addAll(goals);
         world.addAll(boxes);
-        world.addAll(robot);
+        world.add(robot);
 
-        for(int i = 0; i < world.size(); ++i) {
-            Actor item = world.get(i);
+        System.out.println(world.size());
 
-            if(item instanceof Robot || item instanceof BlueBox) {
-                g.drawImage(item.getImage(), item.getX() + 2, item.getY()+2, this);
+        for (Actor item : world) {
+            if (item instanceof Robot || item instanceof BlueBox) {
+                g.drawImage(item.getImage(), item.getX() + 2, item.getY() + 2, this);
             } else {
-                g.drawImage(item.getImage(), item.getX() , item.getY(), this);
+                g.drawImage(item.getImage(), item.getX(), item.getY(), this);
             }
 
-            if(isCompleted) {
-                g.setColor(new Color(0,0,0));
-                g.drawString("Comlpleted", 25, 20);
+            if (isCompleted) {
+                g.setColor(new Color(0, 0, 0));
+                g.drawString("Completed", 25, 20);
             }
         }
     }
@@ -137,7 +138,10 @@ public class GameLogic extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         buildWorld(g);
+
+        repaint();
     }
 
     // Canvas panel listener
@@ -151,30 +155,38 @@ public class GameLogic extends JPanel {
             int key = keyEvent.getKeyCode();
 
             switch(key) {
+                case KeyEvent.VK_LEFT:
+
+                    break;
+                case KeyEvent.VK_RIGHT:
+
+                    break;
                 case KeyEvent.VK_UP:
-                    breakl
-                    // game.moveUp();
-                } else if(code==KeyEvent.VK_DOWN) {
-                    // game.moveDown();
-                } else if(code==KeyEvent.VK_LEFT) {
-                    // game.moveLeft();
-                } else if(code==KeyEvent.VK_RIGHT) {
-                    // game.moveRight();
-                }
+
+                    break;
+                case KeyEvent.VK_DOWN:
+
+                    break;
+                case KeyEvent.VK_R:
+
+                    break;
+                default:
+                    break;
             }
 
-            if(code==KeyEvent.VK_F1) {
-                JOptionPane.showMessageDialog(null, "Move robot!");
-            } else if(code==KeyEvent.VK_UP) {
-                // game.moveUp();
-            } else if(code==KeyEvent.VK_DOWN) {
-                // game.moveDown();
-            } else if(code==KeyEvent.VK_LEFT) {
-                // game.moveLeft();
-            } else if(code==KeyEvent.VK_RIGHT) {
-                // game.moveRight();
-            }
             repaint();
         }
+    }
+
+    public void restartLevel() {
+        walls.clear();
+        boxes.clear();
+        grounds.clear();
+        goals.clear();
+
+        initWorld();
+
+        if(isCompleted)
+            isCompleted = false;
     }
 }
