@@ -7,6 +7,7 @@ public class Actor {
     private int x;
     private int y;
     private Image image;
+    private String imagePath;
 
     public Actor(int x, int y) {
         this.x = x;
@@ -19,6 +20,14 @@ public class Actor {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath() {
+        return imagePath;
     }
 
     public int getX() {

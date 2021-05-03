@@ -1,10 +1,8 @@
 package easy;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Wall extends Actor {
-    private Image image;
 
     public Wall(int x, int y) {
         super(x, y);
@@ -12,8 +10,11 @@ public class Wall extends Actor {
     }
 
     private void initWall() {
-        ImageIcon icon = new ImageIcon("resources/Wall");
-        image = icon.getImage();
+        // ImageIcon icon = new ImageIcon("resources/Wall.png");
+        // Image image = icon.getImage();
+
+        Toolkit t = Toolkit.getDefaultToolkit();
+        Image image = t.getImage("/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/Wall.png");
         setImage(image);
     }
 }

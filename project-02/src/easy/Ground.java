@@ -11,8 +11,11 @@ public class Ground extends Actor {
     }
 
     private void initGround() {
-        ImageIcon icon = new ImageIcon("resources/Ground.png");
-        Image image = icon.getImage();
+        //  ImageIcon icon = new ImageIcon("resources/Ground.png");
+        //   Image image = icon.getImage();
+
+        Toolkit t = Toolkit.getDefaultToolkit();
+        Image image = t.getImage("/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/Ground.png");
         setImage(image);
     }
 }

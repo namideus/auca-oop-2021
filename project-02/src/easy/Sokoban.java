@@ -1,19 +1,20 @@
 package easy;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Sokoban extends JFrame {
 
     private final int OFFSET = 30;
 
     public Sokoban() {
-        initUI();
-    }
-
-    private void initUI() {
+        //GameLogic game = new GameLogic();
         GameLogic game = new GameLogic();
-        add(game);
+        add(game, BorderLayout.CENTER);
 
         setTitle("MicroSokoban");
 
@@ -21,16 +22,23 @@ public class Sokoban extends JFrame {
         // setSize(game.getWidth() + OFFSET, game.getHeight() + 2 * OFFSET);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-    }
+        setLocationRelativeTo(null);    }
 
     public static void main(String[] args) {
-
-        EventQueue.invokeLater(() -> {
-            Sokoban game = new Sokoban();
-            game.setVisible(true);
-        });
+        Sokoban game = new Sokoban();
+        game.setVisible(true);
     }
+
+//    public static class GameLogicLocal extends JPanel {
+//        @Override
+//        protected void paintComponent(Graphics g) {
+//            super.paintComponent(g);
+//
+//            Toolkit t=Toolkit.getDefaultToolkit();
+//            Image i=t.getImage("/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/BoxBlue.png");
+//            g.drawImage(i, 120,100,this);
+//        }
+//    }
 
     /*private JPanel game;
     private JPanel controlPanel;

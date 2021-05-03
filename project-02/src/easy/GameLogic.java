@@ -122,8 +122,6 @@ public class GameLogic extends JPanel {
         world.addAll(boxes);
         world.add(robot);
 
-        System.out.println(world.size());
-
         for (Actor item : world) {
             if (item instanceof Robot || item instanceof BlueBox) {
                 g.drawImage(item.getImage(), item.getX() + 2, item.getY() + 2, this);
@@ -160,7 +158,6 @@ public class GameLogic extends JPanel {
                     if(checkWallCollision(robot, LEFT_COLLISION))
                         return;
 
-
                     break;
                 case KeyEvent.VK_RIGHT:
                     if(checkWallCollision(robot, RIGHT_COLLISION))
@@ -170,7 +167,6 @@ public class GameLogic extends JPanel {
                 case KeyEvent.VK_UP:
                     if(checkWallCollision(robot, TOP_COLLISION))
                         return;
-
 
                     break;
                 case KeyEvent.VK_DOWN:
