@@ -1,6 +1,5 @@
 package easy;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Ground extends Actor {
@@ -11,11 +10,10 @@ public class Ground extends Actor {
     }
 
     private void initGround() {
-        //  ImageIcon icon = new ImageIcon("resources/Ground.png");
-        //   Image image = icon.getImage();
-
+        String imagePath = "/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/Ground.png";
         Toolkit t = Toolkit.getDefaultToolkit();
-        Image image = t.getImage("/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/Ground.png");
+        Image image = t.getImage(imagePath);
         setImage(image);
+        setImagePath(imagePath);
     }
 }

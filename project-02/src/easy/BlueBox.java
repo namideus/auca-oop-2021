@@ -11,11 +11,9 @@ public class BlueBox extends Actor {
     }
 
     private void initBlueBox() {
-//        ImageIcon icon = new ImageIcon("src/resources/BoxBlue.png");
-//        Image image = icon.getImage();
-
+        String imagePath = "/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/BoxBlue.png";
         Toolkit t = Toolkit.getDefaultToolkit();
-        Image image = t.getImage("/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/BoxBlue.png");
+        Image image = t.getImage(imagePath);
         setImage(image);
     }
 

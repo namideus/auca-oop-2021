@@ -10,11 +10,9 @@ public class Wall extends Actor {
     }
 
     private void initWall() {
-        // ImageIcon icon = new ImageIcon("resources/Wall.png");
-        // Image image = icon.getImage();
-
+        String imagePath = "/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/Wall.png";
         Toolkit t = Toolkit.getDefaultToolkit();
-        Image image = t.getImage("/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/Wall.png");
+        Image image = t.getImage(imagePath);
         setImage(image);
     }
 }

@@ -11,13 +11,9 @@ public class Goal extends Actor {
     }
 
     private void initGoal() {
-//        ImageIcon icon = new ImageIcon("resources/Goal.png");
-//        Image image = icon.getImage();
-
         String imagePath = "/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/Goal.png";
         Toolkit t = Toolkit.getDefaultToolkit();
-        Image image = t.getImage("/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/Goal.png");
-
+        Image image = t.getImage(imagePath);
         setImagePath(imagePath);
         setImage(image);
     }
