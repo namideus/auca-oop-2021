@@ -45,14 +45,15 @@ public class GameLogic extends JPanel {
     }
 
     public int getWidth() {
-        return w;
+        return this.w;
     }
 
     public int getHeight() {
-        return h;
+        return this.h;
     }
 
     private void initWorld() {
+
         walls = new ArrayList<>();
         boxes = new ArrayList<>();
         grounds = new ArrayList<>();

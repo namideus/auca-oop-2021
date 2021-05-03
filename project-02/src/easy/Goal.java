@@ -11,7 +11,7 @@ public class Goal extends Actor {
     }
 
     private void initGoal() {
-        ImageIcon icon = new ImageIcon("easy/resources/Goal.png");
+        ImageIcon icon = new ImageIcon("resources/Goal.png");
         Image image = icon.getImage();
         setImage(image);
     }

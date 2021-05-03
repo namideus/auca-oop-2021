@@ -11,7 +11,8 @@ public class BlueBox extends Actor {
     }
 
     private void initBlueBox() {
-        ImageIcon icon = new ImageIcon("easy/resources/BoxBlue.png");
+        ImageIcon icon = new ImageIcon("resources/BoxBlue.png");
+
         Image image = icon.getImage();
         setImage(image);
     }
