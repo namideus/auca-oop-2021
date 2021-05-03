@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class GameLogic extends JPanel {
 
     private final int OFFSET = 30;
-    private final int SPACE = 70;
+    private final int SPACE = 65;
     private final int LEFT_COLLISION = 1;
     private final int RIGHT_COLLISION = 2;
     private final int TOP_COLLISION = 3;
@@ -34,8 +34,42 @@ public class GameLogic extends JPanel {
                             "# #  . #\n" +
                             "#    # #\n" +
                             "## #   #\n" +
-                            " #@  ###\n" +
-                            " #####";
+                            "#@  ###\n" +
+                            "#####";
+
+    private char[][][] levels = {
+            {
+                    {' ',' ','#','#','#','#','#',' '},
+                    {'#','#','#',' ',' ',' ','#',' '},
+                    {'#',' ','$',' ','#',' ','#','#'},
+                    {'#',' ','#',' ',' ','.',' ','#'},
+                    {'#',' ',' ',' ',' ',' ','#','#'},
+                    {'#','#',' ','#',' ',' ',' ','#'},
+                    {' ','#','@',' ',' ','#','#','#'},
+                    {' ','#','#','#','#','#',' ',' '}
+            },
+            {
+                    {' ',' ','#','#','#','#','#',' '},
+                    {'#','#','#',' ',' ',' ','#',' '},
+                    {'#',' ','$',' ','#',' ','#','#'},
+                    {'#',' ','#',' ',' ','.',' ','#'},
+                    {'#',' ',' ',' ',' ',' ','#','#'},
+                    {'#','#',' ','#',' ',' ',' ','#'},
+                    {' ','#','@',' ',' ','#','#','#'},
+                    {' ','#','#','#','#','#',' ',' '}
+            },
+            {
+                    {' ',' ','#','#','#','#','#',' '},
+                    {'#','#','#',' ',' ',' ','#',' '},
+                    {'#',' ','$',' ','#',' ','#','#'},
+                    {'#',' ','#',' ',' ','.',' ','#'},
+                    {'#',' ',' ',' ',' ',' ','#','#'},
+                    {'#','#',' ','#',' ',' ',' ','#'},
+                    {' ','#','@',' ',' ','#','#','#'},
+                    {' ','#','#','#','#','#',' ',' '}
+            }
+    };
+
 
     public GameLogic() {
         this.curLevel = 0;
@@ -118,8 +152,8 @@ public class GameLogic extends JPanel {
 
 
     private void buildWorld(Graphics g) {
-        g.setColor(new Color(250,240,170));
-        g.fillRect(0,0,this.getWidth(), this.getHeight());
+//        g.setColor(new Color(28,240,170));
+//        g.fillRect(0,0,this.getWidth(), this.getHeight());
 
         ArrayList<Actor> world = new ArrayList<>();
 
@@ -162,21 +196,25 @@ public class GameLogic extends JPanel {
                     if(checkWallCollision(robot, LEFT_COLLISION))
                         return;
 
+                    robot.move(-SPACE, 0);
                     break;
                 case KeyEvent.VK_RIGHT:
                     if(checkWallCollision(robot, RIGHT_COLLISION))
                         return;
 
+                    robot.move(SPACE, 0);
                     break;
                 case KeyEvent.VK_UP:
                     if(checkWallCollision(robot, TOP_COLLISION))
                         return;
 
+                    robot.move(0, -SPACE);
                     break;
                 case KeyEvent.VK_DOWN:
                     if(checkWallCollision(robot, BOTTOM_COLLISION))
                         return;
 
+                    robot.move(0, SPACE);
                     break;
                 case KeyEvent.VK_R:
                     restartLevel();
