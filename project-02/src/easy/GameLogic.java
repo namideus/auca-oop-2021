@@ -141,8 +141,6 @@ public class GameLogic extends JPanel {
         super.paintComponent(g);
 
         buildWorld(g);
-
-        repaint();
     }
 
     // Canvas panel listener
@@ -157,19 +155,29 @@ public class GameLogic extends JPanel {
 
             switch(key) {
                 case KeyEvent.VK_LEFT:
+                    if(checkWallCollision(robot, LEFT_COLLISION))
+                        return;
+
 
                     break;
                 case KeyEvent.VK_RIGHT:
+                    if(checkWallCollision(robot, RIGHT_COLLISION))
+                        return;
 
                     break;
                 case KeyEvent.VK_UP:
+                    if(checkWallCollision(robot, TOP_COLLISION))
+                        return;
+
 
                     break;
                 case KeyEvent.VK_DOWN:
+                    if(checkWallCollision(robot, BOTTOM_COLLISION))
+                        return;
 
                     break;
                 case KeyEvent.VK_R:
-
+                    restartLevel();
                     break;
                 default:
                     break;
@@ -178,6 +186,40 @@ public class GameLogic extends JPanel {
             repaint();
         }
     }
+
+    private boolean checkWallCollision(Actor actor, int type) {
+        switch (type) {
+            case LEFT_COLLISION:
+                for (Wall wall : walls) {
+                    if (actor.isLeftCollision(wall))
+                        return true;
+                }
+                return false;
+            case RIGHT_COLLISION:
+                for (Wall wall : walls) {
+                    if (actor.isRightCollision(wall))
+                        return true;
+                }
+                return false;
+            case TOP_COLLISION:
+                for (Wall wall : walls) {
+                    if (actor.isTopCollision(wall))
+                        return true;
+                }
+                return false;
+            case BOTTOM_COLLISION:
+                for (Wall wall : walls) {
+                    if (actor.isBottomCollision(wall))
+                        return true;
+                }
+                return false;
+            default:
+                break;
+        }
+        return false;
+    }
+
+
 
     public void restartLevel() {
         walls.clear();
