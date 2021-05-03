@@ -8,19 +8,17 @@ public class Sokoban extends JFrame {
     private final int OFFSET = 30;
 
     public Sokoban() {
-
         initUI();
     }
 
     private void initUI() {
-
         GameLogic game = new GameLogic();
         add(game);
 
-        setTitle("Sokoban");
+        setTitle("MicroSokoban");
 
-        setSize(game.getWidth() + OFFSET,
-                game.getHeight() + 2 * OFFSET);
+        setSize(800, 800);
+        // setSize(game.getWidth() + OFFSET, game.getHeight() + 2 * OFFSET);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -29,7 +27,6 @@ public class Sokoban extends JFrame {
     public static void main(String[] args) {
 
         EventQueue.invokeLater(() -> {
-
             Sokoban game = new Sokoban();
             game.setVisible(true);
         });

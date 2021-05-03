@@ -42,6 +42,8 @@ public class GameLogic extends JPanel {
         addKeyListener(new CanvasPanelListener());
         setFocusable(true);
         initWorld();
+
+        // System.out.println(level);
     }
 
     public int getWidth() {
@@ -219,7 +221,26 @@ public class GameLogic extends JPanel {
         return false;
     }
 
+    private boolean checkBoxCollision(int type) {
+        return false;
+    }
 
+
+    public void isCompleted() {
+        int numberOfBoxes = boxes.size();
+        int finishedBoxes = 0;
+
+        for (BlueBox box : boxes) {
+            for (Goal goal : goals)
+                if (goal.getX() == box.getX() && goal.getY() == box.getY())
+                    ++finishedBoxes;
+        }
+
+        if(finishedBoxes==numberOfBoxes) {
+            isCompleted = true;
+            repaint();
+        }
+    }
 
     public void restartLevel() {
         walls.clear();
