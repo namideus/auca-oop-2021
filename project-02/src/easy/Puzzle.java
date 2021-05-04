@@ -6,12 +6,16 @@ public class Puzzle {
     private int width;
     private int robotRow;
     private int robotCol;
+    private int boxRow;
+    private int boxCol;
     private int exitRow;
     private int exitCol;
+    private int moves;
 
     public Puzzle(char[][] level) {
         this.height = level.length;
         this.width = level[0].length;
+        this.moves = 0;
         this.data = new char[height][width];
         for(int r=0; r<height; ++r) {
             for(int c=0; c<width; ++c) {
@@ -63,17 +67,35 @@ public class Puzzle {
         return data[row][col];
     }
 
+    public int getMoves() {
+        return moves;
+    }
+
     public void move(int dr, int dc) {
         int tRow = robotRow+dr;
         int tCol = robotCol+dc;
 
         if(data[tRow][tCol] == ' ') {
+            ++moves;
             robotRow = tRow;
             robotCol = tCol;
         }
     }
 
     public boolean isVictorious() {
+        // int numberOfBoxes = boxes.size();
+        //        int finishedBoxes = 0;
+        //
+        //        for (BlueBox box : boxes) {
+        //            for (Goal goal : goals)
+        //                if (goal.getX() == box.getX() && goal.getY() == box.getY())
+        //                    ++finishedBoxes;
+        //        }
+        //
+        //        if(finishedBoxes==numberOfBoxes) {
+        //            isCompleted = true;
+        //            repaint();
+        //        }
         return robotRow==exitRow && robotCol==exitCol;
     }
 }

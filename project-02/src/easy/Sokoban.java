@@ -8,18 +8,14 @@ import java.awt.event.KeyEvent;
 public class Sokoban extends JFrame {
 
     private static GameModel gameModel;
-
     private GameLogic game;
-    private JPanel controlPanel1;
-    private JPanel controlPanel2;
-
+    private JPanel controlPanel;
     private JPanel canvasPanel;
-    JButton redButton = new JButton("Red");
-    JButton greenButton = new JButton("Green");
-    JButton blueButton = new JButton("Blue");
+    JButton resetButton = new JButton("Reset(ESC)");
+    JLabel levelLabel = new JLabel("Level");
+    JLabel levelName = new JLabel("Minicosmos");
 
     public Sokoban() {
-
         game = new GameLogic();
         gameModel = new GameModel();
         canvasPanel = new CanvasPanel();
@@ -28,32 +24,35 @@ public class Sokoban extends JFrame {
         add(canvasPanel, BorderLayout.CENTER);
         canvasPanel.addKeyListener(new CanvasPanelListener());
 
-        controlPanel1 = new JPanel();
-        controlPanel1.setBackground(Color.DARK_GRAY);
-        controlPanel1.add(redButton);
-        controlPanel1.add(greenButton);
-        controlPanel1.add(blueButton);
-        add(controlPanel1, BorderLayout.EAST);
-
-        controlPanel2 = new JPanel();
-        //controlPanel2.setLayout(new GridLayout());
-        controlPanel2.setBackground(Color.GREEN);
-        add(controlPanel2, BorderLayout.SOUTH);
+        controlPanel = new JPanel();
+        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
+        controlPanel.setBackground(Color.GRAY);
+        levelLabel.setForeground(Color.YELLOW);
+        controlPanel.add(levelLabel);
+        levelName.setBackground(Color.BLUE);
+        controlPanel.add(levelName);
+        controlPanel.add(resetButton);
+        add(controlPanel, BorderLayout.EAST);
     }
 
     public static void main(String[] args) {
         Sokoban game = new Sokoban();
         game.setTitle("MicroSokoban");
+        game.setBackground(Color.BLACK);
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.setSize(1200, 1200);
         game.setLocationRelativeTo(null);
         game.setVisible(true);
     }
 
+    // Canvas panel
     private static class CanvasPanel extends JPanel {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
+
+            g.setColor(Color.BLACK);
+            g.fillRect(0,0,getWidth(),getHeight());
 
             int xLeftUpper = getWidth()/4;
             int yLeftUpper = getHeight()/4;
@@ -63,41 +62,27 @@ public class Sokoban extends JFrame {
 
             for(int r = 0; r < gameModel.puzzle.getHeight(); ++r) {
                 for(int c = 0; c < gameModel.puzzle.getWidth(); ++c) {
+                    g.setColor(new Color(75,122,71));
+                    g.fillRect(xLeftUpper+ c * widthCell, yLeftUpper+r*heightCell, widthCell, heightCell);
                     char item = gameModel.puzzle.getCurElement(r,c);
                     switch (item) {
                         case '#':
-                            g.drawImage((new Wall()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, null);
-                            break;
-                        case ' ':
-                            g.drawImage((new Ground()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, null);
-                            break;
-                        case '.':
-                            g.drawImage((new Goal()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, null);
+                            g.drawImage((new Wall()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
                             break;
                         case '$':
-                            g.drawImage((new BlueBox()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, null);
+                            g.drawImage((new BlueBox()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell,  widthCell,heightCell,null);
+                            break;
+                        case 'B':
+                            g.setColor(Color.BLACK);
+                            g.fillRect(xLeftUpper+ c * widthCell, yLeftUpper+r*heightCell, widthCell, heightCell);
                             break;
                         default:
                             break;
                     }
-
-//                    Color color = gameModel.puzzle.getCurElement(r,c) =='#' ? Color.DARK_GRAY : Color.GREEN;
-//                    g.setColor(color);
-//                    g.fillRect(xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell, heightCell);
-//
-//                    g.setColor(Color.BLACK);
-//                    g.drawRect(xLeftUpper+ c * widthCell, yLeftUpper+r*heightCell, widthCell, heightCell);
                 }
-
-                g.setColor(Color.YELLOW);
-                g.fillOval(xLeftUpper+gameModel.puzzle.getExitCol()*widthCell, yLeftUpper+gameModel.puzzle.getExitRow()*heightCell, widthCell, heightCell);
-
-                g.setColor(Color.RED);
-                // g.fillOval(xLeftUpper+gameModel.puzzle.getRobotCol()*widthCell, yLeftUpper+gameModel.puzzle.getRobotRow()*heightCell, widthCell, heightCell);
-                g.drawImage((new Robot()).getImage(), xLeftUpper+gameModel.puzzle.getRobotCol()*widthCell, yLeftUpper+gameModel.puzzle.getRobotRow()*heightCell, null);
-
+                g.drawImage((new Goal()).getImage(), xLeftUpper+gameModel.puzzle.getExitCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getExitRow()*heightCell+heightCell/4,null);
+                g.drawImage((new Robot()).getImage(), xLeftUpper+gameModel.puzzle.getRobotCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getRobotRow()*heightCell,null);
             }
-
         }
     }
     private class CanvasPanelListener extends KeyAdapter {
@@ -121,6 +106,7 @@ public class Sokoban extends JFrame {
                     break;
             }
             repaint();
+
             if(gameModel.puzzle.isVictorious()) {
                 JOptionPane.showMessageDialog(Sokoban.this, String.format("Puzzle %d solved", gameModel.getCurLevel()));
                 gameModel.nextLevel();
