@@ -5,7 +5,11 @@ import java.awt.*;
 public class Ground extends Actor {
 
     public Ground(int x, int y) {
-        super(x, y);
+       // super(x, y);
+        initGround();
+    }
+
+    public Ground() {
         initGround();
     }
 

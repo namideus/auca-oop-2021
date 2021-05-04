@@ -6,7 +6,11 @@ import java.awt.*;
 public class Goal extends Actor {
 
     public Goal(int x, int y) {
-        super(x, y);
+       // super(x, y);
+        initGoal();
+    }
+
+    public Goal() {
         initGoal();
     }
 

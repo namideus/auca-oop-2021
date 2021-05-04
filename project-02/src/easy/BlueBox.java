@@ -6,7 +6,11 @@ import java.awt.*;
 public class BlueBox extends Actor {
 
     public BlueBox(int x, int y) {
-        super(x, y);
+        //super(x, y);
+        initBlueBox();
+    }
+
+    public BlueBox() {
         initBlueBox();
     }
 
@@ -17,12 +21,12 @@ public class BlueBox extends Actor {
         setImage(image);
     }
 
-    public void move(int x, int y) {
-
-        int dx = getX() + x;
-        int dy = getY() + y;
-
-        setX(dx);
-        setY(dy);
-    }
+//    public void move(int x, int y) {
+//
+//        int dx = getX() + x;
+//        int dy = getY() + y;
+//
+//        setX(dx);
+//        setY(dy);
+//    }
 }
