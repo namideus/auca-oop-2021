@@ -23,6 +23,10 @@ public class Puzzle {
                     robotRow = r;
                     robotCol = c;
                     data[r][c] = ' ';
+                } else if(level[r][c]=='$') {
+                    boxRow= r;
+                    boxCol = c;
+                    data[r][c] = ' ';
                 } else if(level[r][c]=='E') {
                     exitRow = r;
                     exitCol = c;
@@ -63,6 +67,14 @@ public class Puzzle {
         return exitRow;
     }
 
+    public int getBoxCol() {
+        return boxCol;
+    }
+
+    public int getBoxRow() {
+        return boxRow;
+    }
+
     public char getCurElement(int row, int col) {
         return data[row][col];
     }
@@ -71,7 +83,7 @@ public class Puzzle {
         return moves;
     }
 
-    public void move(int dr, int dc) {
+    public void moveRobot(int dr, int dc) {
         int tRow = robotRow+dr;
         int tCol = robotCol+dc;
 
@@ -80,6 +92,45 @@ public class Puzzle {
             robotRow = tRow;
             robotCol = tCol;
         }
+
+        if(isLeftCollision(robotRow, robotCol, boxRow, boxCol)) {
+            moveBox(dr, dc);
+        }
+        if(isRightCollision(robotRow, robotCol, boxRow, boxCol)) {
+            moveBox(dr, dc);
+        }
+         if(isTopCollision(robotRow, robotCol, boxRow, boxCol)) {
+             moveBox(dr, dc);
+         }
+        if(isBottomCollision(robotRow, robotCol, boxRow, boxCol)) {
+            moveBox(dr, dc);
+        }
+    }
+
+    public void moveBox(int dr, int dc) {
+        int tRow = boxRow+dr;
+        int tCol = boxCol+dc;
+
+        if(data[tRow][tCol] == ' ') {
+            boxRow = tRow;
+            boxCol = tCol;
+        }
+    }
+
+    public boolean isLeftCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
+        return robotRow - 1 == boxRow && robotCol == boxCol;
+    }
+
+    public boolean isRightCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
+        return robotRow + 1 == boxRow && robotCol == boxCol;
+    }
+
+    public boolean isTopCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
+        return robotCol - 1 == boxCol && robotRow == boxRow;
+    }
+
+    public boolean isBottomCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
+        return robotCol + 1 == boxCol && robotRow == boxRow;
     }
 
     public boolean isVictorious() {
@@ -96,6 +147,6 @@ public class Puzzle {
         //            isCompleted = true;
         //            repaint();
         //        }
-        return robotRow==exitRow && robotCol==exitCol;
+        return boxRow==exitRow && boxCol==exitCol;
     }
 }

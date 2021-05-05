@@ -6,7 +6,7 @@ import java.awt.*;
 public class Robot extends Actor {
 
     public Robot(int x, int y) {
-        //super(x, y);
+        super(x, y);
         initRobot();
     }
 

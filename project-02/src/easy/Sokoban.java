@@ -19,6 +19,7 @@ public class Sokoban extends JFrame {
         game = new GameLogic();
         gameModel = new GameModel();
         canvasPanel = new CanvasPanel();
+
         canvasPanel.requestFocus();
         canvasPanel.setFocusable(true);
         add(canvasPanel, BorderLayout.CENTER);
@@ -36,13 +37,15 @@ public class Sokoban extends JFrame {
     }
 
     public static void main(String[] args) {
-        Sokoban game = new Sokoban();
-        game.setTitle("MicroSokoban");
-        game.setBackground(Color.BLACK);
-        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.setSize(1200, 1200);
-        game.setLocationRelativeTo(null);
-        game.setVisible(true);
+        EventQueue.invokeLater(() -> {
+            Sokoban game = new Sokoban();
+            game.setTitle("MicroSokoban");
+            game.setBackground(Color.BLACK);
+            game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            game.setSize(1200, 1200);
+            game.setLocationRelativeTo(null);
+            game.setVisible(true);
+        });
     }
 
     // Canvas panel
@@ -62,16 +65,15 @@ public class Sokoban extends JFrame {
 
             for(int r = 0; r < gameModel.puzzle.getHeight(); ++r) {
                 for(int c = 0; c < gameModel.puzzle.getWidth(); ++c) {
-                    g.setColor(new Color(75,122,71));
-                    g.fillRect(xLeftUpper+ c * widthCell, yLeftUpper+r*heightCell, widthCell, heightCell);
+                    g.drawImage((new Ground()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
                     char item = gameModel.puzzle.getCurElement(r,c);
                     switch (item) {
                         case '#':
                             g.drawImage((new Wall()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
                             break;
-                        case '$':
+                    /*    case '$':
                             g.drawImage((new BlueBox()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell,  widthCell,heightCell,null);
-                            break;
+                            break;*/
                         case 'B':
                             g.setColor(Color.BLACK);
                             g.fillRect(xLeftUpper+ c * widthCell, yLeftUpper+r*heightCell, widthCell, heightCell);
@@ -82,6 +84,7 @@ public class Sokoban extends JFrame {
                 }
                 g.drawImage((new Goal()).getImage(), xLeftUpper+gameModel.puzzle.getExitCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getExitRow()*heightCell+heightCell/4,null);
                 g.drawImage((new Robot()).getImage(), xLeftUpper+gameModel.puzzle.getRobotCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getRobotRow()*heightCell,null);
+                g.drawImage((new BlueBox()).getImage(), xLeftUpper + gameModel.puzzle.getBoxCol()*widthCell, yLeftUpper+gameModel.puzzle.getBoxRow()*heightCell,  widthCell,heightCell,null);
             }
         }
     }
@@ -91,16 +94,20 @@ public class Sokoban extends JFrame {
 
             switch(keyEvent.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    gameModel.puzzle.move(0, -1);
+                    gameModel.puzzle.moveRobot(0, -1);
+                    //gameModel.puzzle.moveBox(0, -1);
                     break;
                 case KeyEvent.VK_RIGHT:
-                    gameModel.puzzle.move(0, 1);
+                    gameModel.puzzle.moveRobot(0, 1);
+                    //gameModel.puzzle.moveBox(0, 1);
                     break;
                 case KeyEvent.VK_UP:
-                    gameModel.puzzle.move(-1, 0);
+                    gameModel.puzzle.moveRobot(-1, 0);
+                    //gameModel.puzzle.moveBox(-1, 0);
                     break;
                 case KeyEvent.VK_DOWN:
-                    gameModel.puzzle.move(1, 0);
+                    gameModel.puzzle.moveRobot(1, 0);
+                   // gameModel.puzzle.moveBox(1, 0);
                     break;
                 default:
                     break;

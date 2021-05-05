@@ -4,15 +4,17 @@ import java.awt.*;
 
 public class Actor {
     private final int SPACE = 20;
-//    private int x;
-//    private int y;
+    private int row;
+    private int col;
     private Image image;
     private String imagePath;
 
-//    public Actor(int x, int y) {
-//        this.x = x;
-//        this.y = y;
-//    }
+    public Actor() { }
+
+    public Actor(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
 
     public Image getImage() {
         return image;
@@ -30,35 +32,35 @@ public class Actor {
         return imagePath;
     }
 
-//    public int getX() {
-//        return x;
-//    }
-//
-//    public int getY() {
-//        return y;
-//    }
-//
-//    public void setX(int x) {
-//        this.x = x;
-//    }
-//
-//    public void setY(int y) {
-//        this.y = y;
-//    }
+    public int getRow() {
+        return row;
+    }
 
-//    public boolean isLeftCollision(Actor actor) {
-//        return getX() - SPACE == actor.getX() && getY() == actor.getY();
-//    }
-//
-//    public boolean isRightCollision(Actor actor) {
-//        return getX() + SPACE == actor.getX() && getY() == actor.getY();
-//    }
-//
-//    public boolean isTopCollision(Actor actor) {
-//        return getY() - SPACE == actor.getY() && getX() == actor.getX();
-//    }
-//
-//    public boolean isBottomCollision(Actor actor) {
-//        return getY() + SPACE == actor.getY() && getX() == actor.getX();
-//    }
+    public int getCol() {
+        return col;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public boolean isLeftCollision(Actor actor) {
+        return getRow() - SPACE == actor.getRow() && getCol() == actor.getCol();
+    }
+
+    public boolean isRightCollision(Actor actor) {
+        return getRow() + SPACE == actor.getRow() && getCol() == actor.getCol();
+    }
+
+    public boolean isTopCollision(Actor actor) {
+        return getCol() - SPACE == actor.getCol() && getRow() == actor.getRow();
+    }
+
+    public boolean isBottomCollision(Actor actor) {
+        return getCol() + SPACE == actor.getCol() && getRow() == actor.getRow();
+    }
 }
