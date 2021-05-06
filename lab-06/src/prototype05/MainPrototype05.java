@@ -8,8 +8,9 @@ import java.util.ArrayList;
 class MainProtoype05 extends JFrame {
 
     static ArrayList<Figure> figures = new ArrayList<>();
-
     Figure selecteFigure;
+    int prevMouseX = -1;
+    int prevMouseY = -1;
 
     JPanel mainPanel;
     JPanel controlPanel;
@@ -71,16 +72,19 @@ class MainProtoype05 extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if(e.getButton()==MouseEvent.BUTTON3) {
+                    if(selecteFigure!=null) {
+                        selecteFigure.setSelected(false);
+                        selecteFigure = null;
+                    }
                     for (Figure f : figures) {
                         if (f.contains(e.getX(), e.getY())) {
-                            if(selecteFigure!=null) {
-                                selecteFigure.setSelected(false);
-                            }
-                            f.setSelected(true);
                             selecteFigure = f;
-                            repaint();
-                            JOptionPane.showMessageDialog(MainProtoype05.this, f.toString());
                         }
+                    }
+                    if(selecteFigure!=null) {
+                        selecteFigure.setSelected(true);
+                        repaint();
+                        JOptionPane.showMessageDialog(MainProtoype05.this, selecteFigure.toString());
                     }
                 }
             }
@@ -90,27 +94,40 @@ class MainProtoype05 extends JFrame {
                 super.mousePressed(e);
                 if(e.getButton()==MouseEvent.BUTTON1) {
                     for (Figure f : figures) {
+                        if(selecteFigure!=null) {
+                            selecteFigure.setSelected(false);
+                            selecteFigure = null;
+                        }
                         if (f.contains(e.getX(), e.getY())) {
-                            if(selecteFigure!=null) {
-                                selecteFigure.setSelected(false);
-                            }
                             f.setSelected(true);
                             selecteFigure = f;
+                            prevMouseX = e.getX();
+                            prevMouseY = e.getY();
                             repaint();
                         }
                     }
                 }
             }
+        });
 
+        mainPanel.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
 
-            }
+                if(SwingUtilities.isLeftMouseButton(e)) {
+                    if(selecteFigure!=null) {
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
+                        int dx = e.getX() - prevMouseX;
+                        int dy = e.getY() - prevMouseY;
+
+                        prevMouseX = e.getX();
+                        prevMouseY = e.getY();
+
+                        selecteFigure.move(dx, dy);
+                        repaint();
+                    }
+                }
             }
         });
     }
