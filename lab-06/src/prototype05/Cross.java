@@ -28,6 +28,13 @@ public class Cross extends Figure {
     }
 
     @Override
+    public void setSelected(boolean selected) {
+        super.setSelected(selected);
+        hRect.setSelected(selected);
+        vRect.setSelected(selected);
+    }
+
+    @Override
     public void draw(Graphics g) {
         hRect.draw(g);
         vRect.draw(g);

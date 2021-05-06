@@ -24,6 +24,10 @@ public class Circle extends Figure {
     public void draw(Graphics g) {
         g.setColor(Color.BLUE);
         g.fillOval(x-r,y-r,2*r,2*r);
+        if(isSelected()) {
+            g.setColor(Color.RED);
+            g.drawOval(x-r,y-r,2*r,2*r);
+        }
     }
 
     @Override

@@ -26,6 +26,10 @@ public class Rect extends Figure {
     public void draw(Graphics g) {
         g.setColor(Color.BLUE);
         g.fillRect(x,y,w,h);
+        if(isSelected()) {
+            g.setColor(Color.RED);
+            g.drawRect(x,y,w,h);
+        }
     }
 
     @Override

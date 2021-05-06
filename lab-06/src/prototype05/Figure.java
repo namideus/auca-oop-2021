@@ -5,10 +5,12 @@ import java.awt.*;
 public abstract class Figure {
 
     protected int x, y;
+    private boolean isSelected;
 
     public Figure(int x, int y) {
         this.x = x;
         this.y = y;
+        this.isSelected = false;
     }
 
     public void setY(int y) {
@@ -25,6 +27,14 @@ public abstract class Figure {
     }
 
     public abstract boolean contains(int xClick, int yClick);
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public abstract void draw(Graphics g);
 }

@@ -2,15 +2,14 @@ package prototype05;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 class MainProtoype05 extends JFrame {
 
     static ArrayList<Figure> figures = new ArrayList<>();
+
+    Figure selecteFigure;
 
     JPanel mainPanel;
     JPanel controlPanel;
@@ -19,11 +18,17 @@ class MainProtoype05 extends JFrame {
     JButton circleButton = new JButton("Circle");;
     JButton crossButton = new JButton("Cross");;
 
+    int sX;
+    int sY;
+    boolean isDragging = false;
+
     // Layout
     MainProtoype05() {
         setLayout(new BorderLayout());
 
         mainPanel = new CanvasPanel();
+        mainPanel.setFocusable(true);
+        mainPanel.requestFocus();
         add(mainPanel, BorderLayout.CENTER);
 
         controlPanel = new JPanel();
@@ -37,37 +42,76 @@ class MainProtoype05 extends JFrame {
         rectButton.addActionListener(actionEvent -> {
             figures.add(new Rect(0,0,100,100));
             repaint();
+            mainPanel.requestFocus();
         });
         circleButton.addActionListener(actionEvent -> {
             figures.add(new Circle(150,50,50));
             repaint();
+            mainPanel.requestFocus();
         });
         crossButton.addActionListener(actionEvent -> {
             figures.add(new Cross(250,50,100,10));
             repaint();
+            mainPanel.requestFocus();
+        });
+
+        mainPanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if(e.getKeyCode()==KeyEvent.VK_DELETE && selecteFigure!=null) {
+                    figures.remove(selecteFigure);
+                    selecteFigure = null;
+                    repaint();
+                }
+            }
         });
         mainPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                for(Figure f : figures) {
-                    if(f.contains(e.getX(), e.getY())) {
-                        JOptionPane.showMessageDialog(MainProtoype05.this, f.toString());
+                if(e.getButton()==MouseEvent.BUTTON3) {
+                    for (Figure f : figures) {
+                        if (f.contains(e.getX(), e.getY())) {
+                            if(selecteFigure!=null) {
+                                selecteFigure.setSelected(false);
+                            }
+                            f.setSelected(true);
+                            selecteFigure = f;
+                            repaint();
+                            JOptionPane.showMessageDialog(MainProtoype05.this, f.toString());
+                        }
                     }
                 }
             }
 
-//            @Override
-//            public void mouseDragged(MouseEvent e) {
-//                super.mousePressed(e);
-//                for(Figure f : figures) {
-//                    if(f.contains(e.getX(), e.getY())) {
-//                        f.move(e.getX(), e.getY());
-//                        //f.draw(g);
-//                        repaint();
-//                    }
-//                }
-//            }
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if(e.getButton()==MouseEvent.BUTTON1) {
+                    for (Figure f : figures) {
+                        if (f.contains(e.getX(), e.getY())) {
+                            if(selecteFigure!=null) {
+                                selecteFigure.setSelected(false);
+                            }
+                            f.setSelected(true);
+                            selecteFigure = f;
+                            repaint();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+            }
         });
     }
 
