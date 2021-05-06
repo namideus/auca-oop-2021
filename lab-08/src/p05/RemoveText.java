@@ -1,7 +1,6 @@
 package p05;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -12,11 +11,13 @@ public class RemoveText {
             System.exit(1);
         }
 
-        File sourceFile = new File(args[0]);
+        File sourceFile = new File(args[1]);
         if(!sourceFile.exists()) {
-            System.out.println("Source file " + args[0] + " does not exist");
+            System.out.println("Source file " + args[1] + " does not exist");
             System.exit(2);
         }
+
+        // File targetFile = new File(args[1]);
 
         try (
                 Scanner scan = new Scanner(sourceFile);
@@ -24,7 +25,7 @@ public class RemoveText {
         ) {
             while (scan.hasNext()) {
                 String s1 = scan.nextLine();
-                String s2 = s1.replaceAll(args[2], args[3]);
+                String s2 = s1.replaceAll(args[0],null);
                 output.println(s2);
             }
         }
