@@ -71,9 +71,6 @@ public class Sokoban extends JFrame {
                         case '#':
                             g.drawImage((new Wall()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
                             break;
-                    /*    case '$':
-                            g.drawImage((new BlueBox()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell,  widthCell,heightCell,null);
-                            break;*/
                         case 'B':
                             g.setColor(Color.BLACK);
                             g.fillRect(xLeftUpper+ c * widthCell, yLeftUpper+r*heightCell, widthCell, heightCell);

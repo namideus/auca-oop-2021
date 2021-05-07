@@ -93,6 +93,9 @@ public class Puzzle {
             robotCol = tCol;
         }
 
+        System.out.println("Right collision: " + isRightCollision(robotRow, robotCol, boxRow, boxCol));
+        System.out.println("Left collision: " + isLeftCollision(robotRow, robotCol, boxRow, boxCol));
+
         if(isLeftCollision(robotRow, robotCol, boxRow, boxCol)) {
             moveBox(dr, dc);
         }
@@ -118,14 +121,15 @@ public class Puzzle {
     }
 
     public boolean isLeftCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
-        return robotRow - 1 == boxRow && robotCol == boxCol;
+        return robotRow == boxRow && robotCol-1 == boxCol;
     }
 
     public boolean isRightCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
-        return robotRow + 1 == boxRow && robotCol == boxCol;
+        return robotRow == boxRow && robotCol+1 == boxCol;
     }
 
     public boolean isTopCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
+
         return robotCol - 1 == boxCol && robotRow == boxRow;
     }
 
