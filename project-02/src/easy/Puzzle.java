@@ -87,37 +87,60 @@ public class Puzzle {
         int tRow = robotRow+dr;
         int tCol = robotCol+dc;
 
-        if(data[tRow][tCol] == ' ') {
-            ++moves;
-            robotRow = tRow;
-            robotCol = tCol;
+        if(isLeftCollision(tRow, tCol, boxRow, boxCol)) {
+            if(moveBox(dr, dc)) {
+                if(data[tRow][tCol] == ' ') {
+                    ++moves;
+                    robotRow = tRow;
+                    robotCol = tCol;
+                }
+            }
+        }
+        if(isRightCollision(tRow, tCol, boxRow, boxCol)) {
+            if(moveBox(dr, dc)) {
+                if(data[tRow][tCol] == ' ') {
+                    ++moves;
+                    robotRow = tRow;
+                    robotCol = tCol;
+                }
+            }
+        }
+        if(isTopCollision(tRow, tCol, boxRow, boxCol)) {
+            if(moveBox(dr, dc)) {
+                if(data[tRow][tCol] == ' ') {
+                    ++moves;
+                    robotRow = tRow;
+                    robotCol = tCol;
+                }
+            }
+        }
+        if(isBottomCollision(tRow, tCol, boxRow, boxCol)) {
+            if(moveBox(dr, dc)) {
+                if(data[tRow][tCol] == ' ') {
+                    ++moves;
+                    robotRow = tRow;
+                    robotCol = tCol;
+                }
+            }
         }
 
-        System.out.println("Right collision: " + isRightCollision(robotRow, robotCol, boxRow, boxCol));
-        System.out.println("Left collision: " + isLeftCollision(robotRow, robotCol, boxRow, boxCol));
-
-        if(isLeftCollision(robotRow, robotCol, boxRow, boxCol)) {
-            moveBox(dr, dc);
-        }
-        if(isRightCollision(robotRow, robotCol, boxRow, boxCol)) {
-            moveBox(dr, dc);
-        }
-         if(isTopCollision(robotRow, robotCol, boxRow, boxCol)) {
-             moveBox(dr, dc);
-         }
-        if(isBottomCollision(robotRow, robotCol, boxRow, boxCol)) {
-            moveBox(dr, dc);
-        }
+            if(data[tRow][tCol] == ' ') {
+                ++moves;
+                robotRow = tRow;
+                robotCol = tCol;
+            }
     }
 
-    public void moveBox(int dr, int dc) {
+    public boolean moveBox(int dr, int dc) {
         int tRow = boxRow+dr;
         int tCol = boxCol+dc;
 
         if(data[tRow][tCol] == ' ') {
             boxRow = tRow;
             boxCol = tCol;
+            return true;
         }
+        return false;
     }
 
     public boolean isLeftCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
@@ -129,12 +152,12 @@ public class Puzzle {
     }
 
     public boolean isTopCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
-
-        return robotCol - 1 == boxCol && robotRow == boxRow;
+        // System.out.printf("Robot(%d, %d), Box(%d, %d)\n", robotRow, robotCol, boxRow, boxCol);
+        return robotCol == boxCol && robotRow-1 == boxRow;
     }
 
     public boolean isBottomCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
-        return robotCol + 1 == boxCol && robotRow == boxRow;
+        return robotCol == boxCol && robotRow+1 == boxRow;
     }
 
     public boolean isVictorious() {
