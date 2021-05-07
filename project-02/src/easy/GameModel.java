@@ -2,6 +2,11 @@ package easy;
 
 public class GameModel {
 
+    public static final int LEFT_COLLISION = 1;
+    public static final int RIGHT_COLLISION = 2;
+    public static final int TOP_COLLISION = 3;
+    public static final int BOTTOM_COLLISION = 4;
+
     private int curLevel = 0;
     Puzzle puzzle;
 
