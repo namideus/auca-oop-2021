@@ -122,6 +122,7 @@ public class Sokoban extends JFrame {
                     break;
             }
             repaint();
+            canvasPanel.requestFocus();
 
             if(gameModel.puzzle.isVictorious()) {
                 JOptionPane.showMessageDialog(Sokoban.this, String.format("Puzzle %d solved", gameModel.getCurLevel()));
