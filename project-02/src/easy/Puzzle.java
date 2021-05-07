@@ -156,40 +156,6 @@ public class Puzzle {
             default:
                 break;
         }
-
-         /*   if(isLeftCollision(tRow, tCol, boxRow, boxCol) ||
-                isRightCollision(tRow, tCol, boxRow, boxCol) ||
-                isTopCollision(tRow, tCol, boxRow, boxCol) ||
-                isBottomCollision(tRow, tCol, boxRow, boxCol)) {
-            if(data[tRow][tCol] == ' ' && data[tRowBox][tColBox]==' ') {
-                    ++moves;
-                    robotRow = tRow;
-                    robotCol = tCol;
-                    boxRow = tRowBox;
-                    boxCol = tColBox;
-            }
-        } else if(data[tRow][tCol] == ' ') {
-            ++moves;
-            robotRow = tRow;
-            robotCol = tCol;
-        }*/
-
-        //        System.out.println(isLeftCollision(tRow, tCol, boxRow, boxCol));
-//        System.out.println(isRightCollision(tRow, tCol, boxRow, boxCol));
-//        System.out.println(isTopCollision(tRow, tCol, boxRow, boxCol));
-//        System.out.println(isBottomCollision(tRow, tCol, boxRow, boxCol));
-       /*
-        if(isRightCollision(tRow, tCol, boxRow, boxCol)) {
-
-        }
-        if(isTopCollision(tRow, tCol, boxRow, boxCol)) {
-
-        }
-        if(isBottomCollision(tRow, tCol, boxRow, boxCol)) {
-
-        }*/
-
-
     }
 
     public boolean moveBox(int dr, int dc) {
