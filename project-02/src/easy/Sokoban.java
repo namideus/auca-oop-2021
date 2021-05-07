@@ -4,19 +4,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Sokoban extends JFrame {
 
     private static GameModel gameModel;
-    private GameLogic game;
     private JPanel controlPanel;
     private JPanel canvasPanel;
     JButton resetButton = new JButton("Reset(ESC)");
     JLabel levelLabel = new JLabel("Level");
     JLabel levelName = new JLabel("Minicosmos");
 
+    // Experiment
+    private static ArrayList<BlueBox> boxes;
+    private static ArrayList<Goal> goals;
+
     public Sokoban() {
-        game = new GameLogic();
         gameModel = new GameModel();
         canvasPanel = new CanvasPanel();
 
@@ -54,6 +57,9 @@ public class Sokoban extends JFrame {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
 
+            boxes = gameModel.getBoxes();
+            goals = gameModel.getGoals();
+
             g.setColor(Color.BLACK);
             g.fillRect(0,0,getWidth(),getHeight());
 
@@ -79,9 +85,19 @@ public class Sokoban extends JFrame {
                             break;
                     }
                 }
-                g.drawImage((new Goal()).getImage(), xLeftUpper+gameModel.puzzle.getExitCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getExitRow()*heightCell+heightCell/4,null);
+
+                for(Goal goal: goals) {
+                    g.drawImage(goal.getImage(), xLeftUpper+goal.getCol()*widthCell+widthCell/4, yLeftUpper+goal.getRow()*heightCell+heightCell/4,null);
+                }
+
+                for(BlueBox box: boxes) {
+                    g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
+                }
                 g.drawImage((new Robot()).getImage(), xLeftUpper+gameModel.puzzle.getRobotCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getRobotRow()*heightCell,null);
-                g.drawImage((new BlueBox()).getImage(), xLeftUpper + gameModel.puzzle.getBoxCol()*widthCell, yLeftUpper+gameModel.puzzle.getBoxRow()*heightCell,  widthCell,heightCell,null);
+
+                //                g.drawImage((new BlueBox()).getImage(), xLeftUpper + gameModel.puzzle.getBoxCol()*widthCell, yLeftUpper+gameModel.puzzle.getBoxRow()*heightCell,  widthCell,heightCell,null);
+                //                g.drawImage((new Goal()).getImage(), xLeftUpper+gameModel.puzzle.getExitCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getExitRow()*heightCell+heightCell/4,null);
+
             }
         }
     }
@@ -92,19 +108,15 @@ public class Sokoban extends JFrame {
             switch(keyEvent.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     gameModel.puzzle.moveRobot(0, -1, GameModel.LEFT_COLLISION);
-                    //gameModel.puzzle.moveBox(0, -1);
                     break;
                 case KeyEvent.VK_RIGHT:
                     gameModel.puzzle.moveRobot(0, 1, GameModel.RIGHT_COLLISION);
-                    //gameModel.puzzle.moveBox(0, 1);
                     break;
                 case KeyEvent.VK_UP:
                     gameModel.puzzle.moveRobot(-1, 0, GameModel.TOP_COLLISION);
-                    //gameModel.puzzle.moveBox(-1, 0);
                     break;
                 case KeyEvent.VK_DOWN:
                     gameModel.puzzle.moveRobot(1, 0, GameModel.BOTTOM_COLLISION);
-                   // gameModel.puzzle.moveBox(1, 0);
                     break;
                 default:
                     break;

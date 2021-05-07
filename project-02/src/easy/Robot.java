@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class Robot extends Actor {
 
-    public Robot(int x, int y) {
-        super(x, y);
+    public Robot(int row, int col) {
+        super(row, col);
         initRobot();
     }
 
@@ -20,13 +20,4 @@ public class Robot extends Actor {
         Image image = t.getImage(imagePath);
         setImage(image);
     }
-
-//    public void move(int x, int y) {
-//
-//        int dx = getX() + x;
-//        int dy = getY() + y;
-//
-//        setX(dx);
-//        setY(dy);
-//    }
 }

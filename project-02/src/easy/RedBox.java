@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class RedBox extends Actor {
 
-    public RedBox(int x, int y) {
-        //super(x, y);
+    public RedBox(int row, int col) {
+        super(row, col);
         initBlueBox();
     }
 
@@ -19,13 +19,4 @@ public class RedBox extends Actor {
         Image image = t.getImage(imagePath);
         setImage(image);
     }
-
-//    public void move(int x, int y) {
-//
-//        int dx = getX() + x;
-//        int dy = getY() + y;
-//
-//        setX(dx);
-//        setY(dy);
-//    }
 }

@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class Goal extends Actor {
 
-    public Goal(int x, int y) {
-       // super(x, y);
+    public Goal(int row, int col) {
+        super(row, col);
         initGoal();
     }
 

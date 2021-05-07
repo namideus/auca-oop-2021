@@ -47,20 +47,4 @@ public class Actor {
     public void setCol(int col) {
         this.col = col;
     }
-
-    public boolean isLeftCollision(Actor actor) {
-        return getRow() - SPACE == actor.getRow() && getCol() == actor.getCol();
-    }
-
-    public boolean isRightCollision(Actor actor) {
-        return getRow() + SPACE == actor.getRow() && getCol() == actor.getCol();
-    }
-
-    public boolean isTopCollision(Actor actor) {
-        return getCol() - SPACE == actor.getCol() && getRow() == actor.getRow();
-    }
-
-    public boolean isBottomCollision(Actor actor) {
-        return getCol() + SPACE == actor.getCol() && getRow() == actor.getRow();
-    }
 }

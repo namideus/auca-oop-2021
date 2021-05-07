@@ -1,6 +1,7 @@
 package easy;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Puzzle {
     private char[][] data;
@@ -14,11 +15,17 @@ public class Puzzle {
     private int exitCol;
     private int moves;
 
+    private ArrayList<BlueBox> boxes;
+    private ArrayList<Goal> goals;
+
     public Puzzle(char[][] level) {
+        this.boxes = new ArrayList<>();
+        this.goals = new ArrayList<>();
         this.height = level.length;
         this.width = level[0].length;
         this.moves = 0;
         this.data = new char[height][width];
+
         for(int r=0; r<height; ++r) {
             for(int c=0; c<width; ++c) {
                 if(level[r][c]=='R') {
@@ -28,10 +35,12 @@ public class Puzzle {
                 } else if(level[r][c]=='$') {
                     boxRow= r;
                     boxCol = c;
+                    boxes.add(new BlueBox(r,c));
                     data[r][c] = ' ';
                 } else if(level[r][c]=='E') {
                     exitRow = r;
                     exitCol = c;
+                    goals.add(new Goal(r,c));
                     data[r][c] = ' ';
                 } else {
                     data[r][c] = level[r][c];
@@ -85,20 +94,19 @@ public class Puzzle {
         return moves;
     }
 
-    public void moveRobot(int dr, int dc, int collision) {
+    public void move(int dr, int dc, int collision) {
         int tRow = robotRow+dr;
         int tCol = robotCol+dc;
-
-//        int tRowBox = boxRow+dr;
-//        int tColBox = boxCol+dc;
 
         switch (collision) {
             case GameModel.LEFT_COLLISION:
                 if(isLeftCollision(robotRow, robotCol, boxRow, boxCol)) {
                     if(moveBox(dr, dc)) {
-                        ++moves;
-                        robotRow = tRow;
-                        robotCol = tCol;
+                        if(data[tRow][tCol] == ' ') {
+                            ++moves;
+                            robotRow = tRow;
+                            robotCol = tCol;
+                        }
                     }
                     return;
                 }
@@ -158,6 +166,8 @@ public class Puzzle {
         }
     }
 
+    public boolean moveRobot(dr)
+
     public boolean moveBox(int dr, int dc) {
         int tRow = boxRow+dr;
         int tCol = boxCol+dc;
@@ -187,19 +197,28 @@ public class Puzzle {
     }
 
     public boolean isVictorious() {
-        // int numberOfBoxes = boxes.size();
-        //        int finishedBoxes = 0;
-        //
-        //        for (BlueBox box : boxes) {
-        //            for (Goal goal : goals)
-        //                if (goal.getX() == box.getX() && goal.getY() == box.getY())
-        //                    ++finishedBoxes;
-        //        }
-        //
-        //        if(finishedBoxes==numberOfBoxes) {
-        //            isCompleted = true;
-        //            repaint();
-        //        }
+//         int numberOfBoxes = boxes.size();
+//        int finishedBoxes = 0;
+//
+//        for (BlueBox box : boxes) {
+//            for (Goal goal : goals)
+//                if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol())
+//                    ++finishedBoxes;
+//                }
+//
+//                if(finishedBoxes==numberOfBoxes) {
+//
+//                }
+
         return boxRow==exitRow && boxCol==exitCol;
     }
+
+    public ArrayList<BlueBox> getBoxes() {
+        return boxes;
+    }
+
+    public ArrayList<Goal> getGoals() {
+        return goals;
+    }
 }
+

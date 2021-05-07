@@ -350,7 +350,8 @@ public class GameLogic extends JPanel {
 //                                }
 //                            }
 //                            if (checkWallCollision(box, TOP_COLLISION)) {
-//                                return true;
+//                                return true;                    BlueBox box = new BlueBox(r,c);
+
 //                            }
 //                        }
 //                        box.move(0, -SPACE);

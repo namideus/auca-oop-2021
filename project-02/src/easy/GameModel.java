@@ -1,5 +1,8 @@
 package easy;
 
+import javax.swing.*;
+import java.util.ArrayList;
+
 public class GameModel {
 
     public static final int LEFT_COLLISION = 1;
@@ -58,6 +61,18 @@ public class GameModel {
 
     public int getCurLevel() {
         return curLevel + 1;
+    }
+
+    public int getMoves() {
+        return puzzle.getMoves();
+    }
+
+    public ArrayList<BlueBox> getBoxes() {
+        return puzzle.getBoxes();
+    }
+
+    public ArrayList<Goal> getGoals() {
+        return puzzle.getGoals();
     }
 
     public void nextLevel() {
