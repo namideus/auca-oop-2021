@@ -95,86 +95,75 @@ public class Puzzle {
     }
 
     public void move(int dr, int dc, int collision) {
-        int tRow = robotRow+dr;
-        int tCol = robotCol+dc;
 
         switch (collision) {
             case GameModel.LEFT_COLLISION:
-                if(isLeftCollision(robotRow, robotCol, boxRow, boxCol)) {
-                    if(moveBox(dr, dc)) {
-                        if(data[tRow][tCol] == ' ') {
-                            ++moves;
-                            robotRow = tRow;
-                            robotCol = tCol;
+                for (BlueBox box : boxes) {
+                    if (isLeftCollision(robotRow, robotCol, box.getRow(), box.getCol())) {
+                        if (moveBox(dr, dc, box)) {
+                            moveRobot(dr, dc);
                         }
+                        return;
                     }
-                    return;
                 }
-                if(data[tRow][tCol] == ' ') {
-                    ++moves;
-                    robotRow = tRow;
-                    robotCol = tCol;
-                }
+                moveRobot(dr,dc);
                 break;
             case GameModel.RIGHT_COLLISION:
-                if(isRightCollision(robotRow, robotCol, boxRow, boxCol)) {
-                    if(moveBox(dr, dc)) {
-                        ++moves;
-                        robotRow = tRow;
-                        robotCol = tCol;
+                for (BlueBox box : boxes) {
+                    if (isRightCollision(robotRow, robotCol, box.getRow(), box.getCol())) {
+                        if (moveBox(dr, dc, box)) {
+                            moveRobot(dr, dc);
+                        }
+                        return;
                     }
-                    return;
                 }
-                if(data[tRow][tCol] == ' ') {
-                    ++moves;
-                    robotRow = tRow;
-                    robotCol = tCol;
-                }
+                moveRobot(dr,dc);
                 break;
             case GameModel.TOP_COLLISION:
-                if(isTopCollision(robotRow, robotCol, boxRow, boxCol)) {
-                    if(moveBox(dr, dc)) {
-                        ++moves;
-                        robotRow = tRow;
-                        robotCol = tCol;
+                for (BlueBox box : boxes) {
+                    if (isTopCollision(robotRow, robotCol, box.getRow(), box.getCol())) {
+                        if (moveBox(dr, dc, box)) {
+                            moveRobot(dr, dc);
+                        }
+                        return;
                     }
-                    return;
                 }
-                if(data[tRow][tCol] == ' ') {
-                    ++moves;
-                    robotRow = tRow;
-                    robotCol = tCol;
-                }
+                moveRobot(dr,dc);
                 break;
             case GameModel.BOTTOM_COLLISION:
-                if(isBottomCollision(robotRow, robotCol, boxRow, boxCol)) {
-                    if(moveBox(dr, dc)) {
-                        ++moves;
-                        robotRow = tRow;
-                        robotCol = tCol;
+                for (BlueBox box : boxes) {
+                    if (isBottomCollision(robotRow, robotCol, box.getRow(), box.getCol())) {
+                        if (moveBox(dr, dc, box)) {
+                            moveRobot(dr, dc);
+                        }
+                        return;
                     }
-                    return;
                 }
-                if(data[tRow][tCol] == ' ') {
-                    ++moves;
-                    robotRow = tRow;
-                    robotCol = tCol;
-                }
+                moveRobot(dr,dc);
                 break;
             default:
                 break;
         }
     }
 
-    public boolean moveRobot(dr)
-
-    public boolean moveBox(int dr, int dc) {
-        int tRow = boxRow+dr;
-        int tCol = boxCol+dc;
+    public void moveRobot(int dr, int dc) {
+        int tRow = robotRow+dr;
+        int tCol = robotCol+dc;
 
         if(data[tRow][tCol] == ' ') {
-            boxRow = tRow;
-            boxCol = tCol;
+            ++moves;
+            robotRow = tRow;
+            robotCol = tCol;
+        }
+    }
+
+    public boolean moveBox(int dr, int dc, BlueBox box) {
+        int tRow = box.getRow()+dr;
+        int tCol = box.getCol()+dc;
+
+        if(data[tRow][tCol] == ' ') {
+            box.setRow(tRow);
+            box.setCol(tCol);
             return true;
         }
         return false;
@@ -197,20 +186,19 @@ public class Puzzle {
     }
 
     public boolean isVictorious() {
-//         int numberOfBoxes = boxes.size();
-//        int finishedBoxes = 0;
-//
-//        for (BlueBox box : boxes) {
-//            for (Goal goal : goals)
-//                if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol())
-//                    ++finishedBoxes;
-//                }
-//
-//                if(finishedBoxes==numberOfBoxes) {
-//
-//                }
+        int numberOfBoxes = boxes.size();
+        int finishedBoxes = 0;
 
-        return boxRow==exitRow && boxCol==exitCol;
+        for (BlueBox box : boxes) {
+            for (Goal goal : goals) {
+                if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol())
+                    ++finishedBoxes;
+            }
+        }
+
+        return finishedBoxes==numberOfBoxes;
+
+        // return boxRow==exitRow && boxCol==exitCol;
     }
 
     public ArrayList<BlueBox> getBoxes() {

@@ -107,16 +107,16 @@ public class Sokoban extends JFrame {
 
             switch(keyEvent.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    gameModel.puzzle.moveRobot(0, -1, GameModel.LEFT_COLLISION);
+                    gameModel.puzzle.move(0, -1, GameModel.LEFT_COLLISION);
                     break;
                 case KeyEvent.VK_RIGHT:
-                    gameModel.puzzle.moveRobot(0, 1, GameModel.RIGHT_COLLISION);
+                    gameModel.puzzle.move(0, 1, GameModel.RIGHT_COLLISION);
                     break;
                 case KeyEvent.VK_UP:
-                    gameModel.puzzle.moveRobot(-1, 0, GameModel.TOP_COLLISION);
+                    gameModel.puzzle.move(-1, 0, GameModel.TOP_COLLISION);
                     break;
                 case KeyEvent.VK_DOWN:
-                    gameModel.puzzle.moveRobot(1, 0, GameModel.BOTTOM_COLLISION);
+                    gameModel.puzzle.move(1, 0, GameModel.BOTTOM_COLLISION);
                     break;
                 default:
                     break;
