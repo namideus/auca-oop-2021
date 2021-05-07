@@ -2,7 +2,7 @@ package p03;
 
 import java.math.BigInteger;
 
-public class BigRational {
+public class BigRational implements MyComparable {
 
     private final BigInteger nominator;
     private final BigInteger denominator;
@@ -71,5 +71,12 @@ public class BigRational {
         BigInteger num = new BigInteger(s.substring(0,indexSlash));
         BigInteger den = new BigInteger(s.substring(indexSlash+1));
         return new BigRational(num, den);
+
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        BigRational other  = (BigRational)o;
+        return nominator.multiply(other.denominator).compareTo(denominator.multiply(other.nominator));
     }
 }
