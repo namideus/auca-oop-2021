@@ -89,35 +89,75 @@ public class Puzzle {
         int tRow = robotRow+dr;
         int tCol = robotCol+dc;
 
-        int tRowBox = boxRow+dr;
-        int tColBox = boxCol+dc;
+//        int tRowBox = boxRow+dr;
+//        int tColBox = boxCol+dc;
 
         switch (collision) {
             case GameModel.LEFT_COLLISION:
                 if(isLeftCollision(robotRow, robotCol, boxRow, boxCol)) {
-
+                    if(moveBox(dr, dc)) {
+                        ++moves;
+                        robotRow = tRow;
+                        robotCol = tCol;
+                    }
+                    return;
+                }
+                if(data[tRow][tCol] == ' ') {
+                    ++moves;
+                    robotRow = tRow;
+                    robotCol = tCol;
                 }
                 break;
             case GameModel.RIGHT_COLLISION:
                 if(isRightCollision(robotRow, robotCol, boxRow, boxCol)) {
-
+                    if(moveBox(dr, dc)) {
+                        ++moves;
+                        robotRow = tRow;
+                        robotCol = tCol;
+                    }
+                    return;
+                }
+                if(data[tRow][tCol] == ' ') {
+                    ++moves;
+                    robotRow = tRow;
+                    robotCol = tCol;
                 }
                 break;
             case GameModel.TOP_COLLISION:
                 if(isTopCollision(robotRow, robotCol, boxRow, boxCol)) {
-
+                    if(moveBox(dr, dc)) {
+                        ++moves;
+                        robotRow = tRow;
+                        robotCol = tCol;
+                    }
+                    return;
+                }
+                if(data[tRow][tCol] == ' ') {
+                    ++moves;
+                    robotRow = tRow;
+                    robotCol = tCol;
                 }
                 break;
             case GameModel.BOTTOM_COLLISION:
                 if(isBottomCollision(robotRow, robotCol, boxRow, boxCol)) {
-
+                    if(moveBox(dr, dc)) {
+                        ++moves;
+                        robotRow = tRow;
+                        robotCol = tCol;
+                    }
+                    return;
+                }
+                if(data[tRow][tCol] == ' ') {
+                    ++moves;
+                    robotRow = tRow;
+                    robotCol = tCol;
                 }
                 break;
             default:
                 break;
         }
 
-            if(isLeftCollision(tRow, tCol, boxRow, boxCol) ||
+         /*   if(isLeftCollision(tRow, tCol, boxRow, boxCol) ||
                 isRightCollision(tRow, tCol, boxRow, boxCol) ||
                 isTopCollision(tRow, tCol, boxRow, boxCol) ||
                 isBottomCollision(tRow, tCol, boxRow, boxCol)) {
@@ -132,7 +172,7 @@ public class Puzzle {
             ++moves;
             robotRow = tRow;
             robotCol = tCol;
-        }
+        }*/
 
         //        System.out.println(isLeftCollision(tRow, tCol, boxRow, boxCol));
 //        System.out.println(isRightCollision(tRow, tCol, boxRow, boxCol));

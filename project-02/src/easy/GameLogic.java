@@ -221,183 +221,183 @@ public class GameLogic extends JPanel {
     }
 
     // Canvas panel listener
-    private class CanvasPanelListener extends KeyAdapter {
-        @Override
-        public void keyPressed(KeyEvent keyEvent) {
-
-            if(isCompleted)
-                return;
-
-            int key = keyEvent.getKeyCode();
-
-            switch(key) {
-                case KeyEvent.VK_LEFT:
-                    if(checkWallCollision(robot, LEFT_COLLISION))
-                        return;
-                    if(checkBoxCollision(LEFT_COLLISION))
-                        return;
-                    robot.move(-SPACE, 0);
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    if(checkWallCollision(robot, RIGHT_COLLISION))
-                        return;
-                    if(checkBoxCollision(RIGHT_COLLISION))
-                        return;
-                    robot.move(SPACE, 0);
-                    break;
-                case KeyEvent.VK_UP:
-                    if(checkWallCollision(robot, TOP_COLLISION))
-                        return;
-                    if(checkBoxCollision(TOP_COLLISION))
-                        return;
-                    robot.move(0, -SPACE);
-                    break;
-                case KeyEvent.VK_DOWN:
-                    if(checkWallCollision(robot, BOTTOM_COLLISION))
-                        return;
-                    if(checkBoxCollision(BOTTOM_COLLISION))
-                        return;
-                    robot.move(0, SPACE);
-                    break;
-                case KeyEvent.VK_R:
-                    restartLevel();
-                    break;
-                default:
-                    break;
-            }
-
-            repaint();
-        }
-    }
-
-    private boolean checkWallCollision(Actor actor, int type) {
-        switch (type) {
-            case LEFT_COLLISION:
-                for (Wall wall : walls) {
-                    if (actor.isLeftCollision(wall))
-                        return true;
-                }
-                return false;
-            case RIGHT_COLLISION:
-                for (Wall wall : walls) {
-                    if (actor.isRightCollision(wall))
-                        return true;
-                }
-                return false;
-            case TOP_COLLISION:
-                for (Wall wall : walls) {
-                    if (actor.isTopCollision(wall))
-                        return true;
-                }
-                return false;
-            case BOTTOM_COLLISION:
-                for (Wall wall : walls) {
-                    if (actor.isBottomCollision(wall))
-                        return true;
-                }
-                return false;
-            default:
-                break;
-        }
-        return false;
-    }
-
-    private boolean checkBoxCollision(int type) {
-        switch (type) {
-            case LEFT_COLLISION:
-                for (BlueBox box : boxes) {
-                    if (robot.isLeftCollision(box)) {
-                        for (BlueBox item : boxes) {
-                            if (!box.equals(item)) {
-                                if (box.isLeftCollision(item)) {
-                                    return true;
-                                }
-                            }
-                            if (checkWallCollision(box, LEFT_COLLISION)) {
-                                return true;
-                            }
-                        }
-                        box.move(-SPACE, 0);
-                        isCompleted();
-                    }
-                }
-                return false;
-            case RIGHT_COLLISION:
-                for (BlueBox box : boxes) {
-                    if (robot.isRightCollision(box)) {
-                        for (BlueBox item : boxes) {
-                            if (!box.equals(item)) {
-                                if (box.isRightCollision(item)) {
-                                    return true;
-                                }
-                            }
-                            if (checkWallCollision(box, RIGHT_COLLISION)) {
-                                return true;
-                            }
-                        }
-                        box.move(SPACE, 0);
-                        isCompleted();
-                    }
-                }
-                return false;
-            case TOP_COLLISION:
-                for (BlueBox box : boxes) {
-                    if (robot.isTopCollision(box)) {
-                        for (BlueBox item : boxes) {
-                            if (!box.equals(item)) {
-                                if (box.isTopCollision(item)) {
-                                    return true;
-                                }
-                            }
-                            if (checkWallCollision(box, TOP_COLLISION)) {
-                                return true;
-                            }
-                        }
-                        box.move(0, -SPACE);
-                        isCompleted();
-                    }
-                }
-                return false;
-            case BOTTOM_COLLISION:
-                for (BlueBox box : boxes) {
-                    if (robot.isBottomCollision(box)) {
-                        for (BlueBox item : boxes) {
-                            if (!box.equals(item)) {
-                                if (box.isBottomCollision(item)) {
-                                    return true;
-                                }
-                            }
-                            if (checkWallCollision(box, BOTTOM_COLLISION)) {
-                                return true;
-                            }
-                        }
-                        box.move(0, SPACE);
-                        isCompleted();
-                    }
-                }
-                return false;
-            default:
-                break;
-        }
-        return false;
-    }
-
-
-    public void isCompleted() {
-        int numberOfBoxes = boxes.size();
-        int finishedBoxes = 0;
-
-        for (BlueBox box : boxes) {
-            for (Goal goal : goals)
-                if (goal.getX() == box.getX() && goal.getY() == box.getY())
-                    ++finishedBoxes;
-        }
-
-        if(finishedBoxes==numberOfBoxes) {
-            isCompleted = true;
-            repaint();
-        }
-    }
+//    private class CanvasPanelListener extends KeyAdapter {
+//        @Override
+//        public void keyPressed(KeyEvent keyEvent) {
+//
+//            if(isCompleted)
+//                return;
+//
+//            int key = keyEvent.getKeyCode();
+//
+//            switch(key) {
+//                case KeyEvent.VK_LEFT:
+//                    if(checkWallCollision(robot, LEFT_COLLISION))
+//                        return;
+//                    if(checkBoxCollision(LEFT_COLLISION))
+//                        return;
+//                    robot.move(-SPACE, 0);
+//                    break;
+//                case KeyEvent.VK_RIGHT:
+//                    if(checkWallCollision(robot, RIGHT_COLLISION))
+//                        return;
+//                    if(checkBoxCollision(RIGHT_COLLISION))
+//                        return;
+//                    robot.move(SPACE, 0);
+//                    break;
+//                case KeyEvent.VK_UP:
+//                    if(checkWallCollision(robot, TOP_COLLISION))
+//                        return;
+//                    if(checkBoxCollision(TOP_COLLISION))
+//                        return;
+//                    robot.move(0, -SPACE);
+//                    break;
+//                case KeyEvent.VK_DOWN:
+//                    if(checkWallCollision(robot, BOTTOM_COLLISION))
+//                        return;
+//                    if(checkBoxCollision(BOTTOM_COLLISION))
+//                        return;
+//                    robot.move(0, SPACE);
+//                    break;
+//                case KeyEvent.VK_R:
+//                    restartLevel();
+//                    break;
+//                default:
+//                    break;
+//            }
+//
+//            repaint();
+//        }
+//    }
+//
+//    private boolean checkWallCollision(Actor actor, int type) {
+//        switch (type) {
+//            case LEFT_COLLISION:
+//                for (Wall wall : walls) {
+//                    if (actor.isLeftCollision(wall))
+//                        return true;
+//                }
+//                return false;
+//            case RIGHT_COLLISION:
+//                for (Wall wall : walls) {
+//                    if (actor.isRightCollision(wall))
+//                        return true;
+//                }
+//                return false;
+//            case TOP_COLLISION:
+//                for (Wall wall : walls) {
+//                    if (actor.isTopCollision(wall))
+//                        return true;
+//                }
+//                return false;
+//            case BOTTOM_COLLISION:
+//                for (Wall wall : walls) {
+//                    if (actor.isBottomCollision(wall))
+//                        return true;
+//                }
+//                return false;
+//            default:
+//                break;
+//        }
+//        return false;
+//    }
+//
+//    private boolean checkBoxCollision(int type) {
+//        switch (type) {
+//            case LEFT_COLLISION:
+//                for (BlueBox box : boxes) {
+//                    if (robot.isLeftCollision(box)) {
+//                        for (BlueBox item : boxes) {
+//                            if (!box.equals(item)) {
+//                                if (box.isLeftCollision(item)) {
+//                                    return true;
+//                                }
+//                            }
+//                            if (checkWallCollision(box, LEFT_COLLISION)) {
+//                                return true;
+//                            }
+//                        }
+//                        box.move(-SPACE, 0);
+//                        isCompleted();
+//                    }
+//                }
+//                return false;
+//            case RIGHT_COLLISION:
+//                for (BlueBox box : boxes) {
+//                    if (robot.isRightCollision(box)) {
+//                        for (BlueBox item : boxes) {
+//                            if (!box.equals(item)) {
+//                                if (box.isRightCollision(item)) {
+//                                    return true;
+//                                }
+//                            }
+//                            if (checkWallCollision(box, RIGHT_COLLISION)) {
+//                                return true;
+//                            }
+//                        }
+//                        box.move(SPACE, 0);
+//                        isCompleted();
+//                    }
+//                }
+//                return false;
+//            case TOP_COLLISION:
+//                for (BlueBox box : boxes) {
+//                    if (robot.isTopCollision(box)) {
+//                        for (BlueBox item : boxes) {
+//                            if (!box.equals(item)) {
+//                                if (box.isTopCollision(item)) {
+//                                    return true;
+//                                }
+//                            }
+//                            if (checkWallCollision(box, TOP_COLLISION)) {
+//                                return true;
+//                            }
+//                        }
+//                        box.move(0, -SPACE);
+//                        isCompleted();
+//                    }
+//                }
+//                return false;
+//            case BOTTOM_COLLISION:
+//                for (BlueBox box : boxes) {
+//                    if (robot.isBottomCollision(box)) {
+//                        for (BlueBox item : boxes) {
+//                            if (!box.equals(item)) {
+//                                if (box.isBottomCollision(item)) {
+//                                    return true;
+//                                }
+//                            }
+//                            if (checkWallCollision(box, BOTTOM_COLLISION)) {
+//                                return true;
+//                            }
+//                        }
+//                        box.move(0, SPACE);
+//                        isCompleted();
+//                    }
+//                }
+//                return false;
+//            default:
+//                break;
+//        }
+//        return false;
+//    }
+//
+//
+//    public void isCompleted() {
+//        int numberOfBoxes = boxes.size();
+//        int finishedBoxes = 0;
+//
+//        for (BlueBox box : boxes) {
+//            for (Goal goal : goals)
+//                if (goal.getX() == box.getX() && goal.getY() == box.getY())
+//                    ++finishedBoxes;
+//        }
+//
+//        if(finishedBoxes==numberOfBoxes) {
+//            isCompleted = true;
+//            repaint();
+//        }
+//    }
 
     public void restartLevel() {
         walls.clear();
