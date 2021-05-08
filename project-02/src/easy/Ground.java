@@ -18,6 +18,5 @@ public class Ground extends Actor {
         Toolkit t = Toolkit.getDefaultToolkit();
         Image image = t.getImage(imagePath);
         setImage(image);
-        setImagePath(imagePath);
     }
 }

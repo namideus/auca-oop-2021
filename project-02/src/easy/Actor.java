@@ -3,7 +3,6 @@ package easy;
 import java.awt.*;
 
 public class Actor {
-    private final int SPACE = 20;
     private int row;
     private int col;
     private Image image;
@@ -22,14 +21,6 @@ public class Actor {
 
     public void setImage(Image image) {
         this.image = image;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public String getImagePath() {
-        return imagePath;
     }
 
     public int getRow() {

@@ -72,6 +72,7 @@ public class Sokoban extends JFrame {
             for(int r = 0; r < gameModel.puzzle.getHeight(); ++r) {
                 for(int c = 0; c < gameModel.puzzle.getWidth(); ++c) {
                     g.drawImage((new Ground()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
+
                     char item = gameModel.puzzle.getCurElement(r,c);
                     switch (item) {
                         case '#':
@@ -91,16 +92,12 @@ public class Sokoban extends JFrame {
                 }
 
                 for(BlueBox box: boxes) {
-                    if(box.isInGoal())
-                        g.drawImage((new RedBox()).getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
-                    else
+//                    if(box.isInGoal())
+//                        g.drawImage((new RedBox()).getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
+//                    else
                         g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
                 }
                 g.drawImage((new Robot()).getImage(), xLeftUpper+gameModel.puzzle.getRobotCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getRobotRow()*heightCell,null);
-
-                //                g.drawImage((new BlueBox()).getImage(), xLeftUpper + gameModel.puzzle.getBoxCol()*widthCell, yLeftUpper+gameModel.puzzle.getBoxRow()*heightCell,  widthCell,heightCell,null);
-                //                g.drawImage((new Goal()).getImage(), xLeftUpper+gameModel.puzzle.getExitCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getExitRow()*heightCell+heightCell/4,null);
-
             }
         }
     }

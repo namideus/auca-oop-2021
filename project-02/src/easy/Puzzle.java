@@ -192,10 +192,12 @@ public class Puzzle {
                 if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol()) {
                     box.setInGoal(true);
                     ++finishedBoxes;
+                } else {
+                    if(box.isInGoal()) {
+                        box.setInGoal(false);
+                        --finishedBoxes;
+                    }
                 }
-//                else {
-//                    box.setInGoal(false);
-//                }
             }
         }
         return finishedBoxes==numberOfBoxes;
