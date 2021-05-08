@@ -9,20 +9,29 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Iman Augustine
+ *
+ * Sokoban project game, OOP, 2021
+ *
+ * instructor: S. Shostak
+ *
+ * */
+
 public class Sokoban extends JFrame {
 
     private static GameModel gameModel;
     private JPanel controlPanel;
     private JPanel canvasPanel;
-    JButton resetButton = new JButton("Reset(ESC)");
-    JLabel levelLabel = new JLabel("Level", SwingConstants.CENTER);
-    JLabel puzzleLabel = new JLabel("Puzzle",  SwingConstants.CENTER);
-    JLabel movesLabel = new JLabel("Moves",  SwingConstants.CENTER);
+    private JButton resetButton = new JButton("Reset(ESC)");
+    private JLabel levelLabel = new JLabel("Level", SwingConstants.CENTER);
+    private JLabel puzzleLabel = new JLabel("Puzzle",  SwingConstants.CENTER);
+    private JLabel movesLabel = new JLabel("Moves",  SwingConstants.CENTER);
 
-    JLabel levelNameLabel = new JLabel("Minicosmos",  SwingConstants.CENTER);
-    JLabel puzzleNumberLabel = new JLabel("1",  SwingConstants.CENTER);
-    JLabel movesNumberLabel = new JLabel("0", SwingConstants.CENTER);
-
+    private JLabel levelNameLabel = new JLabel("Minicosmos",  SwingConstants.CENTER);
+    private JLabel puzzleNumberLabel = new JLabel("1",  SwingConstants.CENTER);
+    private JLabel movesNumberLabel = new JLabel("0", SwingConstants.CENTER);
 
     // Experiment
     private static ArrayList<BlueBox> boxes;
@@ -75,7 +84,7 @@ public class Sokoban extends JFrame {
         add(controlPanel, BorderLayout.EAST);
 
         resetButton.addActionListener(actionEvent -> {
-
+            resetGame();
         });
     }
 
@@ -109,8 +118,10 @@ public class Sokoban extends JFrame {
             int widthCell = Math.round(getWidth()/3.5f/gameModel.puzzle.getWidth());
             int heightCell = Math.round(getHeight()/2f/gameModel.puzzle.getHeight());
 
-            for(int r = 0; r < gameModel.puzzle.getHeight(); ++r) {
-                for(int c = 0; c < gameModel.puzzle.getWidth(); ++c) {
+            for(int r = 0; r < gameModel.puzzle.getHeight(); ++r)
+            {
+                for(int c = 0; c < gameModel.puzzle.getWidth(); ++c)
+                {
                     g.drawImage((new Ground()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
 
                     char item = gameModel.puzzle.getCurElement(r,c);
@@ -127,9 +138,8 @@ public class Sokoban extends JFrame {
                     }
                 }
 
-                for(Goal goal: goals) {
+                for(Goal goal: goals)
                     g.drawImage(goal.getImage(), xLeftUpper+goal.getCol()*widthCell+widthCell/4, yLeftUpper+goal.getRow()*heightCell+heightCell/4,null);
-                }
 
                 for(BlueBox box: boxes) {
                     g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
@@ -139,6 +149,15 @@ public class Sokoban extends JFrame {
             }
         }
     }
+
+    private void resetGame() {
+        gameModel.resetCurrentPuzzle();
+        repaint();
+        puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
+        movesNumberLabel.setText("0");
+        canvasPanel.requestFocus();
+    }
+
     private class CanvasPanelListener extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent keyEvent) {
@@ -161,7 +180,7 @@ public class Sokoban extends JFrame {
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_ESCAPE:
-                    System.out.println("Escape pressed!");
+                    resetGame();
                     break;
                 default:
                     break;

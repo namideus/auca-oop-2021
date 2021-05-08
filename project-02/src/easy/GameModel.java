@@ -51,6 +51,10 @@ public class GameModel {
         this.puzzle = new Puzzle(levels[curLevel]);
     }
 
+    public void resetCurrentPuzzle() {
+        this.puzzle = new Puzzle(levels[curLevel]);
+    }
+
     public float getCurHeight() {
         return puzzle.getHeight();
     }
