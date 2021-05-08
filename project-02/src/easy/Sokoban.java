@@ -1,7 +1,10 @@
 package easy;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -12,13 +15,13 @@ public class Sokoban extends JFrame {
     private JPanel controlPanel;
     private JPanel canvasPanel;
     JButton resetButton = new JButton("Reset(ESC)");
-    JLabel levelLabel = new JLabel("Level");
-    JLabel puzzleLabel = new JLabel("Puzzle");
-    JLabel movesLabel = new JLabel("Moves");
+    JLabel levelLabel = new JLabel("Level", SwingConstants.CENTER);
+    JLabel puzzleLabel = new JLabel("Puzzle",  SwingConstants.CENTER);
+    JLabel movesLabel = new JLabel("Moves",  SwingConstants.CENTER);
 
-    JLabel levelNameLabel = new JLabel("Minicosmos");
-    JLabel puzzleNumberLabel = new JLabel("1");
-    JLabel movesNumberLabel = new JLabel("37");
+    JLabel levelNameLabel = new JLabel("Minicosmos",  SwingConstants.CENTER);
+    JLabel puzzleNumberLabel = new JLabel("1",  SwingConstants.CENTER);
+    JLabel movesNumberLabel = new JLabel("0", SwingConstants.CENTER);
 
 
     // Experiment
@@ -34,8 +37,9 @@ public class Sokoban extends JFrame {
         add(canvasPanel, BorderLayout.CENTER);
         canvasPanel.addKeyListener(new CanvasPanelListener());
 
-        controlPanel = new JPanel();
+        controlPanel = new JPanel(new BorderLayout(5,5));
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
+        controlPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         controlPanel.setBackground(Color.GRAY);
 
         levelLabel.setForeground(Color.YELLOW);
@@ -43,33 +47,36 @@ public class Sokoban extends JFrame {
         movesLabel.setForeground(Color.YELLOW);
         controlPanel.add(levelLabel);
 
-        levelNameLabel.setMaximumSize(new Dimension(130, 50));
+        levelNameLabel.setMaximumSize(new Dimension(140, 50));
+        levelNameLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         levelNameLabel.setBackground(Color.CYAN);
         levelNameLabel.setOpaque(true);
         controlPanel.add(levelLabel);
         controlPanel.add(levelNameLabel);
 
-        puzzleNumberLabel.setMaximumSize(new Dimension(130, 50));
+        puzzleNumberLabel.setMaximumSize(new Dimension(140, 50));
+        puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
+        puzzleNumberLabel.setBorder(BorderFactory.createEmptyBorder(10, 55, 10, 50));
         puzzleNumberLabel.setBackground(Color.CYAN);
         puzzleNumberLabel.setOpaque(true);
         controlPanel.add(puzzleLabel);
         controlPanel.add(puzzleNumberLabel);
 
-        movesNumberLabel.setMaximumSize(new Dimension(130, 50));
+        movesNumberLabel.setMaximumSize(new Dimension(140, 50));
+        movesNumberLabel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
         movesNumberLabel.setBackground(Color.CYAN);
         movesNumberLabel.setOpaque(true);
         controlPanel.add(movesLabel);
         controlPanel.add(movesNumberLabel);
 
-
-        resetButton.setMaximumSize(new Dimension(130, 50));
+        resetButton.setMaximumSize(new Dimension(140, 50));
+        resetButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         controlPanel.add(resetButton);
         add(controlPanel, BorderLayout.EAST);
 
+        resetButton.addActionListener(actionEvent -> {
 
-      /*  setMinimumSize(new Dimension(width, height));
-        setPreferredSize(new Dimension(width, height));
-        setMaximumSize(new Dimension(width, height));*/
+        });
     }
 
     public static void main(String[] args) {
@@ -138,15 +145,19 @@ public class Sokoban extends JFrame {
             switch(keyEvent.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
                     gameModel.puzzle.move(0, -1, GameModel.LEFT_COLLISION);
+                    movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_RIGHT:
                     gameModel.puzzle.move(0, 1, GameModel.RIGHT_COLLISION);
+                    movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_UP:
                     gameModel.puzzle.move(-1, 0, GameModel.TOP_COLLISION);
+                    movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_DOWN:
                     gameModel.puzzle.move(1, 0, GameModel.BOTTOM_COLLISION);
+                    movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 default:
                     break;
@@ -157,6 +168,8 @@ public class Sokoban extends JFrame {
             if(gameModel.puzzle.isVictorious()) {
                 JOptionPane.showMessageDialog(Sokoban.this, String.format("You solved puzzle %d. Moves: %d", gameModel.getCurLevel(), gameModel.getMoves()));
                 gameModel.nextLevel();
+                puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
+                movesNumberLabel.setText("0");
                 repaint();
             }
         }
