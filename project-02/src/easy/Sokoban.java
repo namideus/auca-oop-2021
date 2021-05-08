@@ -85,7 +85,7 @@ public class Sokoban extends JFrame {
             game.setTitle("MicroSokoban");
             game.setBackground(Color.BLACK);
             game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            game.setSize(1200, 1200);
+            game.setSize(2000, 2000);
             game.setLocationRelativeTo(null);
             game.setVisible(true);
         });
@@ -103,10 +103,10 @@ public class Sokoban extends JFrame {
             g.setColor(Color.BLACK);
             g.fillRect(0,0,getWidth(),getHeight());
 
-            int xLeftUpper = getWidth()/4;
+            int xLeftUpper = getWidth()/3;
             int yLeftUpper = getHeight()/4;
 
-            int widthCell = Math.round(getWidth()/2f/gameModel.puzzle.getWidth());
+            int widthCell = Math.round(getWidth()/3.5f/gameModel.puzzle.getWidth());
             int heightCell = Math.round(getHeight()/2f/gameModel.puzzle.getHeight());
 
             for(int r = 0; r < gameModel.puzzle.getHeight(); ++r) {
@@ -134,6 +134,7 @@ public class Sokoban extends JFrame {
                 for(BlueBox box: boxes) {
                     g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
                 }
+
                 g.drawImage((new Robot()).getImage(), xLeftUpper+gameModel.puzzle.getRobotCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getRobotRow()*heightCell,null);
             }
         }
@@ -158,6 +159,9 @@ public class Sokoban extends JFrame {
                 case KeyEvent.VK_DOWN:
                     gameModel.puzzle.move(1, 0, GameModel.BOTTOM_COLLISION);
                     movesNumberLabel.setText(gameModel.getMoves()+"");
+                    break;
+                case KeyEvent.VK_ESCAPE:
+                    System.out.println("Escape pressed!");
                     break;
                 default:
                     break;
