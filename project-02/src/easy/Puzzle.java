@@ -185,18 +185,15 @@ public class Puzzle {
     }
 
     public boolean isVictorious() {
-        int numberOfBoxes = boxes.size();
-        int finishedBoxes = 0;
+        int numberOfBoxes = boxes.size()
+                ,finishedBoxes = 0;
         for (BlueBox box : boxes) {
             for (Goal goal : goals) {
                 if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol()) {
                     box.setInGoal(true);
                     ++finishedBoxes;
                 } else {
-                    if(box.isInGoal()) {
-                        box.setInGoal(false);
-                        --finishedBoxes;
-                    }
+                    box.setInGoal(false);
                 }
             }
         }

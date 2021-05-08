@@ -22,14 +22,9 @@ public class BlueBox extends Actor {
         setImage(image);
     }
 
-    @Override
-    public Image getImage() {
-        Toolkit t = Toolkit.getDefaultToolkit();
-        return (isInGoal) ? t.getImage(imagePath2) : t.getImage(imagePath1);
-    }
-
     public void setInGoal(boolean inGoal) {
         isInGoal = inGoal;
+        initBlueBox();
     }
 
     public boolean isInGoal() {

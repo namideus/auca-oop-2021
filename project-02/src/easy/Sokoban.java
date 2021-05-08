@@ -13,7 +13,13 @@ public class Sokoban extends JFrame {
     private JPanel canvasPanel;
     JButton resetButton = new JButton("Reset(ESC)");
     JLabel levelLabel = new JLabel("Level");
-    JLabel levelName = new JLabel("Minicosmos");
+    JLabel puzzleLabel = new JLabel("Puzzle");
+    JLabel movesLabel = new JLabel("Moves");
+
+    JLabel levelNameLabel = new JLabel("Minicosmos");
+    JLabel puzzleNumberLabel = new JLabel("1");
+    JLabel movesNumberLabel = new JLabel("37");
+
 
     // Experiment
     private static ArrayList<BlueBox> boxes;
@@ -31,12 +37,39 @@ public class Sokoban extends JFrame {
         controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
         controlPanel.setBackground(Color.GRAY);
+
         levelLabel.setForeground(Color.YELLOW);
+        puzzleLabel.setForeground(Color.YELLOW);
+        movesLabel.setForeground(Color.YELLOW);
         controlPanel.add(levelLabel);
-        levelName.setBackground(Color.BLUE);
-        controlPanel.add(levelName);
+
+        levelNameLabel.setMaximumSize(new Dimension(130, 50));
+        levelNameLabel.setBackground(Color.CYAN);
+        levelNameLabel.setOpaque(true);
+        controlPanel.add(levelLabel);
+        controlPanel.add(levelNameLabel);
+
+        puzzleNumberLabel.setMaximumSize(new Dimension(130, 50));
+        puzzleNumberLabel.setBackground(Color.CYAN);
+        puzzleNumberLabel.setOpaque(true);
+        controlPanel.add(puzzleLabel);
+        controlPanel.add(puzzleNumberLabel);
+
+        movesNumberLabel.setMaximumSize(new Dimension(130, 50));
+        movesNumberLabel.setBackground(Color.CYAN);
+        movesNumberLabel.setOpaque(true);
+        controlPanel.add(movesLabel);
+        controlPanel.add(movesNumberLabel);
+
+
+        resetButton.setMaximumSize(new Dimension(130, 50));
         controlPanel.add(resetButton);
         add(controlPanel, BorderLayout.EAST);
+
+
+      /*  setMinimumSize(new Dimension(width, height));
+        setPreferredSize(new Dimension(width, height));
+        setMaximumSize(new Dimension(width, height));*/
     }
 
     public static void main(String[] args) {
@@ -92,10 +125,7 @@ public class Sokoban extends JFrame {
                 }
 
                 for(BlueBox box: boxes) {
-//                    if(box.isInGoal())
-//                        g.drawImage((new RedBox()).getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
-//                    else
-                        g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
+                    g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
                 }
                 g.drawImage((new Robot()).getImage(), xLeftUpper+gameModel.puzzle.getRobotCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getRobotRow()*heightCell,null);
             }
@@ -125,7 +155,7 @@ public class Sokoban extends JFrame {
             canvasPanel.requestFocus();
 
             if(gameModel.puzzle.isVictorious()) {
-                JOptionPane.showMessageDialog(Sokoban.this, String.format("Puzzle %d solved. %d moves.", gameModel.getCurLevel(), gameModel.getMoves()));
+                JOptionPane.showMessageDialog(Sokoban.this, String.format("You solved puzzle %d. Moves: %d", gameModel.getCurLevel(), gameModel.getMoves()));
                 gameModel.nextLevel();
                 repaint();
             }
