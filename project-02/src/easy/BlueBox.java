@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class BlueBox extends Actor {
 
+    private boolean isInGoal = false;
+
     public BlueBox(int row, int col) {
         super(row, col);
         initBlueBox();
@@ -17,5 +19,13 @@ public class BlueBox extends Actor {
         Toolkit t = Toolkit.getDefaultToolkit();
         Image image = t.getImage(imagePath);
         setImage(image);
+    }
+
+    public void setInGoal(boolean inGoal) {
+        isInGoal = inGoal;
+    }
+
+    public boolean isInGoal() {
+        return isInGoal;
     }
 }

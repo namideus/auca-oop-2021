@@ -1,4 +1,8 @@
-package easy;
+import easy.BlueBox;
+import easy.Goal;
+import easy.Ground;
+import easy.Robot;
+import easy.Wall;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +24,7 @@ public class GameLogic extends JPanel {
     private ArrayList<Ground> grounds;
     private ArrayList<Goal> goals;
 
-    private Robot robot;
+    private easy.Robot robot;
 
     private int w = 0;
     private int h = 0;

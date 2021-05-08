@@ -91,7 +91,10 @@ public class Sokoban extends JFrame {
                 }
 
                 for(BlueBox box: boxes) {
-                    g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
+                    if(box.isInGoal())
+                        g.drawImage((new RedBox()).getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
+                    else
+                        g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
                 }
                 g.drawImage((new Robot()).getImage(), xLeftUpper+gameModel.puzzle.getRobotCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getRobotRow()*heightCell,null);
 
@@ -125,7 +128,7 @@ public class Sokoban extends JFrame {
             canvasPanel.requestFocus();
 
             if(gameModel.puzzle.isVictorious()) {
-                JOptionPane.showMessageDialog(Sokoban.this, String.format("Puzzle %d solved", gameModel.getCurLevel()));
+                JOptionPane.showMessageDialog(Sokoban.this, String.format("Puzzle %d solved. %d moves.", gameModel.getCurLevel(), gameModel.getMoves()));
                 gameModel.nextLevel();
                 repaint();
             }

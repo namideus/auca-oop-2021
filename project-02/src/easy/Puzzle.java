@@ -95,7 +95,6 @@ public class Puzzle {
     }
 
     public void move(int dr, int dc, int collision) {
-
         switch (collision) {
             case GameModel.LEFT_COLLISION:
                 for (BlueBox box : boxes) {
@@ -188,17 +187,18 @@ public class Puzzle {
     public boolean isVictorious() {
         int numberOfBoxes = boxes.size();
         int finishedBoxes = 0;
-
         for (BlueBox box : boxes) {
             for (Goal goal : goals) {
-                if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol())
+                if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol()) {
+                    box.setInGoal(true);
                     ++finishedBoxes;
+                }
+//                else {
+//                    box.setInGoal(false);
+//                }
             }
         }
-
         return finishedBoxes==numberOfBoxes;
-
-        // return boxRow==exitRow && boxCol==exitCol;
     }
 
     public ArrayList<BlueBox> getBoxes() {
