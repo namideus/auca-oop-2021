@@ -36,6 +36,7 @@ public class Sokoban extends JFrame {
     // Experiment
     private static ArrayList<BlueBox> boxes;
     private static ArrayList<Goal> goals;
+    private static Robot robot;
 
     public Sokoban() {
         gameModel = new GameModel();
@@ -108,6 +109,7 @@ public class Sokoban extends JFrame {
 
             boxes = gameModel.getBoxes();
             goals = gameModel.getGoals();
+            robot = gameModel.getRobot();
 
             g.setColor(Color.BLACK);
             g.fillRect(0,0,getWidth(),getHeight());
@@ -138,14 +140,18 @@ public class Sokoban extends JFrame {
                     }
                 }
 
-                for(Goal goal: goals)
-                    g.drawImage(goal.getImage(), xLeftUpper+goal.getCol()*widthCell+widthCell/4, yLeftUpper+goal.getRow()*heightCell+heightCell/4,null);
-
-                for(BlueBox box: boxes) {
-                    g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
+                for(Goal goal: goals) {
+                    g.drawImage(goal.getImage(), xLeftUpper + goal.getCol() * widthCell + widthCell / 4, yLeftUpper + goal.getRow() * heightCell + heightCell / 4, null);
                 }
 
-                g.drawImage((new Robot()).getImage(), xLeftUpper+gameModel.puzzle.getRobotCol()*widthCell+widthCell/4, yLeftUpper+gameModel.puzzle.getRobotRow()*heightCell,null);
+                for(BlueBox box: boxes) {
+                    if(box.isInGoal())
+                        g.drawImage((new RedBox()).getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
+                    else
+                        g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
+                }
+
+                g.drawImage(robot.getImage(), xLeftUpper+robot.getCol()*widthCell+widthCell/4, yLeftUpper+robot.getRow()*heightCell,null);
             }
         }
     }
@@ -194,6 +200,7 @@ public class Sokoban extends JFrame {
                 puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
                 movesNumberLabel.setText("0");
                 repaint();
+                canvasPanel.requestFocus();
             }
         }
     }

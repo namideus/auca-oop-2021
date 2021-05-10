@@ -17,6 +17,7 @@ public class Puzzle {
 
     private ArrayList<BlueBox> boxes;
     private ArrayList<Goal> goals;
+    private Robot robot;
 
     public Puzzle(char[][] level) {
         this.boxes = new ArrayList<>();
@@ -31,6 +32,7 @@ public class Puzzle {
                 if(level[r][c]=='R') {
                     robotRow = r;
                     robotCol = c;
+                    robot = new Robot(r,c);
                     data[r][c] = ' ';
                 } else if(level[r][c]=='$') {
                     boxRow= r;
@@ -153,6 +155,8 @@ public class Puzzle {
             ++moves;
             robotRow = tRow;
             robotCol = tCol;
+            robot.setRow(robotRow);
+            robot.setCol(robotCol);
         }
     }
 
@@ -185,8 +189,7 @@ public class Puzzle {
     }
 
     public boolean isVictorious() {
-        int numberOfBoxes = boxes.size()
-                ,finishedBoxes = 0;
+        int numberOfBoxes = boxes.size(), finishedBoxes = 0;
         for (BlueBox box : boxes) {
             for (Goal goal : goals) {
                 if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol()) {
@@ -206,6 +209,10 @@ public class Puzzle {
 
     public ArrayList<Goal> getGoals() {
         return goals;
+    }
+
+    public Robot getRobot() {
+        return robot;
     }
 }
 

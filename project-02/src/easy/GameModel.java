@@ -79,6 +79,10 @@ public class GameModel {
         return puzzle.getGoals();
     }
 
+    public Robot getRobot() {
+        return puzzle.getRobot();
+    }
+
     public void nextLevel() {
         ++curLevel;
         if(curLevel==levels.length)
