@@ -165,18 +165,22 @@ public class SokobanNormal extends JFrame {
 
             switch(keyEvent.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
+                    robot.setLeft();
                     gameModel.move(0, -1, GameModel.LEFT_COLLISION);
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_RIGHT:
+                    robot.setRight();
                     gameModel.move(0, 1, GameModel.RIGHT_COLLISION);
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_UP:
+                    robot.setUp();
                     gameModel.move(-1, 0, GameModel.TOP_COLLISION);
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_DOWN:
+                    robot.setDown();
                     gameModel.move(1, 0, GameModel.BOTTOM_COLLISION);
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
