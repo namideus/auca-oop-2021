@@ -1,4 +1,4 @@
-package normal.resources;
+package normal;
 
 public class Actor {
     private int row;

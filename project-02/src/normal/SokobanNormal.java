@@ -1,4 +1,4 @@
-package normal.resources;
+package normal;
 
 import javax.swing.*;
 import java.awt.*;
