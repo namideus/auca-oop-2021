@@ -7,17 +7,11 @@ public class Robot extends Actor {
 
     public Robot(int row, int col) {
         super(row, col);
-        initRobot();
     }
 
-    public Robot() {
-        initRobot();
-    }
-
-    private void initRobot() {
+    public static Image getImage() {
         String imagePath = "/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/easy/resources/Robot.png";
         Toolkit t = Toolkit.getDefaultToolkit();
-        Image image = t.getImage(imagePath);
-        setImage(image);
+        return  t.getImage(imagePath);
     }
 }

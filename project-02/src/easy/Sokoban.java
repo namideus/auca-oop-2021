@@ -120,16 +120,14 @@ public class Sokoban extends JFrame {
             int widthCell = Math.round(getWidth()/3.5f/gameModel.puzzle.getWidth());
             int heightCell = Math.round(getHeight()/2f/gameModel.puzzle.getHeight());
 
-            for(int r = 0; r < gameModel.puzzle.getHeight(); ++r)
-            {
-                for(int c = 0; c < gameModel.puzzle.getWidth(); ++c)
-                {
-                    g.drawImage((new Ground()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
+            for(int r = 0; r < gameModel.puzzle.getHeight(); ++r) {
+                for(int c = 0; c < gameModel.puzzle.getWidth(); ++c) {
+                    g.drawImage(Ground.getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
 
                     char item = gameModel.puzzle.getCurElement(r,c);
                     switch (item) {
                         case '#':
-                            g.drawImage((new Wall()).getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
+                            g.drawImage(Wall.getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
                             break;
                         case 'B':
                             g.setColor(Color.BLACK);
@@ -141,14 +139,19 @@ public class Sokoban extends JFrame {
                 }
 
                 for(Goal goal: goals) {
-                    g.drawImage(goal.getImage(), xLeftUpper + goal.getCol() * widthCell + widthCell / 4, yLeftUpper + goal.getRow() * heightCell + heightCell / 4, null);
+                    g.drawImage(Goal.getImage(), xLeftUpper + goal.getCol() * widthCell + widthCell / 4, yLeftUpper + goal.getRow() * heightCell + heightCell / 4, null);
                 }
 
                 for(BlueBox box: boxes) {
-                        g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
+                    if(box.isInGoal())
+                        g.drawImage(RedBox.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
+                    else
+                        g.drawImage(BlueBox.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
                 }
 
-                g.drawImage(robot.getImage(), xLeftUpper+robot.getCol()*widthCell+widthCell/4, yLeftUpper+robot.getRow()*heightCell,null);
+                g.drawImage(Robot.getImage(), xLeftUpper+robot.getCol()*widthCell+widthCell/4, yLeftUpper+robot.getRow()*heightCell,null);
+
+                repaint();
             }
         }
     }
@@ -167,19 +170,19 @@ public class Sokoban extends JFrame {
 
             switch(keyEvent.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    gameModel.puzzle.move(0, -1, GameModel.LEFT_COLLISION);
+                    gameModel.move(0, -1, GameModel.LEFT_COLLISION);
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_RIGHT:
-                    gameModel.puzzle.move(0, 1, GameModel.RIGHT_COLLISION);
+                    gameModel.move(0, 1, GameModel.RIGHT_COLLISION);
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_UP:
-                    gameModel.puzzle.move(-1, 0, GameModel.TOP_COLLISION);
+                    gameModel.move(-1, 0, GameModel.TOP_COLLISION);
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_DOWN:
-                    gameModel.puzzle.move(1, 0, GameModel.BOTTOM_COLLISION);
+                    gameModel.move(1, 0, GameModel.BOTTOM_COLLISION);
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_ESCAPE:
@@ -192,7 +195,7 @@ public class Sokoban extends JFrame {
             repaint();
             canvasPanel.requestFocus();
 
-            if(gameModel.puzzle.isVictorious()) {
+            if(gameModel.isWin()) {
                 JOptionPane.showMessageDialog(Sokoban.this, String.format("You solved puzzle %d. Moves: %d", gameModel.getCurLevel(), gameModel.getMoves()));
                 gameModel.nextLevel();
                 puzzleNumberLabel.setText(gameModel.getCurLevel()+"");

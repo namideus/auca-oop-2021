@@ -17,11 +17,13 @@ public class Puzzle {
 
     private ArrayList<BlueBox> boxes;
     private ArrayList<Goal> goals;
+    private ArrayList<Boolean> isInGoal;
     private Robot robot;
 
     public Puzzle(char[][] level) {
         this.boxes = new ArrayList<>();
         this.goals = new ArrayList<>();
+        this.isInGoal = new ArrayList<>();
         this.height = level.length;
         this.width = level[0].length;
         this.moves = 0;
@@ -38,6 +40,7 @@ public class Puzzle {
                     boxRow= r;
                     boxCol = c;
                     boxes.add(new BlueBox(r,c));
+                    isInGoal.add(false);
                     data[r][c] = ' ';
                 } else if(level[r][c]=='E') {
                     exitRow = r;
@@ -62,30 +65,6 @@ public class Puzzle {
 
     public char get(int row, int col) {
         return data[row][col];
-    }
-
-    public int getRobotCol() {
-        return robotCol;
-    }
-
-    public int getRobotRow() {
-        return robotRow;
-    }
-
-    public int getExitCol() {
-        return exitCol;
-    }
-
-    public int getExitRow() {
-        return exitRow;
-    }
-
-    public int getBoxCol() {
-        return boxCol;
-    }
-
-    public int getBoxRow() {
-        return boxRow;
     }
 
     public char getCurElement(int row, int col) {
@@ -155,8 +134,7 @@ public class Puzzle {
             ++moves;
             robotRow = tRow;
             robotCol = tCol;
-            robot.setRow(robotRow);
-            robot.setCol(robotCol);
+            robot.setLocation(robotRow, robotCol);
         }
     }
 
@@ -165,8 +143,7 @@ public class Puzzle {
         int tCol = box.getCol()+dc;
 
         if(data[tRow][tCol] == ' ') {
-            box.setRow(tRow);
-            box.setCol(tCol);
+            box.setLocation(tRow, tCol);
             return true;
         }
         return false;
@@ -188,22 +165,17 @@ public class Puzzle {
         return robotCol == boxCol && robotRow+1 == boxRow;
     }
 
-    public boolean isVictorious() {
+    public boolean isWin() {
         int numberOfBoxes = boxes.size(), finishedBoxes = 0;
-        for (BlueBox box : boxes) {
-            for (Goal goal : goals) {
-                if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol()) {
-                    box.setInGoal(true);
-                    ++finishedBoxes;
-                }/* else {
-                    box.setInGoal(false);
-                }*/
-            }
+        for (int i = 0; i<boxes.size(); ++i) {
+            if (goals.get(i).getRow() == boxes.get(i).getRow() && goals.get(i).getCol() == boxes.get(i).getCol()) {
+                boxes.get(i).setInGoal(true);
+                ++finishedBoxes;
+            } else
+                boxes.get(i).setInGoal(false);
         }
         return finishedBoxes==numberOfBoxes;
     }
-
-
 
     public ArrayList<BlueBox> getBoxes() {
         return boxes;

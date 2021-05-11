@@ -5,7 +5,6 @@ import java.awt.*;
 public class Actor {
     private int row;
     private int col;
-    private Image image;
     private String imagePath;
 
     public Actor() { }
@@ -13,14 +12,6 @@ public class Actor {
     public Actor(int row, int col) {
         this.row = row;
         this.col = col;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
 
     public int getRow() {
@@ -37,5 +28,10 @@ public class Actor {
 
     public void setCol(int col) {
         this.col = col;
+    }
+
+    public void setLocation(int row, int col) {
+        setRow(row);
+        setCol(col);
     }
 }

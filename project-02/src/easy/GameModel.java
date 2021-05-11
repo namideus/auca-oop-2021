@@ -71,6 +71,10 @@ public class GameModel {
         return puzzle.getMoves();
     }
 
+    public void move(int dr, int dc, int collision) {
+        puzzle.move(dr,dc,collision);
+    }
+
     public ArrayList<BlueBox> getBoxes() {
         return puzzle.getBoxes();
     }
@@ -81,6 +85,10 @@ public class GameModel {
 
     public Robot getRobot() {
         return puzzle.getRobot();
+    }
+
+    public boolean isWin() {
+        return puzzle.isWin();
     }
 
     public void nextLevel() {
