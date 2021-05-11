@@ -149,7 +149,7 @@ public class Puzzle {
 
     public boolean isWin() {
         int numberOfBoxes = boxes.size(), finishedBoxes = 0;
-        for (int i = 0; i<boxes.size(); ++i) {
+        for (int i = 0; i<numberOfBoxes; ++i) {
             if (goals.get(i).getRow() == boxes.get(i).getRow() && goals.get(i).getCol() == boxes.get(i).getCol()) {
                 boxes.get(i).setInGoal(true);
                 ++finishedBoxes;

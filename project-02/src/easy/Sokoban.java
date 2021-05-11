@@ -138,18 +138,16 @@ public class Sokoban extends JFrame {
                     }
                 }
 
-                for(Goal goal: goals) {
-                    g.drawImage(Goal.getImage(), xLeftUpper + goal.getCol() * widthCell + widthCell / 4, yLeftUpper + goal.getRow() * heightCell + heightCell / 4, null);
-                }
+                for(Goal goal: goals)
+                    g.drawImage(Goal.getImage(), xLeftUpper + goal.getCol() * widthCell + widthCell / 4, yLeftUpper + goal.getRow() * heightCell + heightCell / 4, widthCell/2,heightCell/2,null);
 
-                for(BlueBox box: boxes) {
+                for(BlueBox box: boxes)
                     if(box.isInGoal())
                         g.drawImage(RedBox.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
                     else
                         g.drawImage(BlueBox.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
-                }
 
-                g.drawImage(Robot.getImage(), xLeftUpper+robot.getCol()*widthCell+widthCell/4, yLeftUpper+robot.getRow()*heightCell,null);
+                g.drawImage(Robot.getImage(), xLeftUpper+robot.getCol()*widthCell+widthCell/5, yLeftUpper+robot.getRow()*heightCell+heightCell/10, widthCell-widthCell/3,heightCell-heightCell/7,null);
 
                 repaint();
             }
