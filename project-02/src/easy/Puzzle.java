@@ -46,7 +46,7 @@ public class Puzzle {
                     data[r][c] = ' ';
                 } else {
                     data[r][c] = level[r][c];
-                    data[r][c] = level[r][c];
+                    //data[r][c] = level[r][c];
                 }
             }
         }
@@ -198,6 +198,7 @@ public class Puzzle {
                 } else {
                     box.setInGoal(false);
                 }
+                System.out.println(box.isInGoal());
             }
         }
         return finishedBoxes==numberOfBoxes;
