@@ -21,7 +21,13 @@ public class SokobanNormal extends JFrame {
     private static GameModel gameModel;
     private JPanel controlPanel;
     private JPanel canvasPanel;
+
+    private JButton backButton = new JButton("<<");
+    private JButton forwardButton = new JButton(">>");
     private JButton resetButton = new JButton("Reset(ESC)");
+    private JButton undoButton = new JButton("Undo(PgUp)");
+    private JButton redoButton = new JButton("Redo(PgDn)");
+
     private JLabel levelLabel = new JLabel("Level", SwingConstants.CENTER);
     private JLabel puzzleLabel = new JLabel("Puzzle",  SwingConstants.CENTER);
     private JLabel movesLabel = new JLabel("Moves",  SwingConstants.CENTER);
@@ -69,6 +75,14 @@ public class SokobanNormal extends JFrame {
         controlPanel.add(puzzleLabel);
         controlPanel.add(puzzleNumberLabel);
 
+        backButton.setMaximumSize(new Dimension(140, 50));
+        backButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        controlPanel.add(backButton);
+
+        forwardButton.setMaximumSize(new Dimension(140, 50));
+        forwardButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        controlPanel.add(forwardButton);
+
         movesNumberLabel.setMaximumSize(new Dimension(140, 50));
         movesNumberLabel.setBorder(BorderFactory.createEmptyBorder(10, 50, 10, 50));
         movesNumberLabel.setBackground(Color.CYAN);
@@ -79,6 +93,15 @@ public class SokobanNormal extends JFrame {
         resetButton.setMaximumSize(new Dimension(140, 50));
         resetButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         controlPanel.add(resetButton);
+
+        undoButton.setMaximumSize(new Dimension(140, 50));
+        undoButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        controlPanel.add(undoButton);
+
+        redoButton.setMaximumSize(new Dimension(140, 50));
+        redoButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        controlPanel.add(redoButton);
+
         add(controlPanel, BorderLayout.EAST);
 
         resetButton.addActionListener(actionEvent -> {
