@@ -1,10 +1,7 @@
 package easy;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -19,7 +16,7 @@ import java.util.ArrayList;
  *
  * */
 
-public class Sokoban extends JFrame {
+public class SokobanEasy extends JFrame {
 
     private static GameModel gameModel;
     private JPanel controlPanel;
@@ -38,7 +35,7 @@ public class Sokoban extends JFrame {
     private static ArrayList<Goal> goals;
     private static Robot robot;
 
-    public Sokoban() {
+    public SokobanEasy() {
         gameModel = new GameModel();
         canvasPanel = new CanvasPanel();
 
@@ -91,7 +88,7 @@ public class Sokoban extends JFrame {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            Sokoban game = new Sokoban();
+            SokobanEasy game = new SokobanEasy();
             game.setTitle("MicroSokoban");
             game.setBackground(Color.BLACK);
             game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -194,7 +191,7 @@ public class Sokoban extends JFrame {
             canvasPanel.requestFocus();
 
             if(gameModel.isWin()) {
-                JOptionPane.showMessageDialog(Sokoban.this, String.format("You solved puzzle %d. Moves: %d", gameModel.getCurLevel(), gameModel.getMoves()));
+                JOptionPane.showMessageDialog(SokobanEasy.this, String.format("You solved puzzle %d. Moves: %d", gameModel.getCurLevel(), gameModel.getMoves()));
                 gameModel.nextLevel();
                 puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
                 movesNumberLabel.setText("0");
