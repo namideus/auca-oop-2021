@@ -144,11 +144,7 @@ public class Sokoban extends JFrame {
                     g.drawImage(goal.getImage(), xLeftUpper + goal.getCol() * widthCell + widthCell / 4, yLeftUpper + goal.getRow() * heightCell + heightCell / 4, null);
                 }
 
-                System.out.println(boxes.size());
                 for(BlueBox box: boxes) {
-                    if(box.isInGoal())
-                        g.drawImage((new RedBox()).getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
-                    else
                         g.drawImage(box.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
                 }
 
@@ -190,8 +186,9 @@ public class Sokoban extends JFrame {
                     resetGame();
                     break;
                 default:
-                    //break;
+                    break;
             }
+
             repaint();
             canvasPanel.requestFocus();
 
@@ -200,7 +197,6 @@ public class Sokoban extends JFrame {
                 gameModel.nextLevel();
                 puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
                 movesNumberLabel.setText("0");
-                repaint();
                 canvasPanel.requestFocus();
             }
         }

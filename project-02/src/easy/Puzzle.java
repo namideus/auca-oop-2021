@@ -195,14 +195,15 @@ public class Puzzle {
                 if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol()) {
                     box.setInGoal(true);
                     ++finishedBoxes;
-                } else {
+                }/* else {
                     box.setInGoal(false);
-                }
-                System.out.println(box.isInGoal());
+                }*/
             }
         }
         return finishedBoxes==numberOfBoxes;
     }
+
+
 
     public ArrayList<BlueBox> getBoxes() {
         return boxes;

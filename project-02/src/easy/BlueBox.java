@@ -20,14 +20,18 @@ public class BlueBox extends Actor {
 
     private void initBlueBox() {
         Toolkit t = Toolkit.getDefaultToolkit();
-        //System.out.println( isInGoal ? imagePath2 : imagePath1);
         Image image = t.getImage(imagePath1); // isInGoal ? t.getImage(imagePath2) : t.getImage(imagePath1);
         setImage(image);
     }
 
+    @Override
+    public Image getImage() {
+        Toolkit t = Toolkit.getDefaultToolkit();
+        return isInGoal ? t.getImage(imagePath2) : t.getImage(imagePath1);
+    }
+
     public void setInGoal(boolean inGoal) {
         isInGoal = inGoal;
-        // initBlueBox();
     }
 
     public boolean isInGoal() {
