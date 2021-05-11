@@ -7,23 +7,15 @@ public class Puzzle {
     private char[][] data;
     private int height;
     private int width;
-    private int robotRow;
-    private int robotCol;
-    private int boxRow;
-    private int boxCol;
-    private int exitRow;
-    private int exitCol;
     private int moves;
 
     private ArrayList<BlueBox> boxes;
     private ArrayList<Goal> goals;
-    private ArrayList<Boolean> isInGoal;
     private Robot robot;
 
     public Puzzle(char[][] level) {
         this.boxes = new ArrayList<>();
         this.goals = new ArrayList<>();
-        this.isInGoal = new ArrayList<>();
         this.height = level.length;
         this.width = level[0].length;
         this.moves = 0;
@@ -32,24 +24,16 @@ public class Puzzle {
         for(int r=0; r<height; ++r) {
             for(int c=0; c<width; ++c) {
                 if(level[r][c]=='R') {
-                    robotRow = r;
-                    robotCol = c;
                     robot = new Robot(r,c);
                     data[r][c] = ' ';
                 } else if(level[r][c]=='$') {
-                    boxRow= r;
-                    boxCol = c;
                     boxes.add(new BlueBox(r,c));
-                    isInGoal.add(false);
                     data[r][c] = ' ';
                 } else if(level[r][c]=='E') {
-                    exitRow = r;
-                    exitCol = c;
                     goals.add(new Goal(r,c));
                     data[r][c] = ' ';
                 } else {
                     data[r][c] = level[r][c];
-                    //data[r][c] = level[r][c];
                 }
             }
         }
@@ -79,7 +63,7 @@ public class Puzzle {
         switch (collision) {
             case GameModel.LEFT_COLLISION:
                 for (BlueBox box : boxes) {
-                    if (isLeftCollision(robotRow, robotCol, box.getRow(), box.getCol())) {
+                    if (isLeftCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
                         }
@@ -90,7 +74,7 @@ public class Puzzle {
                 break;
             case GameModel.RIGHT_COLLISION:
                 for (BlueBox box : boxes) {
-                    if (isRightCollision(robotRow, robotCol, box.getRow(), box.getCol())) {
+                    if (isRightCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
                         }
@@ -101,7 +85,7 @@ public class Puzzle {
                 break;
             case GameModel.TOP_COLLISION:
                 for (BlueBox box : boxes) {
-                    if (isTopCollision(robotRow, robotCol, box.getRow(), box.getCol())) {
+                    if (isTopCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
                         }
@@ -112,7 +96,7 @@ public class Puzzle {
                 break;
             case GameModel.BOTTOM_COLLISION:
                 for (BlueBox box : boxes) {
-                    if (isBottomCollision(robotRow, robotCol, box.getRow(), box.getCol())) {
+                    if (isBottomCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
                         }
@@ -127,14 +111,12 @@ public class Puzzle {
     }
 
     public void moveRobot(int dr, int dc) {
-        int tRow = robotRow+dr;
-        int tCol = robotCol+dc;
+        int tRow = robot.getRow()+dr;
+        int tCol = robot.getCol()+dc;
 
         if(data[tRow][tCol] == ' ') {
             ++moves;
-            robotRow = tRow;
-            robotCol = tCol;
-            robot.setLocation(robotRow, robotCol);
+            robot.setLocation(tRow, tCol);
         }
     }
 
