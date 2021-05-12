@@ -16,13 +16,12 @@ public class Main1574 {
 
             list = new ArrayList<>();
 
-            for(i=0; i<n; ++i)
-            {
+            for(i=0; i<n; ++i) {
                 cmd = scan.next();
 
-                if(cmd.equals("LEFT") || cmd.equals("RIGHT"))
+                if(cmd.equals("LEFT") || cmd.equals("RIGHT")) {
                     list.add(cmd);
-                else {
+                } else {
                     scan.next();
                     pos = scan.nextInt();
                     list.add(list.get(pos-1));

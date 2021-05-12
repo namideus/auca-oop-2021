@@ -17,15 +17,15 @@ public class RemoveText {
             System.exit(2);
         }
 
-        // File targetFile = new File(args[1]);
+        File targetFile = new File("output.txt");
 
         try (
                 Scanner scan = new Scanner(sourceFile);
-                PrintWriter output = new PrintWriter(sourceFile);
+                PrintWriter output = new PrintWriter(targetFile);
         ) {
             while (scan.hasNext()) {
                 String s1 = scan.nextLine();
-                String s2 = s1.replaceAll(args[0],null);
+                String s2 = s1.replaceAll(args[0],"");
                 output.println(s2);
             }
         }

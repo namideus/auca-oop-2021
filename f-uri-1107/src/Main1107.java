@@ -5,10 +5,13 @@ public class Main1107 {
         Scanner scan = new Scanner(System.in);
         boolean b;
         int a, c, cnt, w, x, tmp;
+
         while(scan.hasNextInt()) {
             a = scan.nextInt();
             c = scan.nextInt();
-            if(a+c==0) break;
+
+            if(a + c==0)
+                break;
 
             cnt = 0;
             b = false;

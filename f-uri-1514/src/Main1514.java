@@ -19,7 +19,7 @@ public class Main1514 {
     }
 
     static int cond_two(int[][] a) {
-        int c=0, b=1, b1;
+        int c=0, b1;
 
         for(i=0; i<m; ++i) {
             b1 = 0;
@@ -35,7 +35,7 @@ public class Main1514 {
     }
 
     static int cond_three(int[][] a) {
-        int c=0, b=1;
+        int c;
 
         for(i=0; i<m; ++i) {
             c = 0;

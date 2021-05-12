@@ -11,7 +11,7 @@ public class Main1136 {
             n = scan.nextInt();
             b = scan.nextInt();
 
-            if(n+b==0)
+            if(n + b==0)
                 break;
 
             int[] arr = new int[b];
@@ -30,7 +30,7 @@ public class Main1136 {
                 if(cnt[i]>0)
                     c++;
 
-            System.out.println((c==n+1) ? "Y" : "N");
+            System.out.println( c==n+1 ? "Y" : "N");
         }
     }
 }

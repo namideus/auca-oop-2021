@@ -12,10 +12,12 @@ public class Main1743 {
 
         for(int j=0; j<5; ++j) {
             plug[0][j] ^= 1;
+
             if (plug[0][j] != plug[1][j]) {
                 System.out.println("N");
                 System.exit(0);
             }
+
         }
         System.out.println("Y");
     }

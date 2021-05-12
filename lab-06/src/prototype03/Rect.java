@@ -1,11 +1,12 @@
 package prototype03;
 
 public class Rect extends Figure{
-    private int w;
-    private int h;
+    private final int w;
+    private final int h;
 
     public Rect(int x, int y, int w, int h) {
         super(x,y);
+
         if(w<0)
             throw new IllegalArgumentException("Rectangle: width < 0");
         if(h<0)

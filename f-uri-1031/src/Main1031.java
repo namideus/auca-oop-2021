@@ -2,22 +2,23 @@ import java.util.Scanner;
 
 public class Main1031 {
 
-    static int mod(int x, int n) {
+    public static int mod(int x, int n) {
         if(x<0)
             x = x%n + n;
 
         if(x>=n)
-            x%=n;
+            x %= n;
 
         return x;
     }
 
-    static int f(int n, int k) {
+    public static int f(int n, int k) {
         int last = 0;
 
         for(int i=2; i<=n; i++)
         {
             last = (last+k);
+
             if(last>=i)
                 last=mod(last,i);
         }

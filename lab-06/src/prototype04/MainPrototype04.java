@@ -11,8 +11,7 @@ public class MainPrototype04 {
 
         ArrayList<Figure> figures = Utils.createFigures();
 
-        while(true)
-        {
+        while(true) {
             System.out.print("cmd: ");
             cmd = scan.nextLine();
 
@@ -51,7 +50,6 @@ public class MainPrototype04 {
                     System.exit(0);
                     break;
             }
-
         }
     }
 }

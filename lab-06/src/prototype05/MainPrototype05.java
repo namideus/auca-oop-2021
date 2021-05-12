@@ -19,10 +19,6 @@ class MainProtoype05 extends JFrame {
     JButton circleButton = new JButton("Circle");;
     JButton crossButton = new JButton("Cross");;
 
-    int sX;
-    int sY;
-    boolean isDragging = false;
-
     // Layout
     MainProtoype05() {
         setLayout(new BorderLayout());
@@ -45,11 +41,13 @@ class MainProtoype05 extends JFrame {
             repaint();
             mainPanel.requestFocus();
         });
+
         circleButton.addActionListener(actionEvent -> {
             figures.add(new Circle(150,50,50));
             repaint();
             mainPanel.requestFocus();
         });
+
         crossButton.addActionListener(actionEvent -> {
             figures.add(new Cross(250,50,100,10));
             repaint();
@@ -60,6 +58,7 @@ class MainProtoype05 extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
+
                 if(e.getKeyCode()==KeyEvent.VK_DELETE && selecteFigure!=null) {
                     figures.remove(selecteFigure);
                     selecteFigure = null;
@@ -67,20 +66,24 @@ class MainProtoype05 extends JFrame {
                 }
             }
         });
+
         mainPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+
                 if(e.getButton()==MouseEvent.BUTTON3) {
                     if(selecteFigure!=null) {
                         selecteFigure.setSelected(false);
                         selecteFigure = null;
                     }
+
                     for (Figure f : figures) {
                         if (f.contains(e.getX(), e.getY())) {
                             selecteFigure = f;
                         }
                     }
+
                     if(selecteFigure!=null) {
                         selecteFigure.setSelected(true);
                         repaint();
@@ -92,6 +95,7 @@ class MainProtoype05 extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+
                 if(e.getButton()==MouseEvent.BUTTON1) {
                     for (Figure f : figures) {
                         if(selecteFigure!=null) {
@@ -145,6 +149,7 @@ class MainProtoype05 extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
+
             for(Figure f : figures) {
                 f.draw(g);
             }

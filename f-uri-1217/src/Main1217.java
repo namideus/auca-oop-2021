@@ -5,7 +5,7 @@ public class Main1217 {
         Scanner scan = new Scanner(System.in);
         double v, av, sum;
         String s;
-        int kg,n = scan.nextInt();
+        int kg, n = scan.nextInt();
         scan.nextLine();
 
         av = 0;

@@ -9,16 +9,14 @@ public class Main1558 {
         int n, i, j, s;
         boolean f;
 
-        while(scan.hasNextInt())
-        {
+        while(scan.hasNextInt()) {
             n = scan.nextInt();
-
             f = false;
             i = 0;
             j = (int)sqrt(n);
 
             while(j>=i) {
-                s =(int)(pow(i,2) + pow(j, 2));
+                s = i*i + j*j;
 
                 if(n==s) {
                     f = true;
@@ -28,7 +26,7 @@ public class Main1558 {
                 else
                     --j;
             }
-            System.out.println(((f)?"YES":"NO"));
+            System.out.println( f ? "YES" : "NO");
         }
     }
 }

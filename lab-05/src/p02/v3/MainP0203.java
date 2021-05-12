@@ -32,9 +32,11 @@ public class MainP0203 extends JFrame {
         redButton.addActionListener(actionEvent -> {
             mainPanel.setBackground(Color.RED);
         });
+
         greenButton.addActionListener(actionEvent -> {
             mainPanel.setBackground(Color.GREEN);
         });
+
         blueButton.addActionListener(actionEvent -> {
             mainPanel.setBackground(Color.BLUE);
         });

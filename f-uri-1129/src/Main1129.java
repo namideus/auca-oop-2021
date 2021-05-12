@@ -5,6 +5,7 @@ public class Main1129 {
         Scanner scan = new Scanner(System.in);
         int t,i,a,b,c,d,e;
         boolean A,B,C,D,E;
+
         while(scan.hasNextInt()) {
             t = scan.nextInt();
 

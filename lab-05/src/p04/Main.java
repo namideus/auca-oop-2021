@@ -6,7 +6,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 public class Main extends JFrame {
+
     private JPanel mainPanel;
+
     Main() {
         setLayout(new BorderLayout());
         mainPanel = new CanvasPanel();
@@ -25,6 +27,7 @@ public class Main extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
+
             // Chessboard
             int widthCell = Math.round(getWidth()/8f);
             int heightCell =  Math.round(getHeight()/8f);
@@ -35,6 +38,7 @@ public class Main extends JFrame {
                         g.setColor(Color.BLACK);
                     else
                         g.setColor(Color.WHITE);
+
                     g.fillRect(c * widthCell, r * heightCell, widthCell, heightCell);
                 }
             }

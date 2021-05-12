@@ -26,9 +26,10 @@ public class Main1383 {
                 for(j=0;j<9;j++) {
                     k = matrix[i][j];
                     k*=k;
-                    sl[i] += k;
-                    sc[j] += k;
-                    sm[i/3][j/3] += k;
+
+                    sl[i] += k; // Row sum
+                    sc[j] += k; // Column sum
+                    sm[i/3][j/3] += k; // 3 by 3 sub-matrix
 
                     if(i==8 && sc[j]!=285) {
                         f = false;
@@ -41,13 +42,14 @@ public class Main1383 {
                 }
             }
 
-            if(f)
-                for(i=0;i<3;i++) {
-                    for(j=0;j<3;j++) {
-                        if(sm[i][j]!=285)
+            if(f) {
+                for (i = 0; i < 3; i++) {
+                    for (j = 0; j < 3; j++) {
+                        if (sm[i][j] != 285)
                             f = false;
                     }
                 }
+            }
 
             System.out.printf("Instancia %d\n"+((f) ? "SIM" : "NAO")+"\n\n", t);
         }

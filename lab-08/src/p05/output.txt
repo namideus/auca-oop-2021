@@ -1,6 +1,6 @@
 hello
 helllo
-code
+
 programming
 love
 city

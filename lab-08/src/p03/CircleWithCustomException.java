@@ -1,6 +1,7 @@
 package p03;
 
 public class CircleWithCustomException {
+
     private double radius;
 
     private static int numberOfObjects = 0;

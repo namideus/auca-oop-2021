@@ -3,14 +3,15 @@ import java.util.Scanner;
 public class Main1553 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        int i, q, n, k, m;
+        int i, q, n, k;
         int[] cnt;
 
         while(scan.hasNextInt()) {
             n = scan.nextInt();
             k = scan.nextInt();
 
-            if((n+k)==0) break;
+            if(n + k==0)
+                break;
 
             cnt = new int[101];
             q = 0;

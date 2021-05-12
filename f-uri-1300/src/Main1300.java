@@ -15,9 +15,11 @@ public class Main1300 {
             j = 0;
 
             for(int i=0; i<60; ++i) {
-                if(i%5==0) ++j;
+                if(i%5==0)
+                    ++j;
 
                 angle = (i-j)*6;
+
                 if(d==abs(angle)) {
                     b = true;
                     break;

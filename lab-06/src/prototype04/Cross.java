@@ -1,11 +1,13 @@
 package prototype04;
 
 public class Cross extends Figure {
+
     private Rect hRect;
     private Rect vRect;
 
     public Cross(int x, int y, int s1, int s2) {
         super(x,y);
+
         if(s1<1 && s2<1)
             throw new IllegalArgumentException("Cross: incorrect size");
 

@@ -9,8 +9,8 @@ public class Main1245 {
         while(scan.hasNextInt()) {
             n = scan.nextInt();
             scan.nextLine();
-            cnt = 0;
 
+            cnt = 0;
             arr = new Boot[n];
 
             for(int i=0; i<n; i++)

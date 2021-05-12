@@ -6,8 +6,10 @@ public class Rect extends Figure {
 
     public Rect(int x, int y, int w, int h) {
         super(x,y);
+
         if(w<0)
             throw new IllegalArgumentException("Rectangle: width < 0");
+
         if(h<0)
             throw new IllegalArgumentException("Rectangle: height < 0");
 

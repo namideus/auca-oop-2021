@@ -6,6 +6,7 @@ import java.util.Comparator;
 
 public class Main {
     public static void main(String[] args) {
+
         int[] a1  = {6,8,4,4,2,1};
         MyArrays.sort(a1);
         System.out.println(Arrays.toString(a1));
@@ -49,7 +50,6 @@ public class Main {
         MyArrays.sort(students, (o1, o2) -> {
             Student s1 = (Student) o1;
             Student s2 = (Student) o2;
-
             return Integer.compare(s1.getBirthYear(), s2.getBirthYear());
         });
 
@@ -59,21 +59,19 @@ public class Main {
 }
 
 class StudentComparatorGpa implements MyComparator {
-
     @Override
     public int compare(Object o1, Object o2) {
-        Student s1 = (Student)o1;
-        Student s2 = (Student)o2;
+        Student s1 = (Student) o1;
+        Student s2 = (Student) o2;
         return Double.compare(s1.getGPA(), s2.getGPA());
     }
 }
 
 class StudentComparatorName implements MyComparator {
-
     @Override
     public int compare(Object o1, Object o2) {
-        Student s1 = (Student)o1;
-        Student s2 = (Student)o2;
+        Student s1 = (Student) o1;
+        Student s2 = (Student) o2;
         return s1.getName().compareTo(s2.getName());
     }
 }

@@ -10,7 +10,8 @@ public class Main1533 {
         while(scan.hasNextInt()) {
             n = scan.nextInt();
 
-            if(n==0) break;
+            if(n==0)
+                break;
 
             map = new TreeMap<>();
 

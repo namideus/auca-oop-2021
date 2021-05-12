@@ -13,7 +13,7 @@ public class Main1087 {
             x2 = scan.nextInt();
             y2 = scan.nextInt();
 
-            if(x1+y1+x2+y2==0)
+            if(x1 + y1 + x2 + y2 == 0)
                 break;
 
             if(x1 == x2 && y1 == y2)

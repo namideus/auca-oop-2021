@@ -15,10 +15,12 @@ public class Main1609 {
             while(t>0) {
                 n = scan.nextInt();
                 set = new HashSet<>();
+
                 while(n>0) {
                     set.add(scan.nextInt());
                     --n;
                 }
+
                 System.out.println(set.size());
                 --t;
             }
