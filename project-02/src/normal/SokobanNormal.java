@@ -106,6 +106,7 @@ public class SokobanNormal extends JFrame {
 
         add(controlPanel, BorderLayout.EAST);
 
+        // Setting on action listeners
         resetButton.addActionListener(actionEvent -> resetGame());
 
         forwardButton.addActionListener(actionEvent -> {
@@ -239,9 +240,7 @@ public class SokobanNormal extends JFrame {
             if(gameModel.isWin()) {
                 JOptionPane.showMessageDialog(SokobanNormal.this, String.format("You solved puzzle %d. Moves: %d", gameModel.getCurLevel(), gameModel.getMoves()));
                 gameModel.nextLevel();
-                puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
-                movesNumberLabel.setText("0");
-                canvasPanel.requestFocus();
+                resetGame();
             }
         }
     }
