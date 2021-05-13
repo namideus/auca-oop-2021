@@ -120,12 +120,12 @@ public class SokobanNormal extends JFrame {
         });
 
         undoButton.addActionListener(actionEvent -> {
-            gameModel.prevState();
-            gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(),  GameModel.TIME_TRAVEL);
+            State state = gameModel.undoState();
+            gameModel.move(state.getDr(), state.getDc(),  GameModel.TIME_TRAVEL);
         });
 
         redoButton.addActionListener(actionEvent -> {
-            gameModel.nextState();
+            gameModel.redoState();
             gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(), GameModel.TIME_TRAVEL);
         });
     }
@@ -235,14 +235,18 @@ public class SokobanNormal extends JFrame {
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_PAGE_UP: // Undo
-                    gameModel.prevState();
+//                    gameModel.undoState();
+//
+//                    gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(), GameModel.TIME_TRAVEL);
 
-                    gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(), GameModel.TIME_TRAVEL);
+                    State state = gameModel.undoState();
 
-                    System.out.println("("+gameModel.getState().getDr()+", " +gameModel.getState().getDc()+")");
+                    gameModel.move(state.getDr(), state.getDc(),  GameModel.TIME_TRAVEL);
+
+                    System.out.println("(" + state.getDr() + ", " + state.getDc() + ")");
                     break;
                 case KeyEvent.VK_PAGE_DOWN: // Redo
-                    gameModel.nextState();
+                    gameModel.redoState();
 
                     gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(),  GameModel.TIME_TRAVEL);
 
