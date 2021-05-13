@@ -8,6 +8,7 @@ public class GameModel {
     public static final int RIGHT_COLLISION = 2;
     public static final int TOP_COLLISION = 3;
     public static final int BOTTOM_COLLISION = 4;
+    public static final int TIME_TRAVEL = 5;
 
     private ArrayList<State> states;
     private int curState = 0;
@@ -97,8 +98,13 @@ public class GameModel {
     public void nextState() {
         ++curState;
 
-        if(curState==states.size())
+        if(curState==states.size()-1)
             curState = 0;
+
+//        if(curState<states.size())
+//            ++curState;
+
+        System.out.println(curState);
     }
 
     public void prevState() {
@@ -106,15 +112,21 @@ public class GameModel {
 
         if(curState<0)
             curState = this.states.size()-1;
+
+//        if(curState>0)
+//            --curState;
+
+
+        System.out.println(curState);
     }
 
     public void addState(State state) {
-        states.add(state);
-        curState = this.states.size()-1;
+        this.states.add(state);
+        curState = states.size()-1;
     }
 
-    public void getState() {
-        this.states.get(curState);
+    public State getState() {
+        return this.states.get(curState);
     }
 
     public void deleteStates() {
@@ -131,15 +143,19 @@ public class GameModel {
 
     public void nextLevel() {
         ++curLevel;
+
         if(curLevel==levels.length)
             curLevel = 0;
+
         puzzle = new Puzzle(levels[curLevel]);
     }
 
     public void prevLevel() {
         --curLevel;
+
         if(curLevel<0)
             curLevel = levels.length-1;
+
         puzzle = new Puzzle(levels[curLevel]);
     }
 }

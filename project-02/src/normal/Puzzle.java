@@ -105,6 +105,9 @@ public class Puzzle {
                 }
                 moveRobot(dr,dc);
                 break;
+            case GameModel.TIME_TRAVEL:
+                moveRobot(dr,dc);
+                break;
             default:
                 break;
         }

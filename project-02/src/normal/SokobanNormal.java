@@ -118,6 +118,16 @@ public class SokobanNormal extends JFrame {
             gameModel.prevLevel();
             resetGame();
         });
+
+        undoButton.addActionListener(actionEvent -> {
+            gameModel.prevState();
+            gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(),  GameModel.TIME_TRAVEL);
+        });
+
+        redoButton.addActionListener(actionEvent -> {
+            gameModel.nextState();
+            gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(), GameModel.TIME_TRAVEL);
+        });
     }
 
     public static void main(String[] args) {
@@ -188,6 +198,7 @@ public class SokobanNormal extends JFrame {
     private void resetGame() {
         robot.setUp();
         gameModel.resetCurrentPuzzle();
+        gameModel.deleteStates();
         puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
         movesNumberLabel.setText("0");
         canvasPanel.requestFocus();
@@ -202,37 +213,43 @@ public class SokobanNormal extends JFrame {
                 case KeyEvent.VK_LEFT:
                     robot.setLeft();
                     gameModel.move(0, -1, GameModel.LEFT_COLLISION);
-                    gameModel.addState(new State(0, -1, GameModel.LEFT_COLLISION)); // experiment
+                    gameModel.addState(new State(0, -1)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_RIGHT:
                     robot.setRight();
                     gameModel.move(0, 1, GameModel.RIGHT_COLLISION);
-                    gameModel.addState(new State(0, 1, GameModel.RIGHT_COLLISION)); // experiment
+                    gameModel.addState(new State(0, 1)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_UP:
                     robot.setUp();
                     gameModel.move(-1, 0, GameModel.TOP_COLLISION);
-                    gameModel.addState(new State(-1, 0, GameModel.TOP_COLLISION)); // experiment
+                    gameModel.addState(new State(-1, 0)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_DOWN:
                     robot.setDown();
                     gameModel.move(1, 0, GameModel.BOTTOM_COLLISION);
-                    gameModel.addState(new State(1, 0, GameModel.BOTTOM_COLLISION)); // experiment
+                    gameModel.addState(new State(1, 0)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
-                    break;
-                case KeyEvent.VK_ESCAPE:
-                    resetGame();
                     break;
                 case KeyEvent.VK_PAGE_UP: // Undo
                     gameModel.prevState();
-                    // resetGame();
+
+                    gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(), GameModel.TIME_TRAVEL);
+
+                    System.out.println("("+gameModel.getState().getDr()+", " +gameModel.getState().getDc()+")");
                     break;
-                case KeyEvent.VK_PAGE_DOWN: // Undo
+                case KeyEvent.VK_PAGE_DOWN: // Redo
                     gameModel.nextState();
-                    // resetGame();
+
+                    gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(),  GameModel.TIME_TRAVEL);
+
+                    System.out.println("("+gameModel.getState().getDr()+", " +gameModel.getState().getDc()+")");
+                    break;
+                case KeyEvent.VK_ESCAPE:
+                    resetGame();
                     break;
                 default:
                     break;
