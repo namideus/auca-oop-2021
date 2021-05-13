@@ -96,4 +96,11 @@ public class GameModel {
             curLevel = 0;
         puzzle = new Puzzle(levels[curLevel]);
     }
+
+    public void prevLevel() {
+        --curLevel;
+        if(curLevel<0)
+            curLevel = levels.length-1;
+        puzzle = new Puzzle(levels[curLevel]);
+    }
 }

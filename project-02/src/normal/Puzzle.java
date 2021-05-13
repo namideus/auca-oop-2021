@@ -3,6 +3,7 @@ package normal;
 import java.util.ArrayList;
 
 public class Puzzle {
+
     private char[][] data;
     private int height;
     private int width;
