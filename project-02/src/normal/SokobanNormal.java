@@ -148,14 +148,14 @@ public class SokobanNormal extends JFrame {
             int xLeftUpper = getWidth()/4;
             int yLeftUpper = getHeight()/4;
 
-            int widthCell = Math.round(getWidth()/2f/gameModel.puzzle.getWidth());
-            int heightCell = Math.round(getHeight()/2f/gameModel.puzzle.getHeight());
+            int widthCell = Math.round(getWidth()/2f/gameModel.getWidth());
+            int heightCell = Math.round(getHeight()/2f/gameModel.getHeight());
 
-            for(int r = 0; r < gameModel.puzzle.getHeight(); ++r) {
-                for(int c = 0; c < gameModel.puzzle.getWidth(); ++c) {
+            for(int r = 0; r < gameModel.getHeight(); ++r) {
+                for(int c = 0; c < gameModel.getWidth(); ++c) {
                     g.drawImage(Ground.getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
 
-                    char item = gameModel.puzzle.getCurElement(r,c);
+                    char item = gameModel.getCurElement(r,c);
                     switch (item) {
                         case '#':
                             g.drawImage(Wall.getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
@@ -186,8 +186,8 @@ public class SokobanNormal extends JFrame {
     }
 
     private void resetGame() {
-        gameModel.resetCurrentPuzzle();
         robot.setUp();
+        gameModel.resetCurrentPuzzle();
         puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
         movesNumberLabel.setText("0");
         canvasPanel.requestFocus();

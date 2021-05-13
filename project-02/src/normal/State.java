@@ -1,11 +1,11 @@
 package normal;
 
-public class Step {
+public class State {
     private int dr;
     private int dc;
     private int direction;
 
-    public Step(int dr, int dc, int direction) {
+    public State(int dr, int dc, int direction) {
         this.dr = dr;
         this.dc = dc;
         this.direction = direction;
