@@ -106,16 +106,16 @@ public class SokobanNormal extends JFrame {
 
         add(controlPanel, BorderLayout.EAST);
 
-        resetButton.addActionListener(actionEvent -> {
-            resetGame();
-        });
+        resetButton.addActionListener(actionEvent -> resetGame());
 
         backButton.addActionListener(actionEvent -> {
-
+            gameModel.prevLevel();
+            puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
         });
 
         forwardButton.addActionListener(actionEvent -> {
-
+            gameModel.nextLevel();
+            puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
         });
     }
 
