@@ -213,37 +213,31 @@ public class SokobanNormal extends JFrame {
                 case KeyEvent.VK_LEFT:
                     robot.setLeft();
                     gameModel.move(0, -1, GameModel.LEFT_COLLISION);
-                    gameModel.addState(new State(0, -1)); // experiment
+                    gameModel.addState(new State(0, -1, GameModel.LEFT_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_RIGHT:
                     robot.setRight();
                     gameModel.move(0, 1, GameModel.RIGHT_COLLISION);
-                    gameModel.addState(new State(0, 1)); // experiment
+                    gameModel.addState(new State(0, 1, GameModel.RIGHT_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_UP:
                     robot.setUp();
                     gameModel.move(-1, 0, GameModel.TOP_COLLISION);
-                    gameModel.addState(new State(-1, 0)); // experiment
+                    gameModel.addState(new State(-1, 0, GameModel.TOP_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_DOWN:
                     robot.setDown();
                     gameModel.move(1, 0, GameModel.BOTTOM_COLLISION);
-                    gameModel.addState(new State(1, 0)); // experiment
+                    gameModel.addState(new State(1, 0, GameModel.BOTTOM_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_PAGE_UP: // Undo
-//                    gameModel.undoState();
-//
-//                    gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(), GameModel.TIME_TRAVEL);
-
                     State state = gameModel.undoState();
-
-                    gameModel.move(state.getDr(), state.getDc(),  GameModel.TIME_TRAVEL);
-
-                    System.out.println("(" + state.getDr() + ", " + state.getDc() + ")");
+                    state.setRobot(robot);
+                    gameModel.move(state.getDr(), state.getDc(), GameModel.TIME_TRAVEL);
                     break;
                 case KeyEvent.VK_PAGE_DOWN: // Redo
                     gameModel.redoState();
