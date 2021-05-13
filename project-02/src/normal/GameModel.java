@@ -10,6 +10,7 @@ public class GameModel {
     public static final int BOTTOM_COLLISION = 4;
 
     private ArrayList<State> states;
+    private int curState = 0;
 
     private int curLevel = 0;
     private Puzzle puzzle;
@@ -93,20 +94,27 @@ public class GameModel {
         return states;
     }
 
+    public void nextState() {
+        ++curState;
+
+        if(curState==states.size())
+            curState = 0;
+    }
+
+    public void prevState() {
+        --curState;
+
+        if(curState<0)
+            curState = this.states.size()-1;
+    }
+
     public void addState(State state) {
-        this.states.add(state);
+        states.add(state);
+        curState = this.states.size()-1;
     }
 
-    public void getState(State state) {
-        this.states.add(state);
-    }
-
-    public void nextState(State state) {
-        this.states.add(state);
-    }
-
-    public void prevState(State state) {
-        this.states.add(state);
+    public void getState() {
+        this.states.get(curState);
     }
 
     public void deleteStates() {
