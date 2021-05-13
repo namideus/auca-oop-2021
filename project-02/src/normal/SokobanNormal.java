@@ -108,14 +108,14 @@ public class SokobanNormal extends JFrame {
 
         resetButton.addActionListener(actionEvent -> resetGame());
 
-        backButton.addActionListener(actionEvent -> {
-            gameModel.prevLevel();
-            puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
-        });
-
         forwardButton.addActionListener(actionEvent -> {
             gameModel.nextLevel();
-            puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
+            resetGame();
+        });
+
+        backButton.addActionListener(actionEvent -> {
+            gameModel.prevLevel();
+            resetGame();
         });
     }
 
@@ -125,7 +125,7 @@ public class SokobanNormal extends JFrame {
             game.setTitle("MicroSokoban");
             game.setBackground(Color.BLACK);
             game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            game.setSize(2000, 2000);
+            game.setSize(1100, 1100);
             game.setLocationRelativeTo(null);
             game.setVisible(true);
         });
@@ -144,10 +144,10 @@ public class SokobanNormal extends JFrame {
             g.setColor(Color.BLACK);
             g.fillRect(0,0,getWidth(),getHeight());
 
-            int xLeftUpper = getWidth()/3;
+            int xLeftUpper = getWidth()/4;
             int yLeftUpper = getHeight()/4;
 
-            int widthCell = Math.round(getWidth()/3.5f/gameModel.puzzle.getWidth());
+            int widthCell = Math.round(getWidth()/2f/gameModel.puzzle.getWidth());
             int heightCell = Math.round(getHeight()/2f/gameModel.puzzle.getHeight());
 
             for(int r = 0; r < gameModel.puzzle.getHeight(); ++r) {
@@ -186,10 +186,11 @@ public class SokobanNormal extends JFrame {
 
     private void resetGame() {
         gameModel.resetCurrentPuzzle();
-        repaint();
+        robot.setUp();
         puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
         movesNumberLabel.setText("0");
         canvasPanel.requestFocus();
+        repaint();
     }
 
     private class CanvasPanelListener extends KeyAdapter {
@@ -219,6 +220,14 @@ public class SokobanNormal extends JFrame {
                     break;
                 case KeyEvent.VK_ESCAPE:
                     resetGame();
+                    break;
+                case KeyEvent.VK_PAGE_UP: // Undo
+                    // gameModel.nextLevel();
+                    // resetGame();
+                    break;
+                case KeyEvent.VK_PAGE_DOWN: // Un   do
+                    // gameModel.nextLevel();
+                    // resetGame();
                     break;
                 default:
                     break;
