@@ -236,13 +236,17 @@ public class SokobanNormal extends JFrame {
                     break;
                 case KeyEvent.VK_PAGE_UP: // Undo
                     State state = gameModel.undoState();
-                    state.setRobot(robot);
-                    gameModel.move(state.getDr(), state.getDc(), GameModel.TIME_TRAVEL);
+                    if(state!=null) {
+                        state.setRobot(robot);
+                        gameModel.move(state.getDr(), state.getDc(), GameModel.TIME_TRAVEL);
+                    }
                     break;
                 case KeyEvent.VK_PAGE_DOWN: // Redo
                     state = gameModel.redoState();
-                    state.setRobot(robot);
-                    gameModel.move(state.getDr(), state.getDc(), GameModel.TIME_TRAVEL);
+                    if(state!=null) {
+                        state.setRobot(robot);
+                        gameModel.move(Integer.compare(0,state.getDr()), Integer.compare(0,state.getDc()), GameModel.TIME_TRAVEL);
+                    }
                     break;
                 case KeyEvent.VK_ESCAPE:
                     resetGame();

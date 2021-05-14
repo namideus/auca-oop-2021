@@ -96,38 +96,17 @@ public class GameModel {
     }
 
     public State redoState() {
-//        ++curState;
-//
-//        if(curState==states.size()-1)
-//            curState = 0;
-//        if(curState<states.size())
-//            ++curState;
-//
-//        System.out.println(curState);
-
-        if(curState<states.size()) {
-            //states.remove(curState - 1);
+        if(curState<states.size() && curState>0) {
             return states.get(curState++);
         }
         return null;
     }
 
     public State undoState() {
-//        --curState;
-//
-//        if(curState<0)
-//            curState = this.states.size()-1;
-//        if(curState>0) {
-//            --curState;
-//
-//        } else {
-//            states.clear();
-//            curState = 0;
-//        }
-// System.out.println(curState);
         if(curState>0) {
-            //states.remove(curState - 1);
             return states.get(--curState);
+        } else {
+            states.clear();
         }
         return null;
     }
