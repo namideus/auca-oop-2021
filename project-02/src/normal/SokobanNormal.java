@@ -208,7 +208,7 @@ public class SokobanNormal extends JFrame {
         State state = gameModel.undoState();
         if(state!=null) {
             state.setRobot(robot);
-            gameModel.move(state.getRobotDr(),state.getRobotDc(),GameModel.TIME_TRAVEL);
+            gameModel.move(state.getDr(),state.getDc(),GameModel.TIME_TRAVEL);
         }
     }
 
@@ -216,7 +216,7 @@ public class SokobanNormal extends JFrame {
         State state = gameModel.redoState();
         if(state!=null) {
             state.setRobot(robot);
-            gameModel.move(Integer.compare(0,state.getRobotDr()),Integer.compare(0,state.getRobotDc()),GameModel.TIME_TRAVEL);
+            gameModel.move(Integer.compare(0,state.getDr()),Integer.compare(0,state.getDc()),GameModel.TIME_TRAVEL);
         }
     }
 

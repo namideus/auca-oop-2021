@@ -75,7 +75,7 @@ public class Puzzle {
                     if (isLeftCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             // game.addState(new State(dr, dc, collision));
-                            game.addState(new State(dr, dc, collision,box.getId()));
+                            game.addState(new State(dr, dc, collision, box.getId()));
                             moveRobot(dr, dc);
                         }
                         return;
@@ -89,7 +89,7 @@ public class Puzzle {
                     if (isRightCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             // game.addState(new State(dr, dc, collision));
-                            game.addState(new State(dr, dc, collision,box.getId()));
+                            game.addState(new State(dr, dc, collision, box.getId()));
                             moveRobot(dr, dc);
                         }
                         return;
@@ -103,7 +103,7 @@ public class Puzzle {
                     if (isTopCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             //game.addState(new State(dr, dc, collision));
-                            game.addState(new State(dr, dc, collision,box.getId()));
+                            game.addState(new State(dr, dc, collision, box.getId()));
                             moveRobot(dr, dc);
                         }
                         return;
@@ -117,7 +117,7 @@ public class Puzzle {
                     if (isBottomCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             // game.addState(new State(dr, dc, collision));
-                            game.addState(new State(dr, dc, collision,box.getId()));
+                            game.addState(new State(dr, dc, collision, box.getId()));
                             moveRobot(dr, dc);
                         }
                         return;
@@ -129,14 +129,16 @@ public class Puzzle {
             case GameModel.TIME_TRAVEL:
                 moveRobot(dr,dc);
 
-//                for (BlueBox box : boxes) {
-//                    for (State state : game.getStates()) {
-//                        if (state.getId() == box.getId()) {
-//                            moveBox(dr, dc, box);
-//                            break;
-//                        }
-//                    }
-//                }
+                State state = game.getState();
+
+                for (BlueBox box : boxes) {
+                    if (state.isHasMovedBox()) {
+                        if (state.getBoxId() == box.getId()) {
+                            moveBox(dr, dc, box);
+                            break;
+                        }
+                    }
+                }
                 break;
             default:
                 break;
@@ -171,14 +173,17 @@ public class Puzzle {
         return robotRow == boxRow && robotCol-1 == boxCol;
     }
 
+    // Is right collision
     public boolean isRightCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
         return robotRow == boxRow && robotCol+1 == boxCol;
     }
 
+    // Is top collision
     public boolean isTopCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
         return robotCol == boxCol && robotRow-1 == boxRow;
     }
 
+    // Is bottom collision
     public boolean isBottomCollision(int robotRow, int robotCol, int boxRow, int boxCol) {
         return robotCol == boxCol && robotRow+1 == boxRow;
     }
@@ -197,15 +202,17 @@ public class Puzzle {
         return finishedBoxes==numberOfBoxes;
     }
 
-    // Getters
+    // Get boxes
     public ArrayList<BlueBox> getBoxes() {
         return boxes;
     }
 
+    // Get goals
     public ArrayList<Goal> getGoals() {
         return goals;
     }
 
+    // Get robot
     public Robot getRobot() {
         return robot;
     }

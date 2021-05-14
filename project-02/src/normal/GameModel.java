@@ -21,6 +21,7 @@ public class GameModel {
 
     private int curLevel = 0;
     private Puzzle puzzle;
+    // private State state;
 
     private static final char[][][] levels = {
             {
@@ -121,7 +122,7 @@ public class GameModel {
     }
 
     public State getState() {
-        return states.get(curState-1);
+        return states.get(curState);
     }
 
     public void deleteStates() {
