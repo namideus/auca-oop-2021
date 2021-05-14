@@ -2,9 +2,13 @@ package normal;
 
 public class State {
 
+    public static final int ROBOT = 1;
+    public static final int BOX = 2;
+
     private int dr;
     private int dc;
     private int dir;
+    private int type;
 
     public State(int dr, int dc, int dir) {
         this.dr = Integer.compare(0, dr);
