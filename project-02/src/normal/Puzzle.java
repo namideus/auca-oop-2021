@@ -49,36 +49,6 @@ public class Puzzle {
         }
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public char get(int row, int col) {
-        return data[row][col];
-    }
-
-    public char getCurElement(int row, int col) {
-        return data[row][col];
-    }
-
-    public int getMoves() {
-        return moves;
-    }
-
-    public void decreaseMoves() {
-        if(moves>0)
-            moves-=1;
-    }
-
-    public void increaseMoves() {
-        if(moves<maxMoves && moves>0)
-            moves+=1;
-    }
-
     // Move robot and box
     public void move(int dr, int dc, int collision) {
         switch (collision) {
@@ -211,6 +181,18 @@ public class Puzzle {
         return finishedBoxes==numberOfBoxes;
     }
 
+    // Decrease count of moves
+    public void decreaseMoves() {
+        if(moves>0)
+            moves-=1;
+    }
+
+    // Increase count of moves
+    public void increaseMoves() {
+        if(moves<maxMoves && moves>0)
+            moves+=1;
+    }
+
     // Get boxes
     public ArrayList<BlueBox> getBoxes() {
         return boxes;
@@ -224,6 +206,26 @@ public class Puzzle {
     // Get robot
     public Robot getRobot() {
         return robot;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public char get(int row, int col) {
+        return data[row][col];
+    }
+
+    public char getCurElement(int row, int col) {
+        return data[row][col];
+    }
+
+    public int getMoves() {
+        return moves;
     }
 }
 

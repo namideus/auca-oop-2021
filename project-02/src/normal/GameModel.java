@@ -4,7 +4,6 @@ import normal.actors.BlueBox;
 import normal.actors.Goal;
 import normal.actors.Robot;
 
-import java.security.KeyPair;
 import java.util.ArrayList;
 
 public class GameModel {
@@ -55,6 +54,10 @@ public class GameModel {
                     {'B','#','#','#','#','#','B','B'}
             }
     };
+
+    //
+    //  here should be file IO part, read levels from a txt file
+    //
 
     public GameModel() {
         this.curLevel = 0;
