@@ -121,13 +121,11 @@ public class SokobanNormal extends JFrame {
         });
 
         undoButton.addActionListener(actionEvent -> {
-            State state = gameModel.undoRobotState();
-            gameModel.move(state.getDr(), state.getDc(),  GameModel.TIME_TRAVEL);
+            undoGame();
         });
 
         redoButton.addActionListener(actionEvent -> {
-            gameModel.redoRobotState();
-            gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(), GameModel.TIME_TRAVEL);
+            redoGame();
         });
     }
 
@@ -206,6 +204,23 @@ public class SokobanNormal extends JFrame {
         repaint();
     }
 
+    private void undoGame() {
+        State state = gameModel.undoRobotState();
+        if(state!=null) {
+            state.setRobot(robot);
+            gameModel.move(state.getDr(), state.getDc(), GameModel.TIME_TRAVEL);
+        }
+    }
+
+    private void redoGame() {
+        State state = gameModel.redoRobotState();
+        if(state!=null) {
+            state.setRobot(robot);
+            gameModel.move(Integer.compare(0,state.getDr()),Integer.compare(0,state.getDc()), GameModel.TIME_TRAVEL);
+        }
+    }
+
+    // Canvas panel listener
     private class CanvasPanelListener extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent keyEvent) {
@@ -214,40 +229,32 @@ public class SokobanNormal extends JFrame {
                 case KeyEvent.VK_LEFT:
                     robot.setLeft();
                     gameModel.move(0, -1, GameModel.LEFT_COLLISION);
-                    gameModel.addRobotState(new State(0, -1, GameModel.LEFT_COLLISION)); // experiment
+                   // gameModel.addRobotState(new State(0, -1, GameModel.LEFT_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_RIGHT:
                     robot.setRight();
                     gameModel.move(0, 1, GameModel.RIGHT_COLLISION);
-                    gameModel.addRobotState(new State(0, 1, GameModel.RIGHT_COLLISION)); // experiment
+                   // gameModel.addRobotState(new State(0, 1, GameModel.RIGHT_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_UP:
                     robot.setUp();
                     gameModel.move(-1, 0, GameModel.TOP_COLLISION);
-                    gameModel.addRobotState(new State(-1, 0, GameModel.TOP_COLLISION)); // experiment
+                   // gameModel.addRobotState(new State(-1, 0, GameModel.TOP_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_DOWN:
                     robot.setDown();
                     gameModel.move(1, 0, GameModel.BOTTOM_COLLISION);
-                    gameModel.addRobotState(new State(1, 0, GameModel.BOTTOM_COLLISION)); // experiment
+                   // gameModel.addRobotState(new State(1, 0, GameModel.BOTTOM_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_PAGE_UP: // Undo
-                    State state = gameModel.undoRobotState();
-                    if(state!=null) {
-                        state.setRobot(robot);
-                        gameModel.move(state.getDr(), state.getDc(), GameModel.TIME_TRAVEL);
-                    }
+                    undoGame();
                     break;
                 case KeyEvent.VK_PAGE_DOWN: // Redo
-                    state = gameModel.redoRobotState();
-                    if(state!=null) {
-                        state.setRobot(robot);
-                        gameModel.move(Integer.compare(0,state.getDr()), Integer.compare(0,state.getDc()), GameModel.TIME_TRAVEL);
-                    }
+                    redoGame();
                     break;
                 case KeyEvent.VK_ESCAPE:
                     resetGame();

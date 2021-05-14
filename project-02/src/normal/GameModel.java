@@ -2,7 +2,6 @@ package normal;
 
 import normal.actors.BlueBox;
 import normal.actors.Goal;
-import normal.actors.Puzzle;
 import normal.actors.Robot;
 
 import java.util.ArrayList;
@@ -58,13 +57,13 @@ public class GameModel {
 
     public GameModel() {
         this.curLevel = 0;
-        this.puzzle = new Puzzle(levels[curLevel]);
+        this.puzzle = new Puzzle(levels[curLevel], this);
         this.robotStates = new ArrayList<>();
         this.boxStates = new ArrayList<>();
     }
 
     public void resetCurrentPuzzle() {
-        this.puzzle = new Puzzle(levels[curLevel]);
+        this.puzzle = new Puzzle(levels[curLevel], this);
     }
 
     public float getHeight() {
@@ -151,7 +150,7 @@ public class GameModel {
         if(curLevel==levels.length)
             curLevel = 0;
 
-        puzzle = new Puzzle(levels[curLevel]);
+        puzzle = new Puzzle(levels[curLevel], this);
     }
 
     public void prevLevel() {
@@ -160,6 +159,6 @@ public class GameModel {
         if(curLevel<0)
             curLevel = levels.length-1;
 
-        puzzle = new Puzzle(levels[curLevel]);
+        puzzle = new Puzzle(levels[curLevel], this);
     }
 }

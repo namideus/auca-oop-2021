@@ -1,6 +1,9 @@
-package normal.actors;
+package normal;
 
 import normal.GameModel;
+import normal.actors.BlueBox;
+import normal.actors.Goal;
+import normal.actors.Robot;
 
 import java.util.ArrayList;
 
@@ -14,8 +17,10 @@ public class Puzzle {
     private ArrayList<BlueBox> boxes;
     private ArrayList<Goal> goals;
     private Robot robot;
+    private GameModel game;
 
-    public Puzzle(char[][] level) {
+    public Puzzle(char[][] level, GameModel game) {
+        this.game = game;
         this.boxes = new ArrayList<>();
         this.goals = new ArrayList<>();
         this.height = level.length;
@@ -68,44 +73,52 @@ public class Puzzle {
                     if (isLeftCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
+                            game.addRobotState(new State(dr, dc, collision));
                         }
                         return;
                     }
                 }
                 moveRobot(dr,dc);
+                game.addRobotState(new State(dr, dc, collision));
                 break;
             case GameModel.RIGHT_COLLISION:
                 for (BlueBox box : boxes) {
                     if (isRightCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
+                            game.addRobotState(new State(dr, dc, collision));
                         }
                         return;
                     }
                 }
                 moveRobot(dr,dc);
+                game.addRobotState(new State(dr, dc, collision));
                 break;
             case GameModel.TOP_COLLISION:
                 for (BlueBox box : boxes) {
                     if (isTopCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
+                            game.addRobotState(new State(dr, dc, collision));
                         }
                         return;
                     }
                 }
                 moveRobot(dr,dc);
+                game.addRobotState(new State(dr, dc, collision));
                 break;
             case GameModel.BOTTOM_COLLISION:
                 for (BlueBox box : boxes) {
                     if (isBottomCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
+                            game.addRobotState(new State(dr, dc, collision));
                         }
                         return;
                     }
                 }
                 moveRobot(dr,dc);
+                game.addRobotState(new State(dr, dc, collision));
                 break;
             case GameModel.TIME_TRAVEL:
 //                for (BlueBox box : boxes)
@@ -162,8 +175,9 @@ public class Puzzle {
             if (goals.get(i).getRow() == boxes.get(i).getRow() && goals.get(i).getCol() == boxes.get(i).getCol()) {
                 boxes.get(i).setInGoal(true);
                 ++finishedBoxes;
-            } else
+            } else {
                 boxes.get(i).setInGoal(false);
+            }
         }
         return finishedBoxes==numberOfBoxes;
     }
