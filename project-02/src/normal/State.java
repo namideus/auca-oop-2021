@@ -4,9 +4,6 @@ import normal.actors.Robot;
 
 public class State {
 
-    public static final int ROBOT = 1;
-    public static final int BOX = 2;
-
     private int dr;
     private int dc;
     private int dir;

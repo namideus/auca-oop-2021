@@ -21,7 +21,7 @@ public class GameModel {
 
     private int curLevel = 0;
     private Puzzle puzzle;
-    // private State state;
+    private State state;
 
     private static final char[][][] levels = {
             {
@@ -86,6 +86,14 @@ public class GameModel {
         return puzzle.getMoves();
     }
 
+    public void increaseMoves() {
+        puzzle.increaseMoves();
+    }
+
+    public void decreaseMoves() {
+        puzzle.decreaseMoves();
+    }
+
     public void move(int dr, int dc, int collision) {
         puzzle.move(dr,dc,collision);
     }
@@ -104,14 +112,18 @@ public class GameModel {
 
     public State redoState() {
         if(curState<states.size()) {
-            return states.get(curState++);
+            state = states.get(curState++);
+            return state; // states.get(curState++);
         }
         return null;
     }
 
     public State undoState() {
-        if(curState>0) {
-            return states.get(--curState);
+        if(curState>0 && states.size()>0) {
+            state = states.get(--curState);
+            return state; //states.get(--curState);
+        } else {
+            states.clear();
         }
         return null;
     }
@@ -122,7 +134,7 @@ public class GameModel {
     }
 
     public State getState() {
-        return states.get(curState);
+        return state; // states.get(curState);
     }
 
     public void deleteStates() {

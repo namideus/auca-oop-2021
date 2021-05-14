@@ -210,6 +210,10 @@ public class SokobanNormal extends JFrame {
             state.setRobot(robot);
             gameModel.move(state.getDr(),state.getDc(),GameModel.TIME_TRAVEL);
         }
+        gameModel.decreaseMoves();
+        movesNumberLabel.setText(gameModel.getMoves()+"");
+        canvasPanel.requestFocus();
+        repaint();
     }
 
     private void redoGame() {
@@ -218,6 +222,10 @@ public class SokobanNormal extends JFrame {
             state.setRobot(robot);
             gameModel.move(Integer.compare(0,state.getDr()),Integer.compare(0,state.getDc()),GameModel.TIME_TRAVEL);
         }
+        gameModel.increaseMoves();
+        movesNumberLabel.setText(gameModel.getMoves()+"");
+        canvasPanel.requestFocus();
+        repaint();
     }
 
     // Canvas panel listener
