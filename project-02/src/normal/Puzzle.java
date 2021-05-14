@@ -75,7 +75,7 @@ public class Puzzle {
     }
 
     public void increaseMoves() {
-        if(moves<maxMoves)
+        if(moves<maxMoves && moves>0)
             moves+=1;
     }
 
