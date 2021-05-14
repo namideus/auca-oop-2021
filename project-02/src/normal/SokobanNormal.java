@@ -1,9 +1,10 @@
 package normal;
 
+import normal.actors.*;
+import normal.actors.Robot;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class SokobanNormal extends JFrame {
     // Experiment
     private static ArrayList<BlueBox> boxes;
     private static ArrayList<Goal> goals;
-    private static Robot robot;
+    private static normal.actors.Robot robot;
 
     public SokobanNormal() {
         gameModel = new GameModel();
@@ -120,12 +121,12 @@ public class SokobanNormal extends JFrame {
         });
 
         undoButton.addActionListener(actionEvent -> {
-            State state = gameModel.undoState();
+            State state = gameModel.undoRobotState();
             gameModel.move(state.getDr(), state.getDc(),  GameModel.TIME_TRAVEL);
         });
 
         redoButton.addActionListener(actionEvent -> {
-            gameModel.redoState();
+            gameModel.redoRobotState();
             gameModel.move(gameModel.getState().getDr(), gameModel.getState().getDc(), GameModel.TIME_TRAVEL);
         });
     }
@@ -213,36 +214,36 @@ public class SokobanNormal extends JFrame {
                 case KeyEvent.VK_LEFT:
                     robot.setLeft();
                     gameModel.move(0, -1, GameModel.LEFT_COLLISION);
-                    gameModel.addState(new State(0, -1, GameModel.LEFT_COLLISION)); // experiment
+                    gameModel.addRobotState(new State(0, -1, GameModel.LEFT_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_RIGHT:
                     robot.setRight();
                     gameModel.move(0, 1, GameModel.RIGHT_COLLISION);
-                    gameModel.addState(new State(0, 1, GameModel.RIGHT_COLLISION)); // experiment
+                    gameModel.addRobotState(new State(0, 1, GameModel.RIGHT_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_UP:
                     robot.setUp();
                     gameModel.move(-1, 0, GameModel.TOP_COLLISION);
-                    gameModel.addState(new State(-1, 0, GameModel.TOP_COLLISION)); // experiment
+                    gameModel.addRobotState(new State(-1, 0, GameModel.TOP_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_DOWN:
                     robot.setDown();
                     gameModel.move(1, 0, GameModel.BOTTOM_COLLISION);
-                    gameModel.addState(new State(1, 0, GameModel.BOTTOM_COLLISION)); // experiment
+                    gameModel.addRobotState(new State(1, 0, GameModel.BOTTOM_COLLISION)); // experiment
                     movesNumberLabel.setText(gameModel.getMoves()+"");
                     break;
                 case KeyEvent.VK_PAGE_UP: // Undo
-                    State state = gameModel.undoState();
+                    State state = gameModel.undoRobotState();
                     if(state!=null) {
                         state.setRobot(robot);
                         gameModel.move(state.getDr(), state.getDc(), GameModel.TIME_TRAVEL);
                     }
                     break;
                 case KeyEvent.VK_PAGE_DOWN: // Redo
-                    state = gameModel.redoState();
+                    state = gameModel.redoRobotState();
                     if(state!=null) {
                         state.setRobot(robot);
                         gameModel.move(Integer.compare(0,state.getDr()), Integer.compare(0,state.getDc()), GameModel.TIME_TRAVEL);

@@ -1,4 +1,4 @@
-package normal;
+package normal.actors;
 
 import java.awt.*;
 

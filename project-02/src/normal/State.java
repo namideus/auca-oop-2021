@@ -1,5 +1,7 @@
 package normal;
 
+import normal.actors.Robot;
+
 public class State {
 
     public static final int ROBOT = 1;

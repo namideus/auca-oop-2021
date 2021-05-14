@@ -1,4 +1,6 @@
-package normal;
+package normal.actors;
+
+import normal.GameModel;
 
 import java.util.ArrayList;
 

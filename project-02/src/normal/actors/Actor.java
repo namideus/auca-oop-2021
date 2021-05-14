@@ -1,4 +1,4 @@
-package normal;
+package normal.actors;
 
 public class Actor {
     private int row;
