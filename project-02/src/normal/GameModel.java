@@ -4,6 +4,7 @@ import normal.actors.BlueBox;
 import normal.actors.Goal;
 import normal.actors.Robot;
 
+import java.security.KeyPair;
 import java.util.ArrayList;
 
 public class GameModel {
@@ -14,8 +15,7 @@ public class GameModel {
     public static final int BOTTOM_COLLISION = 4;
     public static final int TIME_TRAVEL = 5;
 
-    private ArrayList<State> robotStates;
-    private ArrayList<ArrayList<State>> boxStates;
+    private ArrayList<State> states;
 
     private int curState = 0;
 
@@ -58,8 +58,7 @@ public class GameModel {
     public GameModel() {
         this.curLevel = 0;
         this.puzzle = new Puzzle(levels[curLevel], this);
-        this.robotStates = new ArrayList<>();
-        this.boxStates = new ArrayList<>();
+        this.states = new ArrayList<>();
     }
 
     public void resetCurrentPuzzle() {
@@ -98,41 +97,35 @@ public class GameModel {
         return puzzle.getGoals();
     }
 
-    public ArrayList<State> getRobotStates() {
-        return robotStates;
+    public ArrayList<State> getStates() {
+        return states;
     }
 
-    public ArrayList<ArrayList<State>> getBoxStates() {
-        return boxStates;
-    }
-
-    public State redoRobotState() {
-        if(curState<robotStates.size() && curState>0) {
-            return robotStates.get(curState++);
+    public State redoState() {
+        if(curState<states.size()) {
+            return states.get(curState++);
         }
         return null;
     }
 
-    public State undoRobotState() {
+    public State undoState() {
         if(curState>0) {
-            return robotStates.get(--curState);
-        } else {
-            robotStates.clear();
+            return states.get(--curState);
         }
         return null;
     }
 
-    public void addRobotState(State state) {
-        robotStates.add(state);
+    public void addState(State state) {
+        states.add(state);
         ++curState;
     }
 
     public State getState() {
-        return robotStates.get(curState-1);
+        return states.get(curState-1);
     }
 
     public void deleteStates() {
-        robotStates.clear();
+        states.clear();
         curState = 0;
     }
 

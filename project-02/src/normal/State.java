@@ -7,23 +7,41 @@ public class State {
     public static final int ROBOT = 1;
     public static final int BOX = 2;
 
-    private int dr;
-    private int dc;
+    private int robotDr;
+    private int robotDc;
     private int dir;
-    private int type;
+    private int boxId = -1;
+    private boolean hasMovedBox;
 
     public State(int dr, int dc, int dir) {
-        this.dr = Integer.compare(0, dr);
-        this.dc = Integer.compare(0, dc);
+        this.robotDr = Integer.compare(0, dr);
+        this.robotDc = Integer.compare(0, dc);
         this.dir = dir;
+        this.hasMovedBox = false;
     }
 
-    public int getDr() {
-        return dr;
+    public State(int robotDr, int robotDc, int dir, int boxId) {
+        this.robotDr = Integer.compare(0, robotDr);
+        this.robotDc = Integer.compare(0, robotDc);
+        this.dir = dir;
+        this.boxId = boxId;
+        this.hasMovedBox = true;
     }
 
-    public int getDc() {
-        return dc;
+    public int getRobotDr() {
+        return robotDr;
+    }
+
+    public int getRobotDc() {
+        return robotDc;
+    }
+
+    public int getBoxId() {
+        return boxId;
+    }
+
+    public void setBoxId(int boxId) {
+        this.boxId = boxId;
     }
 
     public void setRobot(Robot robot) {

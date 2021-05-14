@@ -5,9 +5,11 @@ import java.awt.*;
 public class BlueBox extends Actor {
 
     private boolean isInGoal = false;
+    private int id = 0;
 
-    public BlueBox(int row, int col) {
+    public BlueBox(int row, int col, int id) {
         super(row, col);
+        this.id = id;
     }
 
     public static Image getImage() {
@@ -22,5 +24,9 @@ public class BlueBox extends Actor {
 
     public boolean isInGoal() {
         return isInGoal;
+    }
+
+    public int getId() {
+        return id;
     }
 }
