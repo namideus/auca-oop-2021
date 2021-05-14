@@ -120,12 +120,12 @@ public class GameModel {
 //            curState = 0;
 //        }
 // System.out.println(curState);
-
-        State state = states.get(curState - 1);
-        states.remove(curState - 1);
-        --curState;
-        return state;
-
+        if(curState>0) {
+            --curState;
+            //states.remove(curState - 1);
+            return states.get(curState);
+        }
+        return null;
     }
 
     public void addState(State state) {

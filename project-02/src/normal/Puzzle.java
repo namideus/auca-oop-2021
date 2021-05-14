@@ -106,6 +106,10 @@ public class Puzzle {
                 moveRobot(dr,dc);
                 break;
             case GameModel.TIME_TRAVEL:
+//                for (BlueBox box : boxes)
+//                        moveBox(dr, dc, box);
+
+
                 moveRobot(dr,dc);
                 break;
             default:
