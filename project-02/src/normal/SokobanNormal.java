@@ -173,10 +173,12 @@ public class SokobanNormal extends JFrame {
             try {
                 for (int r = 0; r < gameModel.getHeight(); ++r) {
                     for (int c = 0; c < gameModel.getWidth(); ++c) {
+                        // Draw ground
                         g.drawImage(Ground.getImage(), xLeftUpper + c * widthCell, yLeftUpper + r * heightCell, widthCell, heightCell, null);
 
                         char item = gameModel.getCurElement(r, c);
                         switch (item) {
+                            // Draw wall
                             case '#':
                                 g.drawImage(Wall.getImage(), xLeftUpper + c * widthCell, yLeftUpper + r * heightCell, widthCell, heightCell, null);
                                 break;
@@ -190,8 +192,9 @@ public class SokobanNormal extends JFrame {
                     }
 
                     // Draw goals
-                    for (Goal goal : goals)
+                    for (Goal goal : goals) {
                         g.drawImage(Goal.getImage(), xLeftUpper + goal.getCol() * widthCell + widthCell / 4, yLeftUpper + goal.getRow() * heightCell + heightCell / 4, widthCell / 2, heightCell / 2, null);
+                    }
 
                     // Draw boxes
                     for (BlueBox box : boxes) {
