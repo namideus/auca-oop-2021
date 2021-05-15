@@ -168,7 +168,7 @@ public class SokobanNormal extends JFrame {
             int heightCell = Ground.getImage().getHeight(null);
 
             int xLeftUpper = getWidth() / 2 - widthCell * (int)gameModel.getWidth() / 2;
-            int yLeftUpper = getHeight() / 2 - heightCell * (int)gameModel.getWidth() / 2;
+            int yLeftUpper = getHeight() / 2 - heightCell * (int)gameModel.getHeight() / 2;
 
             try {
                 for (int r = 0; r < gameModel.getHeight(); ++r) {
