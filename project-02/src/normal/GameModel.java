@@ -94,7 +94,7 @@ public class GameModel {
             //------------------------------------------------------
 
             this.curLevel = 0;
-            this.puzzle = new Puzzle(levels[curLevel], this);
+            this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);//new Puzzle(levels[curLevel], this);
             this.states = new ArrayList<>();
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -102,7 +102,8 @@ public class GameModel {
     }
 
     public void resetCurrentPuzzle() {
-        this.puzzle = new Puzzle(levels[curLevel], this);
+        //this.puzzle = new Puzzle(levels[curLevel], this);
+        this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);
     }
 
     public float getHeight() {
@@ -192,21 +193,26 @@ public class GameModel {
     public void nextLevel() {
         ++curLevel;
 
-        if(curLevel==levels.length)
+        //if(curLevel==levels.length)
+        if(curLevel==levelsList.size())
             curLevel = 0;
 
-        puzzle = new Puzzle(levels[curLevel], this);
+        // puzzle = new Puzzle(levels[curLevel], this);
+        this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);//new Puzzle(levels[curLevel], this);
     }
 
     public void prevLevel() {
         --curLevel;
 
         if(curLevel<0)
-            curLevel = levels.length-1;
+            curLevel = levelsList.size()-1;
+        //curLevel = levels.length-1;
 
-        puzzle = new Puzzle(levels[curLevel], this);
+        //  puzzle = new Puzzle(levels[curLevel], this);
+        this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);//new Puzzle(levels[curLevel], this);
     }
 
+    //--------------------Experiment----------------------------
     private char[][] parseLevel(String[] strArray) {
         int height = strArray.length;
         int width = 0;
