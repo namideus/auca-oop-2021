@@ -70,9 +70,10 @@ public class Puzzle {
         return row>=0 && col>=0 && row<height && col<width;
     }
 
+    // Flood fill algorithm
     public void clearEdges(int row, int col) {
         if(!isValid(row, col))
-            throw new RuntimeException("Invalid parameters passed in left() function");
+            throw new RuntimeException("Invalid parameters passed in clearEdges() function");
 
         // Base case
         if (data[row][col] != ' ')
@@ -150,11 +151,12 @@ public class Puzzle {
                 State state = game.getState();
 
                 for (BlueBox box : boxes) {
-                    if (state.isHasMovedBox())
+                    if (state.isHasMovedBox()) {
                         if (state.getBoxId() == box.getId()) {
                             moveBox(dr, dc, box);
                             break;
                         }
+                    }
                 }
                 break;
             default:

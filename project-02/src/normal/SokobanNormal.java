@@ -73,8 +73,8 @@ public class SokobanNormal extends JFrame {
         controlPanel.add(levelNameLabel);
 
         puzzleNumberLabel.setMaximumSize(new Dimension(140, 50));
-        puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
-        puzzleNumberLabel.setBorder(BorderFactory.createEmptyBorder(10, 55, 10, 50));
+        puzzleNumberLabel.setText(gameModel.getCurLevel()+" from " +gameModel.getLevelsSize());
+        puzzleNumberLabel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
         puzzleNumberLabel.setBackground(Color.CYAN);
         puzzleNumberLabel.setOpaque(true);
         controlPanel.add(puzzleLabel);
@@ -219,7 +219,7 @@ public class SokobanNormal extends JFrame {
         robot.setUp();
         gameModel.resetCurrentPuzzle();
         gameModel.deleteStates();
-        puzzleNumberLabel.setText(gameModel.getCurLevel()+"");
+        puzzleNumberLabel.setText(gameModel.getCurLevel()+" from " +gameModel.getLevelsSize());
         movesNumberLabel.setText("0");
         canvasPanel.requestFocus();
         repaint();

@@ -27,45 +27,44 @@ public class GameModel {
 
     private ArrayList<String> levelsList = new ArrayList<>();
 
-    private static final char[][][] levels = {
-            {
-                    {'B','B','#','#','#','#','#','B'},
-                    {'#','#','#',' ',' ',' ','#','B'},
-                    {'#',' ','$',' ','#',' ','#','#'},
-                    {'#',' ','#',' ',' ','.',' ','#'},
-                    {'#',' ',' ',' ',' ','#',' ','#'},
-                    {'#','#',' ','#',' ',' ',' ','#'},
-                    {'B','#','@',' ',' ','#','#','#'},
-                    {'B','#','#','#','#','#','B','B'}
-            },
-            {
-                    {'B','B','#','#','#','#','#','B'},
-                    {'#','#','#',' ',' ',' ','#','B'},
-                    {'#',' ','$',' ','#',' ','#','#'},
-                    {'#',' ','#',' ',' ','.',' ','#'},
-                    {'#',' ',' ',' ',' ','#',' ','#'},
-                    {'#','#','$','#','.',' ',' ','#'},
-                    {'B','#','@',' ',' ','#','#','#'},
-                    {'B','#','#','#','#','#','B','B'}
-            },
-            {
-                    {'B','B','#','#','#','#','#','B'},
-                    {'#','#','#',' ',' ',' ','#','B'},
-                    {'#',' ','$',' ','#',' ','#','#'},
-                    {'#',' ',' ',' ',' ','.',' ','#'},
-                    {'#',' ','.',' ',' ','#',' ','#'},
-                    {'#','#','$','#','.','$',' ','#'},
-                    {'B','#','@',' ',' ','#','#','#'},
-                    {'B','#','#','#','#','#','B','B'}
-            }
-    };
-
+//    private static final char[][][] levels = {
+//            {
+//                    {'B','B','#','#','#','#','#','B'},
+//                    {'#','#','#',' ',' ',' ','#','B'},
+//                    {'#',' ','$',' ','#',' ','#','#'},
+//                    {'#',' ','#',' ',' ','.',' ','#'},
+//                    {'#',' ',' ',' ',' ','#',' ','#'},
+//                    {'#','#',' ','#',' ',' ',' ','#'},
+//                    {'B','#','@',' ',' ','#','#','#'},
+//                    {'B','#','#','#','#','#','B','B'}
+//            },
+//            {
+//                    {'B','B','#','#','#','#','#','B'},
+//                    {'#','#','#',' ',' ',' ','#','B'},
+//                    {'#',' ','$',' ','#',' ','#','#'},
+//                    {'#',' ','#',' ',' ','.',' ','#'},
+//                    {'#',' ',' ',' ',' ','#',' ','#'},
+//                    {'#','#','$','#','.',' ',' ','#'},
+//                    {'B','#','@',' ',' ','#','#','#'},
+//                    {'B','#','#','#','#','#','B','B'}
+//            },
+//            {
+//                    {'B','B','#','#','#','#','#','B'},
+//                    {'#','#','#',' ',' ',' ','#','B'},
+//                    {'#',' ','$',' ','#',' ','#','#'},
+//                    {'#',' ',' ',' ',' ','.',' ','#'},
+//                    {'#',' ','.',' ',' ','#',' ','#'},
+//                    {'#','#','$','#','.','$',' ','#'},
+//                    {'B','#','@',' ',' ','#','#','#'},
+//                    {'B','#','#','#','#','#','B','B'}
+//            }
+//    };
     //
     //  here should be file IO part, read levels from a txt file
     //
 
     public GameModel() {
-        //---------------------Experiment-----------------------
+        //---------------------------------File-IO-------------------------------
         StringBuilder curPuzzle = new StringBuilder();
         try {
             try (Scanner scan = new Scanner(new File("levels/MiniCosmos.txt"))) {
@@ -85,13 +84,13 @@ public class GameModel {
             System.out.println("Size: "+levelsList.size());
 
             int count = 0;
-            for(String puzzle : levelsList) {
+            //for(String puzzle : levelsList) {
                 //  System.out.println(++count);
                 //  System.out.println(puzzle);
                 // System.out.println(Arrays.toString(puzzle.split("\n")));
-            }
+            //}
             // System.out.println(Arrays.toString(levelsList.get(0).split("\n")));
-            //------------------------------------------------------
+            //----------------------------------------------------------------------------
 
             this.curLevel = 0;
             this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);//new Puzzle(levels[curLevel], this);
@@ -148,6 +147,14 @@ public class GameModel {
 
     public ArrayList<State> getStates() {
         return states;
+    }
+
+    public ArrayList<String> getLevelsList() {
+        return levelsList;
+    }
+
+    public int getLevelsSize() {
+        return levelsList.size();
     }
 
     // Redo state
@@ -213,7 +220,7 @@ public class GameModel {
         this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);
     }
 
-    //--------------------Experiment----------------------------
+    //------------------Parse string array and build char matrix---------------------
     private char[][] parseLevel(String[] strArray) {
         int height = strArray.length;
         int width = 0;
@@ -223,19 +230,13 @@ public class GameModel {
 
         char[][] level = new char[height][width];
 
-        for(int r=0; r<height; ++r) {
-            for (int c = 0; c < width; ++c) {
+        for(int r=0; r<height; ++r)
+            for (int c = 0; c < width; ++c)
                 level[r][c] = ' ';
-            }
-        }
 
-        for(int r=0; r<height; ++r) {
-            for (int c = 0; c < strArray[r].length(); ++c) {
+        for(int r=0; r<height; ++r)
+            for (int c = 0; c < strArray[r].length(); ++c)
                 level[r][c] = strArray[r].charAt(c);
-            }
-        }
-
-
 
         return level;
     }
