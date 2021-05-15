@@ -146,31 +146,31 @@ public class SokobanNormal extends JFrame {
     }
 
     // Canvas panel
-    private static class CanvasPanel extends JPanel {
+    private class CanvasPanel extends JPanel {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
 
-            boxes = gameModel.getBoxes();
-            goals = gameModel.getGoals();
-            robot = gameModel.getRobot();
-
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, getWidth(), getHeight());
-
-//            int xLeftUpper = getWidth() / 4;
-//            int yLeftUpper = getHeight() / 4;
-
-//            int widthCell = Math.round(getWidth() / 2f / gameModel.getWidth());
-//            int heightCell = Math.round(getHeight() / 2f / gameModel.getHeight());
-
-            int widthCell = Ground.getImage().getWidth(null);
-            int heightCell = Ground.getImage().getHeight(null);
-
-            int xLeftUpper = getWidth() / 2 - widthCell * (int)gameModel.getWidth() / 2;
-            int yLeftUpper = getHeight() / 2 - heightCell * (int)gameModel.getHeight() / 2;
-
             try {
+                boxes = gameModel.getBoxes();
+                goals = gameModel.getGoals();
+                robot = gameModel.getRobot();
+
+                g.setColor(Color.BLACK);
+                g.fillRect(0, 0, getWidth(), getHeight());
+
+    //            int xLeftUpper = getWidth() / 4;
+    //            int yLeftUpper = getHeight() / 4;
+
+    //            int widthCell = Math.round(getWidth() / 2f / gameModel.getWidth());
+    //            int heightCell = Math.round(getHeight() / 2f / gameModel.getHeight());
+
+                int widthCell = Ground.getImage().getWidth(null);
+                int heightCell = Ground.getImage().getHeight(null);
+
+                int xLeftUpper = getWidth() / 2 - widthCell * (int)gameModel.getWidth() / 2;
+                int yLeftUpper = getHeight() / 2 - heightCell * (int)gameModel.getHeight() / 2;
+
                 for (int r = 0; r < gameModel.getHeight(); ++r) {
                     for (int c = 0; c < gameModel.getWidth(); ++c) {
                         // Draw ground
@@ -209,7 +209,8 @@ public class SokobanNormal extends JFrame {
 }
                     repaint();
                 } catch(Exception e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage());
+                    JOptionPane.showMessageDialog(SokobanNormal.this, e.getLocalizedMessage());
+                    System.exit(1);
                 }
             }
     }

@@ -81,15 +81,6 @@ public class GameModel {
                     }
                 }
             }
-            System.out.println("Size: "+levelsList.size());
-
-            int count = 0;
-            //for(String puzzle : levelsList) {
-                //  System.out.println(++count);
-                //  System.out.println(puzzle);
-                // System.out.println(Arrays.toString(puzzle.split("\n")));
-            //}
-            // System.out.println(Arrays.toString(levelsList.get(0).split("\n")));
             //----------------------------------------------------------------------------
 
             this.curLevel = 0;
@@ -97,6 +88,7 @@ public class GameModel {
             this.states = new ArrayList<>();
         } catch(Exception e) {
             System.out.println(e.getMessage());
+            System.exit(2);
         }
     }
 
