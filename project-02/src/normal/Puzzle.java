@@ -35,13 +35,13 @@ public class Puzzle {
 
         for(int r=0; r<height; ++r) {
             for(int c=0; c<width; ++c) {
-                if(level[r][c]=='R') {
+                if(level[r][c]=='@') {
                     robot = new Robot(r,c);
                     data[r][c] = ' ';
                 } else if(level[r][c]=='$') {
                     boxes.add(new BlueBox(r,c,++boxId));
                     data[r][c] = ' ';
-                } else if(level[r][c]=='E') {
+                } else if(level[r][c]=='.') {
                     goals.add(new Goal(r,c));
                     data[r][c] = ' ';
                 } else {
