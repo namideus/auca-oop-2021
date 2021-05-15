@@ -111,11 +111,17 @@ public class SokobanEasy extends JFrame {
             g.setColor(Color.BLACK);
             g.fillRect(0,0,getWidth(),getHeight());
 
-            int xLeftUpper = getWidth()/3;
-            int yLeftUpper = getHeight()/4;
+//            int xLeftUpper = getWidth()/3;
+//            int yLeftUpper = getHeight()/4;
+//
+//            int widthCell = Math.round(getWidth()/3.5f/gameModel.puzzle.getWidth());
+//            int heightCell = Math.round(getHeight()/2f/gameModel.puzzle.getHeight());
 
-            int widthCell = Math.round(getWidth()/3.5f/gameModel.puzzle.getWidth());
-            int heightCell = Math.round(getHeight()/2f/gameModel.puzzle.getHeight());
+            int widthCell = normal.actors.Ground.getImage().getWidth(null);
+            int heightCell = normal.actors.Ground.getImage().getHeight(null);
+
+            int xLeftUpper = getWidth() / 2 - widthCell * gameModel.puzzle.getWidth() / 2;
+            int yLeftUpper = getHeight() / 2 - heightCell * gameModel.puzzle.getHeight() / 2;
 
             for(int r = 0; r < gameModel.puzzle.getHeight(); ++r) {
                 for(int c = 0; c < gameModel.puzzle.getWidth(); ++c) {
