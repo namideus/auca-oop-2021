@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class Puzzle {
 
+    // Fields
     private char[][] data;
     private int height;
     private int width;
@@ -16,6 +17,7 @@ public class Puzzle {
     private int maxMoves;
     private int boxId;
 
+    // Object fields
     private ArrayList<BlueBox> boxes;
     private ArrayList<Goal> goals;
     private Robot robot;
@@ -56,56 +58,57 @@ public class Puzzle {
                 for (BlueBox box : boxes) {
                     if (isLeftCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
-                            game.addState(new State(dr, dc, collision, box.getId()));
-                            moveRobot(dr, dc, true);
+                            //game.addState(new State(dr, dc, collision, box.getId()));
+                            moveRobot(dr, dc, collision,  box.getId(),true);
                         }
                         return;
                     }
                 }
-                moveRobot(dr,dc,true);
-                game.addState(new State(dr, dc, collision));
+                moveRobot(dr, dc, collision,  -1,true);
+                // game.addState(new State(dr, dc, collision));
                 break;
             case GameModel.RIGHT_COLLISION:
                 for (BlueBox box : boxes) {
                     if (isRightCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
-                            game.addState(new State(dr, dc, collision, box.getId()));
-                            moveRobot(dr, dc,true);
+                            //game.addState(new State(dr, dc, collision, box.getId()));
+                            moveRobot(dr, dc, collision,  box.getId(),true);
                         }
                         return;
                     }
                 }
-                moveRobot(dr,dc,true);
-                game.addState(new State(dr, dc, collision));
+                moveRobot(dr, dc, collision,  -1,true);
+                // game.addState(new State(dr, dc, collision));
                 break;
             case GameModel.TOP_COLLISION:
                 for (BlueBox box : boxes) {
                     if (isTopCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
-                            game.addState(new State(dr, dc, collision, box.getId()));
-                            moveRobot(dr, dc,true);
+                            // game.addState(new State(dr, dc, collision, box.getId()));
+                            moveRobot(dr, dc, collision,  box.getId(),true);
                         }
                         return;
                     }
                 }
-                moveRobot(dr,dc,true);
-                game.addState(new State(dr, dc, collision));
+                moveRobot(dr, dc, collision,  -1,true);
+                // game.addState(new State(dr, dc, collision));
                 break;
             case GameModel.BOTTOM_COLLISION:
                 for (BlueBox box : boxes) {
                     if (isBottomCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
                         if (moveBox(dr, dc, box)) {
                             game.addState(new State(dr, dc, collision, box.getId()));
-                            moveRobot(dr, dc,true);
+                            moveRobot(dr, dc, collision,  box.getId(),true);
                         }
                         return;
                     }
                 }
-                moveRobot(dr,dc,true);
-                game.addState(new State(dr, dc, collision));
+                moveRobot(dr, dc, collision,  -1,true);
+                // game.addState(new State(dr, dc, collision));
                 break;
             case GameModel.TIME_TRAVEL:
-                moveRobot(dr,dc,false);
+                moveRobotInTime(dr,dc,false);
+
                 State state = game.getState();
 
                 for (BlueBox box : boxes) {
@@ -122,7 +125,22 @@ public class Puzzle {
     }
 
     // Move robot if possible
-    public void moveRobot(int dr, int dc, boolean isCount) {
+    public void moveRobot(int dr, int dc, int collision, int boxId, boolean isCount) {
+        int tRow = robot.getRow()+dr;
+        int tCol = robot.getCol()+dc;
+
+        if(data[tRow][tCol] == ' ') {
+            if(isCount) {
+                ++moves;
+                maxMoves = moves;
+            }
+            game.addState(new State(dr, dc, collision, boxId));
+            robot.setLocation(tRow, tCol);
+        }
+    }
+
+    // Move robot if possible
+    public void moveRobotInTime(int dr, int dc, boolean isCount) {
         int tRow = robot.getRow()+dr;
         int tCol = robot.getCol()+dc;
 
@@ -208,22 +226,22 @@ public class Puzzle {
         return robot;
     }
 
+    // Get width
     public int getWidth() {
         return width;
     }
 
+    // Get height
     public int getHeight() {
         return height;
     }
 
-    public char get(int row, int col) {
-        return data[row][col];
-    }
-
+    // Get current element
     public char getCurElement(int row, int col) {
         return data[row][col];
     }
 
+    // Get count of moves
     public int getMoves() {
         return moves;
     }

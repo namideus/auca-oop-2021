@@ -17,8 +17,8 @@ public class GameModel {
     private ArrayList<State> states;
 
     private int curState = 0;
-
     private int curLevel = 0;
+
     private Puzzle puzzle;
     private State state;
 

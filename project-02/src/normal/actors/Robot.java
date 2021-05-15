@@ -1,6 +1,7 @@
 package normal.actors;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class Robot extends Actor {
 
@@ -10,7 +11,7 @@ public class Robot extends Actor {
         super(row, col);
     }
 
-    public static Image getImage() {
+    public static Image getImage() throws IOException {
         Toolkit t = Toolkit.getDefaultToolkit();
         return  t.getImage(imagePath);
     }

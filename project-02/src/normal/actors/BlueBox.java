@@ -1,6 +1,7 @@
 package normal.actors;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class BlueBox extends Actor {
 
@@ -12,7 +13,7 @@ public class BlueBox extends Actor {
         this.id = id;
     }
 
-    public static Image getImage() {
+    public static Image getImage() throws IOException {
         final String imagePath = "/home/iman/Documents/AUCA/SP/Java/auca-oop-2021/project-02/src/normal/resources/BoxBlue.png";
         Toolkit t = Toolkit.getDefaultToolkit();
         return t.getImage(imagePath);

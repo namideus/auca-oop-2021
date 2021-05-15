@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.nio.channels.ScatteringByteChannel;
 import java.util.ArrayList;
 
 /**
@@ -44,7 +46,7 @@ public class SokobanNormal extends JFrame {
     private static ArrayList<Goal> goals;
     private static normal.actors.Robot robot;
 
-    public SokobanNormal() {
+    public SokobanNormal() throws Exception {
         gameModel = new GameModel();
         canvasPanel = new CanvasPanel();
 
@@ -131,13 +133,17 @@ public class SokobanNormal extends JFrame {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            SokobanNormal game = new SokobanNormal();
-            game.setTitle("MicroSokoban");
-            game.setBackground(Color.BLACK);
-            game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            game.setSize(1100, 1100);
-            game.setLocationRelativeTo(null);
-            game.setVisible(true);
+            try {
+                SokobanNormal game = new SokobanNormal();
+                game.setTitle("MicroSokoban");
+                game.setBackground(Color.BLACK);
+                game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                game.setSize(1100, 1100);
+                game.setLocationRelativeTo(null);
+                game.setVisible(true);
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
         });
     }
 
@@ -152,48 +158,52 @@ public class SokobanNormal extends JFrame {
             robot = gameModel.getRobot();
 
             g.setColor(Color.BLACK);
-            g.fillRect(0,0,getWidth(),getHeight());
+            g.fillRect(0, 0, getWidth(), getHeight());
 
-            int xLeftUpper = getWidth()/4;
-            int yLeftUpper = getHeight()/4;
+            int xLeftUpper = getWidth() / 4;
+            int yLeftUpper = getHeight() / 4;
 
-            int widthCell = Math.round(getWidth()/2f/gameModel.getWidth());
-            int heightCell = Math.round(getHeight()/2f/gameModel.getHeight());
+            int widthCell = Math.round(getWidth() / 2f / gameModel.getWidth());
+            int heightCell = Math.round(getHeight() / 2f / gameModel.getHeight());
 
-            for(int r = 0; r < gameModel.getHeight(); ++r) {
-                for(int c = 0; c < gameModel.getWidth(); ++c) {
-                    g.drawImage(Ground.getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
+            try {
+                for (int r = 0; r < gameModel.getHeight(); ++r) {
+                    for (int c = 0; c < gameModel.getWidth(); ++c) {
+                        g.drawImage(Ground.getImage(), xLeftUpper + c * widthCell, yLeftUpper + r * heightCell, widthCell, heightCell, null);
 
-                    char item = gameModel.getCurElement(r,c);
-                    switch (item) {
-                        case '#':
-                            g.drawImage(Wall.getImage(), xLeftUpper + c * widthCell, yLeftUpper+r*heightCell, widthCell,heightCell, null);
-                            break;
-                        case 'B':
-                            g.setColor(Color.BLACK);
-                            g.fillRect(xLeftUpper+ c * widthCell, yLeftUpper+r*heightCell, widthCell, heightCell);
-                            break;
-                        default:
-                            break;
+                        char item = gameModel.getCurElement(r, c);
+                        switch (item) {
+                            case '#':
+                                g.drawImage(Wall.getImage(), xLeftUpper + c * widthCell, yLeftUpper + r * heightCell, widthCell, heightCell, null);
+                                break;
+                            case 'B':
+                                g.setColor(Color.BLACK);
+                                g.fillRect(xLeftUpper + c * widthCell, yLeftUpper + r * heightCell, widthCell, heightCell);
+                                break;
+                            default:
+                                break;
+                        }
                     }
+
+                    for (Goal goal : goals)
+                        g.drawImage(Goal.getImage(), xLeftUpper + goal.getCol() * widthCell + widthCell / 4, yLeftUpper + goal.getRow() * heightCell + heightCell / 4, widthCell / 2, heightCell / 2, null);
+
+                    for (BlueBox box : boxes)
+                        if (box.isInGoal())
+                            g.drawImage(RedBox.getImage(), xLeftUpper + box.getCol() * widthCell, yLeftUpper + box.getRow() * heightCell, widthCell, heightCell, null);
+                        else
+                            g.drawImage(BlueBox.getImage(), xLeftUpper + box.getCol() * widthCell, yLeftUpper + box.getRow() * heightCell, widthCell, heightCell, null);
+
+                    g.drawImage(Robot.getImage(), xLeftUpper + robot.getCol() * widthCell + widthCell / 5, yLeftUpper + robot.getRow() * heightCell + heightCell / 10, widthCell - widthCell / 3, heightCell - heightCell / 10, null);
+}
+                    repaint();
+                } catch(IOException e) {
+                    System.out.println(e.getMessage());
                 }
-
-                for(Goal goal: goals)
-                    g.drawImage(Goal.getImage(), xLeftUpper + goal.getCol() * widthCell + widthCell / 4, yLeftUpper + goal.getRow() * heightCell + heightCell / 4, widthCell/2,heightCell/2,null);
-
-                for(BlueBox box: boxes)
-                    if(box.isInGoal())
-                        g.drawImage(RedBox.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
-                    else
-                        g.drawImage(BlueBox.getImage(), xLeftUpper + box.getCol()*widthCell, yLeftUpper+box.getRow()*heightCell, widthCell,heightCell,null);
-
-                g.drawImage(Robot.getImage(), xLeftUpper+robot.getCol()*widthCell+widthCell/5, yLeftUpper+robot.getRow()*heightCell+heightCell/10, widthCell-widthCell/3,heightCell-heightCell/10,null);
-
-                repaint();
             }
-        }
     }
 
+    // Reset the game
     private void resetGame() {
         robot.setUp();
         gameModel.resetCurrentPuzzle();
@@ -204,6 +214,7 @@ public class SokobanNormal extends JFrame {
         repaint();
     }
 
+    // Undo the game
     private void undoGame() {
         State state = gameModel.undoState();
         if(state!=null) {
@@ -216,6 +227,7 @@ public class SokobanNormal extends JFrame {
         repaint();
     }
 
+    // Redo the game
     private void redoGame() {
         State state = gameModel.redoState();
         if(state!=null) {
