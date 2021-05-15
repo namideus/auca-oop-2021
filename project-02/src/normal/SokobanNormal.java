@@ -132,7 +132,6 @@ public class SokobanNormal extends JFrame {
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
             try {
                 SokobanNormal game = new SokobanNormal();
                 game.setTitle("MicroSokoban");
@@ -144,7 +143,6 @@ public class SokobanNormal extends JFrame {
             } catch(Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
-        });
     }
 
     // Canvas panel
@@ -160,11 +158,17 @@ public class SokobanNormal extends JFrame {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, getWidth(), getHeight());
 
-            int xLeftUpper = getWidth() / 4;
-            int yLeftUpper = getHeight() / 4;
+//            int xLeftUpper = getWidth() / 4;
+//            int yLeftUpper = getHeight() / 4;
 
-            int widthCell = Math.round(getWidth() / 2f / gameModel.getWidth());
-            int heightCell = Math.round(getHeight() / 2f / gameModel.getHeight());
+//            int widthCell = Math.round(getWidth() / 2f / gameModel.getWidth());
+//            int heightCell = Math.round(getHeight() / 2f / gameModel.getHeight());
+
+            int widthCell = Ground.getImage().getWidth(null);
+            int heightCell = Ground.getImage().getHeight(null);
+
+            int xLeftUpper = getWidth() / 2 - widthCell * (int)gameModel.getWidth() / 2;
+            int yLeftUpper = getHeight() / 2 - heightCell * (int)gameModel.getWidth() / 2;
 
             try {
                 for (int r = 0; r < gameModel.getHeight(); ++r) {
@@ -185,20 +189,24 @@ public class SokobanNormal extends JFrame {
                         }
                     }
 
+                    // Draw goals
                     for (Goal goal : goals)
                         g.drawImage(Goal.getImage(), xLeftUpper + goal.getCol() * widthCell + widthCell / 4, yLeftUpper + goal.getRow() * heightCell + heightCell / 4, widthCell / 2, heightCell / 2, null);
 
-                    for (BlueBox box : boxes)
+                    // Draw boxes
+                    for (BlueBox box : boxes) {
                         if (box.isInGoal())
                             g.drawImage(RedBox.getImage(), xLeftUpper + box.getCol() * widthCell, yLeftUpper + box.getRow() * heightCell, widthCell, heightCell, null);
                         else
                             g.drawImage(BlueBox.getImage(), xLeftUpper + box.getCol() * widthCell, yLeftUpper + box.getRow() * heightCell, widthCell, heightCell, null);
+                    }
 
+                    // Draw robot
                     g.drawImage(Robot.getImage(), xLeftUpper + robot.getCol() * widthCell + widthCell / 5, yLeftUpper + robot.getRow() * heightCell + heightCell / 10, widthCell - widthCell / 3, heightCell - heightCell / 10, null);
 }
                     repaint();
-                } catch(IOException e) {
-                    System.out.println(e.getMessage());
+                } catch(Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage());
                 }
             }
     }
