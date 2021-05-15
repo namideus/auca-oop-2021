@@ -10,12 +10,15 @@ import java.util.ArrayList;
 public class Puzzle {
 
     // Fields
-    private char[][] data;
-    private int height;
-    private int width;
-    private int moves;
-    private int maxMoves;
-    private int boxId;
+    // For checking all eight neighbours
+    private final int[] xs = { 1, -1, 0, 1,-1, 0, -1, 1};
+    private final int[] ys = { 1, -1, 1, 0, 0,-1, 1 , -1 };
+
+    private char[][] data; // board matrix
+    private int height; // height
+    private int width; // width
+    private int moves; // moves
+    private int maxMoves; // maximum moves
 
     // Object fields
     private ArrayList<BlueBox> boxes;
@@ -24,49 +27,66 @@ public class Puzzle {
     private GameModel game;
 
     public Puzzle(char[][] level, GameModel game) {
-        this.game = game;
+        this.game = game; // GameModel
         this.boxes = new ArrayList<>();
         this.goals = new ArrayList<>();
         this.height = level.length;
         this.width = level[0].length;
         this.moves = 0;
-        this.boxId = 0;
+        int boxId = 0; // Box id
         this.data = new char[height][width];
 
         for(int r=0; r<height; ++r) {
             for(int c=0; c<width; ++c) {
-                if(level[r][c]=='@') {
+                if(level[r][c]=='@') { // Robot
                     robot = new Robot(r,c);
                     data[r][c] = ' ';
-                } else if(level[r][c]=='$') {
+                } else if(level[r][c]=='$') { // Box
                     boxes.add(new BlueBox(r,c,++boxId));
                     data[r][c] = ' ';
-                } else if(level[r][c]=='.') {
-                    goals.add(new Goal(r,c));
+                } else if(level[r][c]=='.') { // Goal
+                    goals.add(new Goal(r, c));
                     data[r][c] = ' ';
-                } else {
+                }else if(level[r][c]=='*') { // Box set in goal
+                    goals.add(new Goal(r,c));
+                    BlueBox box = new BlueBox(r,c,++boxId);
+                    box.setInGoal(true);
+                    boxes.add(box);
+                    data[r][c] = ' ';
+                } else { // Else
                     data[r][c] = level[r][c];
                 }
             }
         }
 
-//        for (int i = 0; i < level.length(); i++) {
-//
-//            char item = level.charAt(i);
-//
-//            if(level[r][c]=='R') {
-//                robot = new Robot(r,c);
-//                data[r][c] = ' ';
-//            } else if(level[r][c]=='$') {
-//                boxes.add(new BlueBox(r,c,++boxId));
-//                data[r][c] = ' ';
-//            } else if(level[r][c]=='E') {
-//                goals.add(new Goal(r,c));
-//                data[r][c] = ' ';
-//            } else {
-//                data[r][c] = level[r][c];
-//            }
-//        }
+        clearEdges(0,0);
+        clearEdges(0,width-1);
+        clearEdges(height-1,0);
+        clearEdges(height-1,width-1);
+    }
+
+    // If col and row are valid
+    public boolean isValid(int row, int col) {
+        return row>=0 && col>=0 && row<height && col<width;
+    }
+
+    public void clearEdges(int row, int col) {
+        if(!isValid(row, col))
+            throw new RuntimeException("Invalid parameters passed in left() function");
+
+        // Base case
+        if (data[row][col] != ' ')
+            return;
+
+        // Set counter or empty chart
+        data[row][col] = 'B';
+
+        // Recursion
+        for (int k = 0; k < 8; ++k) {
+            if (isValid(xs[k] + row, ys[k] + col)) {
+                clearEdges(xs[k] + row, ys[k] + col);
+            }
+        }
     }
 
     // Move robot and box

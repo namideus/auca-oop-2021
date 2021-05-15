@@ -90,7 +90,7 @@ public class GameModel {
                 //  System.out.println(puzzle);
                 // System.out.println(Arrays.toString(puzzle.split("\n")));
             }
-            System.out.println(Arrays.toString(levelsList.get(0).split("\n")));
+            // System.out.println(Arrays.toString(levelsList.get(0).split("\n")));
             //------------------------------------------------------
 
             this.curLevel = 0;
@@ -150,6 +150,7 @@ public class GameModel {
         return states;
     }
 
+    // Redo state
     public State redoState() {
         if(curState<states.size()) {
             state = states.get(curState++);
@@ -198,7 +199,7 @@ public class GameModel {
             curLevel = 0;
 
         // puzzle = new Puzzle(levels[curLevel], this);
-        this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);//new Puzzle(levels[curLevel], this);
+        this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);
     }
 
     public void prevLevel() {
@@ -209,7 +210,7 @@ public class GameModel {
         //curLevel = levels.length-1;
 
         //  puzzle = new Puzzle(levels[curLevel], this);
-        this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);//new Puzzle(levels[curLevel], this);
+        this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);
     }
 
     //--------------------Experiment----------------------------
@@ -233,6 +234,8 @@ public class GameModel {
                 level[r][c] = strArray[r].charAt(c);
             }
         }
+
+
 
         return level;
     }
