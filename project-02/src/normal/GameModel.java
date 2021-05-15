@@ -210,13 +210,24 @@ public class GameModel {
     private char[][] parseLevel(String[] strArray) {
         int height = strArray.length;
         int width = 0;
+
         for(String str : strArray)
             width = Math.max(str.length(), width);
 
+        char[][] level = new char[height][width];
+
         for(int r=0; r<height; ++r) {
             for (int c = 0; c < width; ++c) {
-
+                level[r][c] = ' ';
             }
         }
+
+        for(int r=0; r<height; ++r) {
+            for (int c = 0; c < strArray[r].length(); ++c) {
+                level[r][c] = strArray[r].charAt(c);
+            }
+        }
+
+        return level;
     }
 }
