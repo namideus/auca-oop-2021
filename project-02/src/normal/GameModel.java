@@ -4,7 +4,10 @@ import normal.actors.BlueBox;
 import normal.actors.Goal;
 import normal.actors.Robot;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class GameModel {
 
@@ -22,16 +25,18 @@ public class GameModel {
     private Puzzle puzzle;
     private State state;
 
+    private ArrayList<String> levelsList = new ArrayList<>();
+
     private static final char[][][] levels = {
             {
-                    {'B','B','#','#','#','#','#','B','#','#','#','#','#'},
-                    {'#','#','#',' ',' ',' ','#','B','#','#','#','#','#'},
-                    {'#',' ','$',' ','#',' ','#','#','#','#','#','#','#'},
-                    {'#',' ','#',' ',' ','E',' ','#','#','#','#','#','#'},
-                    {'#',' ',' ',' ',' ','#',' ','#','#','#','#','#','#'},
-                    {'#','#',' ','#',' ',' ',' ','#','#','#','#','#','#'},
-                    {'B','#','R',' ',' ','#','#','#','#','#','#','#','#'},
-                    {'B','#','#','#','#','#','B','B','#','#','#','#','#'}
+                    {'B','B','#','#','#','#','#','B'},
+                    {'#','#','#',' ',' ',' ','#','B'},
+                    {'#',' ','$',' ','#',' ','#','#'},
+                    {'#',' ','#',' ',' ','E',' ','#'},
+                    {'#',' ',' ',' ',' ','#',' ','#'},
+                    {'#','#',' ','#',' ',' ',' ','#'},
+                    {'B','#','R',' ',' ','#','#','#'},
+                    {'B','#','#','#','#','#','B','B'}
             },
             {
                     {'B','B','#','#','#','#','#','B'},
@@ -60,9 +65,40 @@ public class GameModel {
     //
 
     public GameModel() {
-        this.curLevel = 0;
-        this.puzzle = new Puzzle(levels[curLevel], this);
-        this.states = new ArrayList<>();
+        //---------------------Experiment-----------------------
+        StringBuilder curPuzzle = new StringBuilder();
+        try {
+            try (Scanner scan = new Scanner(new File("levels/MiniCosmos.txt"))) {
+                while(scan.hasNextLine()) {
+                    String line = scan.nextLine();
+                    if(line.length()==0) {
+                        continue;
+                    }
+                    if(line.startsWith(";")) {
+                        levelsList.add(curPuzzle.toString());
+                        curPuzzle = new StringBuilder();
+                    } else {
+                        curPuzzle.append(line).append("\n");
+                    }
+                }
+            }
+            System.out.println("Size: "+levelsList.size());
+
+            int count = 0;
+            for(String puzzle : levelsList) {
+                //  System.out.println(++count);
+                //  System.out.println(puzzle);
+                // System.out.println(Arrays.toString(puzzle.split("\n")));
+            }
+            System.out.println(Arrays.toString(levelsList.get(0).split("\n")));
+            //------------------------------------------------------
+
+            this.curLevel = 0;
+            this.puzzle = new Puzzle(levels[curLevel], this);
+            this.states = new ArrayList<>();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void resetCurrentPuzzle() {

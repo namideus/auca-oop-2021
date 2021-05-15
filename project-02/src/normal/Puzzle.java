@@ -49,6 +49,24 @@ public class Puzzle {
                 }
             }
         }
+
+//        for (int i = 0; i < level.length(); i++) {
+//
+//            char item = level.charAt(i);
+//
+//            if(level[r][c]=='R') {
+//                robot = new Robot(r,c);
+//                data[r][c] = ' ';
+//            } else if(level[r][c]=='$') {
+//                boxes.add(new BlueBox(r,c,++boxId));
+//                data[r][c] = ' ';
+//            } else if(level[r][c]=='E') {
+//                goals.add(new Goal(r,c));
+//                data[r][c] = ' ';
+//            } else {
+//                data[r][c] = level[r][c];
+//            }
+//        }
     }
 
     // Move robot and box

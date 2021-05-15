@@ -1,9 +1,11 @@
-package help02;
+package normal;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
-public class ReadLevels {
+public class Levels {
     public static void main(String[] args) {
         ArrayList<String> levels = new ArrayList<>();
         StringBuilder curPuzzle = new StringBuilder();
@@ -23,11 +25,12 @@ public class ReadLevels {
                 }
             }
             System.out.println("Size: "+levels.size());
+
             int count = 0;
             for(String puzzle : levels) {
                 System.out.println(++count);
                 System.out.println(puzzle);
-                puzzle.split("\n");
+                //System.out.println(Arrays.toString(puzzle.split("\n")));
             }
         } catch(Exception e) {
             System.out.println(e.getMessage());
