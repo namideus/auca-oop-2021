@@ -64,6 +64,11 @@ public class Puzzle {
             case GameModel.LEFT_COLLISION:
                 for (BlueBox box : boxes) {
                     if (isLeftCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
+                        for (BlueBox box1 : boxes) {
+                            if (isLeftCollision(box.getRow(), box.getCol(), box1.getRow(), box1.getCol())) {
+                                return;
+                            }
+                        }
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
                         }
@@ -75,6 +80,11 @@ public class Puzzle {
             case GameModel.RIGHT_COLLISION:
                 for (BlueBox box : boxes) {
                     if (isRightCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
+                        for (BlueBox box1 : boxes) {
+                            if (isRightCollision(box.getRow(), box.getCol(), box1.getRow(), box1.getCol())) {
+                                return;
+                            }
+                        }
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
                         }
@@ -86,6 +96,11 @@ public class Puzzle {
             case GameModel.TOP_COLLISION:
                 for (BlueBox box : boxes) {
                     if (isTopCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
+                        for (BlueBox box1 : boxes) {
+                            if (isTopCollision(box.getRow(), box.getCol(), box1.getRow(), box1.getCol())) {
+                                return;
+                            }
+                        }
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
                         }
@@ -97,6 +112,11 @@ public class Puzzle {
             case GameModel.BOTTOM_COLLISION:
                 for (BlueBox box : boxes) {
                     if (isBottomCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
+                        for (BlueBox box1 : boxes) {
+                            if (isBottomCollision(box.getRow(), box.getCol(), box1.getRow(), box1.getCol())) {
+                                return;
+                            }
+                        }
                         if (moveBox(dr, dc, box)) {
                             moveRobot(dr, dc);
                         }
