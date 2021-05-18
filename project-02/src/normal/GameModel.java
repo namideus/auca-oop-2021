@@ -37,9 +37,9 @@ public class GameModel {
     public GameModel() {
         //---------------------------------File-IO-------------------------------
         try {
-            this.levelsList = Parser.readLevelsFromFile("levels/MiniCosmos.txt");
+            this.levelsList = Utils.readLevelsFromFile("levels/MiniCosmos.txt");
             this.curLevel = 0;
-            this.puzzle = new Puzzle(Parser.parseLevel(levelsList.get(curLevel)), this);
+            this.puzzle = new Puzzle(Utils.parseLevel(levelsList.get(curLevel)), this);
             this.states = new ArrayList<>();
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -48,7 +48,7 @@ public class GameModel {
     }
 
     public void resetCurrentPuzzle() {
-        this.puzzle = new Puzzle(Parser.parseLevel(levelsList.get(curLevel)), this);
+        this.puzzle = new Puzzle(Utils.parseLevel(levelsList.get(curLevel)), this);
     }
 
     public float getHeight() {
@@ -150,7 +150,7 @@ public class GameModel {
         if(curLevel==levelsList.size())
             curLevel = 0;
 
-        this.puzzle = new Puzzle(Parser.parseLevel(levelsList.get(curLevel)), this);
+        this.puzzle = new Puzzle(Utils.parseLevel(levelsList.get(curLevel)), this);
     }
 
     public void prevLevel() {
@@ -159,6 +159,6 @@ public class GameModel {
         if(curLevel<0)
             curLevel = levelsList.size()-1;
 
-        this.puzzle = new Puzzle(Parser.parseLevel(levelsList.get(curLevel)), this);
+        this.puzzle = new Puzzle(Utils.parseLevel(levelsList.get(curLevel)), this);
     }
 }

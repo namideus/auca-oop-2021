@@ -15,7 +15,7 @@ import java.util.Scanner;
  *
  * */
 
-public class Parser {
+public class Utils {
 
     // For checking all eight neighbours
     private static final int[] xs = { 1, -1, 0, 1,-1, 0, -1, 1};
