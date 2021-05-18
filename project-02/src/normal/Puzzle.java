@@ -224,11 +224,12 @@ public class Puzzle {
     public boolean isWin() {
         int numberOfBoxes = boxes.size(), finishedBoxes = 0;
         boolean f = false;
-        for (int i = 0; i<numberOfBoxes; ++i) {
-            for (BlueBox box : boxes) {
+        for (BlueBox box : boxes) {
+            for (int i = 0; i<numberOfBoxes; ++i) {
                 if (goals.get(i).getRow() == box.getRow() && goals.get(i).getCol() == box.getCol()) {
                     box.setInGoal(true);
                     ++finishedBoxes;
+                    break;
                 } else {
                     box.setInGoal(false);
                 }
