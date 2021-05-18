@@ -223,13 +223,14 @@ public class Puzzle {
     // Check if the game is finished
     public boolean isWin() {
         int numberOfBoxes = boxes.size(), finishedBoxes = 0;
+        boolean f = false;
         for (int i = 0; i<numberOfBoxes; ++i) {
             for (BlueBox box : boxes) {
                 if (goals.get(i).getRow() == box.getRow() && goals.get(i).getCol() == box.getCol()) {
-                    boxes.get(i).setInGoal(true);
+                    box.setInGoal(true);
                     ++finishedBoxes;
                 } else {
-                    boxes.get(i).setInGoal(false);
+                    box.setInGoal(false);
                 }
             }
         }
