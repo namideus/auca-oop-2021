@@ -4,10 +4,17 @@ import normal.actors.BlueBox;
 import normal.actors.Goal;
 import normal.actors.Robot;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+
+/**
+ *
+ * @author Iman Augustine
+ *
+ * Sokoban project game, OOP, 2021
+ *
+ * instructor: S. Shostak
+ *
+ * */
 
 public class GameModel {
 
@@ -41,7 +48,6 @@ public class GameModel {
     }
 
     public void resetCurrentPuzzle() {
-        //this.puzzle = new Puzzle(levels[curLevel], this);
         this.puzzle = new Puzzle(Parser.parseLevel(levelsList.get(curLevel)), this);
     }
 
@@ -155,25 +161,4 @@ public class GameModel {
 
         this.puzzle = new Puzzle(Parser.parseLevel(levelsList.get(curLevel)), this);
     }
-
-    //------------------Parse string array and build char matrix---------------------
-  /*  private char[][] parseLevel(String[] strArray) {
-        int height = strArray.length;
-        int width = 0;
-
-        for(String str : strArray)
-            width = Math.max(str.length(), width);
-
-        char[][] level = new char[height][width];
-
-        for(int r=0; r<height; ++r)
-            for (int c = 0; c < width; ++c)
-                level[r][c] = ' ';
-
-        for(int r=0; r<height; ++r)
-            for (int c = 0; c < strArray[r].length(); ++c)
-                level[r][c] = strArray[r].charAt(c);
-
-        return level;
-    }*/
 }

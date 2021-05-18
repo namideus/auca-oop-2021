@@ -2,6 +2,16 @@ package normal;
 
 import normal.actors.Robot;
 
+/**
+ *
+ * @author Iman Augustine
+ *
+ * Sokoban project game, OOP, 2021
+ *
+ * instructor: S. Shostak
+ *
+ * */
+
 public class State {
 
     private int dr;

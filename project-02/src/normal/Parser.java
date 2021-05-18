@@ -5,6 +5,16 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *
+ * @author Iman Augustine
+ *
+ * Sokoban project game, OOP, 2021
+ *
+ * instructor: S. Shostak
+ *
+ * */
+
 public class Parser {
 
     // For checking all eight neighbours

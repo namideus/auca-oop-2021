@@ -1,19 +1,24 @@
 package normal;
 
-import normal.GameModel;
 import normal.actors.BlueBox;
 import normal.actors.Goal;
 import normal.actors.Robot;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Iman Augustine
+ *
+ * Sokoban project game, OOP, 2021
+ *
+ * instructor: S. Shostak
+ *
+ * */
+
 public class Puzzle {
 
     // Fields
-    // For checking all eight neighbours
-    private final int[] xs = { 1, -1, 0, 1,-1, 0, -1, 1};
-    private final int[] ys = { 1, -1, 1, 0, 0,-1, 1 , -1 };
-
     private char[][] data; // board matrix
     private int height; // height
     private int width; // width
