@@ -58,36 +58,6 @@ public class Puzzle {
                 }
             }
         }
-
-        clearEdges(0,0);
-        clearEdges(0,width-1);
-        clearEdges(height-1,0);
-        clearEdges(height-1,width-1);
-    }
-
-    // If col and row are valid
-    public boolean isValid(int row, int col) {
-        return row>=0 && col>=0 && row<height && col<width;
-    }
-
-    // Flood fill algorithm
-    public void clearEdges(int row, int col) {
-        if(!isValid(row, col))
-            throw new RuntimeException("Invalid parameters passed in clearEdges() function");
-
-        // Base case
-        if (data[row][col] != ' ')
-            return;
-
-        // Set counter or empty chart
-        data[row][col] = 'B';
-
-        // Recursion
-        for (int k = 0; k < 8; ++k) {
-            if (isValid(xs[k] + row, ys[k] + col)) {
-                clearEdges(xs[k] + row, ys[k] + col);
-            }
-        }
     }
 
     // Move robot and box

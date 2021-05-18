@@ -27,64 +27,12 @@ public class GameModel {
 
     private ArrayList<String> levelsList = new ArrayList<>();
 
-//    private static final char[][][] levels = {
-//            {
-//                    {'B','B','#','#','#','#','#','B'},
-//                    {'#','#','#',' ',' ',' ','#','B'},
-//                    {'#',' ','$',' ','#',' ','#','#'},
-//                    {'#',' ','#',' ',' ','.',' ','#'},
-//                    {'#',' ',' ',' ',' ','#',' ','#'},
-//                    {'#','#',' ','#',' ',' ',' ','#'},
-//                    {'B','#','@',' ',' ','#','#','#'},
-//                    {'B','#','#','#','#','#','B','B'}
-//            },
-//            {
-//                    {'B','B','#','#','#','#','#','B'},
-//                    {'#','#','#',' ',' ',' ','#','B'},
-//                    {'#',' ','$',' ','#',' ','#','#'},
-//                    {'#',' ','#',' ',' ','.',' ','#'},
-//                    {'#',' ',' ',' ',' ','#',' ','#'},
-//                    {'#','#','$','#','.',' ',' ','#'},
-//                    {'B','#','@',' ',' ','#','#','#'},
-//                    {'B','#','#','#','#','#','B','B'}
-//            },
-//            {
-//                    {'B','B','#','#','#','#','#','B'},
-//                    {'#','#','#',' ',' ',' ','#','B'},
-//                    {'#',' ','$',' ','#',' ','#','#'},
-//                    {'#',' ',' ',' ',' ','.',' ','#'},
-//                    {'#',' ','.',' ',' ','#',' ','#'},
-//                    {'#','#','$','#','.','$',' ','#'},
-//                    {'B','#','@',' ',' ','#','#','#'},
-//                    {'B','#','#','#','#','#','B','B'}
-//            }
-//    };
-    //
-    //  here should be file IO part, read levels from a txt file
-    //
-
     public GameModel() {
         //---------------------------------File-IO-------------------------------
-        StringBuilder curPuzzle = new StringBuilder();
         try {
-            try (Scanner scan = new Scanner(new File("levels/MiniCosmos.txt"))) {
-                while(scan.hasNextLine()) {
-                    String line = scan.nextLine();
-                    if(line.length()==0) {
-                        continue;
-                    }
-                    if(line.startsWith(";")) {
-                        levelsList.add(curPuzzle.toString());
-                        curPuzzle = new StringBuilder();
-                    } else {
-                        curPuzzle.append(line).append("\n");
-                    }
-                }
-            }
-            //----------------------------------------------------------------------------
-
+            this.levelsList = Parser.readLevelsFromFile("levels/MiniCosmos.txt");
             this.curLevel = 0;
-            this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);//new Puzzle(levels[curLevel], this);
+            this.puzzle = new Puzzle(Parser.parseLevel(levelsList.get(curLevel)), this);
             this.states = new ArrayList<>();
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -94,7 +42,7 @@ public class GameModel {
 
     public void resetCurrentPuzzle() {
         //this.puzzle = new Puzzle(levels[curLevel], this);
-        this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);
+        this.puzzle = new Puzzle(Parser.parseLevel(levelsList.get(curLevel)), this);
     }
 
     public float getHeight() {
@@ -153,7 +101,7 @@ public class GameModel {
     public State redoState() {
         if(curState<states.size()) {
             state = states.get(curState++);
-            return state; // states.get(curState++);
+            return state;
         }
         return null;
     }
@@ -161,7 +109,7 @@ public class GameModel {
     public State undoState() {
         if(curState>0 && states.size()>0) {
             state = states.get(--curState);
-            return state; //states.get(--curState);
+            return state;
         } else {
             states.clear();
         }
@@ -174,7 +122,7 @@ public class GameModel {
     }
 
     public State getState() {
-        return state; // states.get(curState);
+        return state;
     }
 
     public void deleteStates() {
@@ -193,12 +141,10 @@ public class GameModel {
     public void nextLevel() {
         ++curLevel;
 
-        //if(curLevel==levels.length)
         if(curLevel==levelsList.size())
             curLevel = 0;
 
-        // puzzle = new Puzzle(levels[curLevel], this);
-        this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);
+        this.puzzle = new Puzzle(Parser.parseLevel(levelsList.get(curLevel)), this);
     }
 
     public void prevLevel() {
@@ -206,14 +152,12 @@ public class GameModel {
 
         if(curLevel<0)
             curLevel = levelsList.size()-1;
-        //curLevel = levels.length-1;
 
-        //  puzzle = new Puzzle(levels[curLevel], this);
-        this.puzzle = new Puzzle(parseLevel(levelsList.get(curLevel).split("\n")), this);
+        this.puzzle = new Puzzle(Parser.parseLevel(levelsList.get(curLevel)), this);
     }
 
     //------------------Parse string array and build char matrix---------------------
-    private char[][] parseLevel(String[] strArray) {
+  /*  private char[][] parseLevel(String[] strArray) {
         int height = strArray.length;
         int width = 0;
 
@@ -231,5 +175,5 @@ public class GameModel {
                 level[r][c] = strArray[r].charAt(c);
 
         return level;
-    }
+    }*/
 }

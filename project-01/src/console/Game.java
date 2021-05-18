@@ -33,7 +33,7 @@ public class Game {
 
     // For checking all eight neighbours
     private final int[] xs = { 1, -1, 0, 1,-1, 0, -1, 1};
-    private final int[] ys = { 1, -1, 1, 0, 0,-1, 1 , -1 };
+    private final int[] ys = { 1, -1, 1, 0, 0,-1, 1 , -1};
 
     // Constructor for three modes of Minesweeper Game
     public Game(String mode) {
@@ -99,7 +99,7 @@ public class Game {
 
         int count=0; // Counter
         for (int k=0; k<8; ++k)
-            count+=(isValid(xs[k] + row, ys[k] + col) && isMine(xs[k] + row, ys[k] + col))? 1 : 0;
+            count += (isValid(xs[k] + row, ys[k] + col) && isMine(xs[k] + row, ys[k] + col)) ? 1 : 0;
         return count;
     }
 
