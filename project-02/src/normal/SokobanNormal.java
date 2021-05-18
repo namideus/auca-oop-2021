@@ -159,12 +159,6 @@ public class SokobanNormal extends JFrame {
                 g.setColor(Color.BLACK);
                 g.fillRect(0, 0, getWidth(), getHeight());
 
-    //            int xLeftUpper = getWidth() / 4;
-    //            int yLeftUpper = getHeight() / 4;
-
-    //            int widthCell = Math.round(getWidth() / 2f / gameModel.getWidth());
-    //            int heightCell = Math.round(getHeight() / 2f / gameModel.getHeight());
-
                 int widthCell = Ground.getImage().getWidth(null);
                 int heightCell = Ground.getImage().getHeight(null);
 
