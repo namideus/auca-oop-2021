@@ -235,7 +235,6 @@ public class Puzzle {
                 }
             }
         }
-        System.out.println("Finished boxes: " + finishedBoxes);
         return finishedBoxes==numberOfBoxes;
     }
 

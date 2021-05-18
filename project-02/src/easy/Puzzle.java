@@ -169,12 +169,16 @@ public class Puzzle {
 
     public boolean isWin() {
         int numberOfBoxes = boxes.size(), finishedBoxes = 0;
-        for (int i = 0; i<numberOfBoxes; ++i) {
-            if (goals.get(i).getRow() == boxes.get(i).getRow() && goals.get(i).getCol() == boxes.get(i).getCol()) {
-                boxes.get(i).setInGoal(true);
-                ++finishedBoxes;
-            } else
-                boxes.get(i).setInGoal(false);
+        for (BlueBox box : boxes) {
+            for (int i = 0; i<numberOfBoxes; ++i) {
+                if (goals.get(i).getRow() == box.getRow() && goals.get(i).getCol() == box.getCol()) {
+                    box.setInGoal(true);
+                    ++finishedBoxes;
+                    break;
+                } else {
+                    box.setInGoal(false);
+                }
+            }
         }
         return finishedBoxes==numberOfBoxes;
     }
