@@ -98,8 +98,10 @@ public class Game {
             return 0;
 
         int count=0; // Counter
+
         for (int k=0; k<8; ++k)
             count += (isValid(xs[k] + row, ys[k] + col) && isMine(xs[k] + row, ys[k] + col)) ? 1 : 0;
+
         return count;
     }
 
@@ -112,10 +114,11 @@ public class Game {
             // Already mined, continue
             if(realBoard[x][y]==MINE || userX==x && userY==y)
                 continue;
-            // Save mine's position
+            // Save mine's position to reveal all of them
+            // when a player loses the game
             minesLocation[i][0] = x;
             minesLocation[i][1] = y;
-            // Mine
+            // Seed a mine
             realBoard[x][y] = MINE;
         }
     }
@@ -200,16 +203,16 @@ public class Game {
                     charBoard[minesLocation[i][0]][minesLocation[i][1]] = '*';
                 }
 
-                return true;
+                return true; // Indicates that the game is over
             } else {
-                int count = countAdjacentMines(row, col);
+                int count = countAdjacentMines(row, col); // Count all eight neighbors around cell (row, col)
                 --movesLeft;
 
                 // Set counter or empty chart
                 charBoard[row][col] = (count == 0) ? '#' : String.valueOf(count).charAt(0);
                 realBoard[row][col] = count;
 
-                // If count is zero
+                // Clean zone, continue recursion
                 if (count == 0) {
                     for (int k = 0; k < 8; ++k) {
                         if (isValid(xs[k] + row, ys[k] + col)) {
@@ -257,6 +260,7 @@ public class Game {
         String warning = "the field will be mined after the first left click";
         String header = String.format("Game(%s, width=%d, height=%d, mines=%d, flags=%d)\n", mode.toUpperCase(), width, height, maxMines, flags);
         StringBuilder r = new StringBuilder();
+
         if(!isMined)
             r.append(warning).append("\n");
 

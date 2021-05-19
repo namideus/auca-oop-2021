@@ -5,7 +5,6 @@ import java.awt.*;
 public class Actor {
     private int row;
     private int col;
-    private String imagePath;
 
     public Actor() { }
 

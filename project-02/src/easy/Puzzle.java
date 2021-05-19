@@ -1,6 +1,5 @@
 package easy;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class Puzzle {
@@ -23,13 +22,13 @@ public class Puzzle {
 
         for(int r=0; r<height; ++r) {
             for(int c=0; c<width; ++c) {
-                if(level[r][c]=='R') {
+                if(level[r][c] == 'R') {
                     robot = new Robot(r,c);
                     data[r][c] = ' ';
-                } else if(level[r][c]=='$') {
+                } else if(level[r][c] == '$') {
                     boxes.add(new BlueBox(r,c));
                     data[r][c] = ' ';
-                } else if(level[r][c]=='E') {
+                } else if(level[r][c] == 'E') {
                     goals.add(new Goal(r,c));
                     data[r][c] = ' ';
                 } else {
@@ -169,9 +168,9 @@ public class Puzzle {
 
     public boolean isWin() {
         int numberOfBoxes = boxes.size(), finishedBoxes = 0;
-        for (BlueBox box : boxes) {
-            for (int i = 0; i<numberOfBoxes; ++i) {
-                if (goals.get(i).getRow() == box.getRow() && goals.get(i).getCol() == box.getCol()) {
+        for (BlueBox box : boxes) { // Iterate through all boxes
+            for (Goal goal : goals) { // Loop through all goals
+                if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol()) { // If a box is in goal
                     box.setInGoal(true);
                     ++finishedBoxes;
                     break;
@@ -180,7 +179,7 @@ public class Puzzle {
                 }
             }
         }
-        return finishedBoxes==numberOfBoxes;
+        return finishedBoxes==numberOfBoxes; // If equal then the puzzle is completed
     }
 
     public ArrayList<BlueBox> getBoxes() {

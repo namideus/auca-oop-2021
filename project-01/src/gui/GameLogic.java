@@ -104,6 +104,7 @@ public class GameLogic {
         int count=0; // Counter
         for (int k=0; k<8; ++k)
             count+=(isValid(xs[k] + row, ys[k] + col) && isMine(xs[k] + row, ys[k] + col))? 1 : 0;
+
         return count;
     }
 

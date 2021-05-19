@@ -60,7 +60,7 @@ public class MinesweeperGUI extends PApplet {
     // Draw
     public void draw() {
         background(0, 0, 0);
-        // Draw the field
+        // Draw the field (and update)
         updateField();
         // Adapt widgets
         calculatePosition();

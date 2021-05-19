@@ -52,7 +52,7 @@ public class Puzzle {
                 } else if(level[r][c]=='.') { // Goal
                     goals.add(new Goal(r, c));
                     data[r][c] = ' ';
-                }else if(level[r][c]=='*') { // Box set in goal
+                }else if(level[r][c]=='*') { // Box already set in goal
                     goals.add(new Goal(r,c));
                     BlueBox box = new BlueBox(r,c,++boxId);
                     box.setInGoal(true);
@@ -70,21 +70,19 @@ public class Puzzle {
         switch (collision) {
             case GameModel.LEFT_COLLISION:
                 for (BlueBox box : boxes) {
-                    if (isLeftCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) {
+                    if (isLeftCollision(robot.getRow(), robot.getCol(), box.getRow(), box.getCol())) { // Robot collides the box from its left side
                         for (BlueBox box1 : boxes) {
-                            if (isLeftCollision(box.getRow(), box.getCol(), box1.getRow(), box1.getCol())) {
-                                return;
+                            if (isLeftCollision(box.getRow(), box.getCol(), box1.getRow(), box1.getCol())) { // If true, the box is stopped by a box on its left side so the robot cannot move it
+                                return; // Halt the method here
                             }
                         }
                         if (moveBox(dr, dc, box)) {
-                            //game.addState(new State(dr, dc, collision, box.getId()));
                             moveRobot(dr, dc, collision, box.getId(), true);
                         }
                         return;
                     }
                 }
                 moveRobot(dr, dc, collision,  -1,true);
-                // game.addState(new State(dr, dc, collision));
                 break;
             case GameModel.RIGHT_COLLISION:
                 for (BlueBox box : boxes) {
@@ -95,14 +93,12 @@ public class Puzzle {
                             }
                         }
                         if (moveBox(dr, dc, box)) {
-                            //game.addState(new State(dr, dc, collision, box.getId()));
                             moveRobot(dr, dc, collision,  box.getId(),true);
                         }
                         return;
                     }
                 }
                 moveRobot(dr, dc, collision,  -1,true);
-                // game.addState(new State(dr, dc, collision));
                 break;
             case GameModel.TOP_COLLISION:
                 for (BlueBox box : boxes) {
@@ -113,14 +109,12 @@ public class Puzzle {
                             }
                         }
                         if (moveBox(dr, dc, box)) {
-                            // game.addState(new State(dr, dc, collision, box.getId()));
                             moveRobot(dr, dc, collision,  box.getId(),true);
                         }
                         return;
                     }
                 }
                 moveRobot(dr, dc, collision,  -1,true);
-                // game.addState(new State(dr, dc, collision));
                 break;
             case GameModel.BOTTOM_COLLISION:
                 for (BlueBox box : boxes) {
@@ -131,14 +125,12 @@ public class Puzzle {
                             }
                         }
                         if (moveBox(dr, dc, box)) {
-                            game.addState(new State(dr, dc, collision, box.getId()));
                             moveRobot(dr, dc, collision,  box.getId(),true);
                         }
                         return;
                     }
                 }
                 moveRobot(dr, dc, collision,  -1,true);
-                // game.addState(new State(dr, dc, collision));
                 break;
             case GameModel.TIME_TRAVEL:
                 moveRobotInTime(dr,dc,false);

@@ -51,26 +51,6 @@ public class GameModel {
         this.puzzle = new Puzzle(Utils.parseLevel(levelsList.get(curLevel)), this);
     }
 
-    public float getHeight() {
-        return puzzle.getHeight();
-    }
-
-    public float getWidth() {
-        return puzzle.getWidth();
-    }
-
-    public int getCurLevel() {
-        return curLevel + 1;
-    }
-
-    public char getCurElement(int row, int col) {
-        return puzzle.getCurElement(row, col);
-    }
-
-    public int getMoves() {
-        return puzzle.getMoves();
-    }
-
     public void increaseMoves() {
         puzzle.increaseMoves();
     }
@@ -81,6 +61,70 @@ public class GameModel {
 
     public void move(int dr, int dc, int collision) {
         puzzle.move(dr,dc,collision);
+    }
+
+    // Redo state
+    public State redoState() {
+        if(curState<states.size()) {
+            state = states.get(curState++);
+            return state;
+        }
+        return null;
+    }
+
+    // Undo state
+    public State undoState() {
+        if(curState>0 && states.size()>0) {
+            state = states.get(--curState);
+            return state;
+        } else {
+            states.clear(); // This line is unnecessary
+        }
+        return null;
+    }
+
+    // Add state
+    public void addState(State state) {
+        states.add(state);
+        ++curState;
+    }
+
+    // Get the state
+    public State getState() {
+        return state;
+    }
+
+    public void deleteStates() {
+        states.clear();
+        curState = 0;
+    }
+
+    public Robot getRobot() {
+        return puzzle.getRobot();
+    }
+
+    public boolean isWin() {
+        return puzzle.isWin();
+    }
+
+    // Next level
+    public void nextLevel() {
+        ++curLevel;
+
+        if(curLevel==levelsList.size())
+            curLevel = 0;
+
+        this.puzzle = new Puzzle(Utils.parseLevel(levelsList.get(curLevel)), this);
+    }
+
+    // Previous level
+    public void prevLevel() {
+        --curLevel;
+
+        if(curLevel<0)
+            curLevel = levelsList.size()-1;
+
+        this.puzzle = new Puzzle(Utils.parseLevel(levelsList.get(curLevel)), this);
     }
 
     public ArrayList<BlueBox> getBoxes() {
@@ -103,62 +147,23 @@ public class GameModel {
         return levelsList.size();
     }
 
-    // Redo state
-    public State redoState() {
-        if(curState<states.size()) {
-            state = states.get(curState++);
-            return state;
-        }
-        return null;
+    public float getHeight() {
+        return puzzle.getHeight();
     }
 
-    public State undoState() {
-        if(curState>0 && states.size()>0) {
-            state = states.get(--curState);
-            return state;
-        } else {
-            states.clear();
-        }
-        return null;
+    public float getWidth() {
+        return puzzle.getWidth();
     }
 
-    public void addState(State state) {
-        states.add(state);
-        ++curState;
+    public int getCurLevel() {
+        return curLevel + 1;
     }
 
-    public State getState() {
-        return state;
+    public char getCurElement(int row, int col) {
+        return puzzle.getCurElement(row, col);
     }
 
-    public void deleteStates() {
-        states.clear();
-        curState = 0;
-    }
-
-    public Robot getRobot() {
-        return puzzle.getRobot();
-    }
-
-    public boolean isWin() {
-        return puzzle.isWin();
-    }
-
-    public void nextLevel() {
-        ++curLevel;
-
-        if(curLevel==levelsList.size())
-            curLevel = 0;
-
-        this.puzzle = new Puzzle(Utils.parseLevel(levelsList.get(curLevel)), this);
-    }
-
-    public void prevLevel() {
-        --curLevel;
-
-        if(curLevel<0)
-            curLevel = levelsList.size()-1;
-
-        this.puzzle = new Puzzle(Utils.parseLevel(levelsList.get(curLevel)), this);
+    public int getMoves() {
+        return puzzle.getMoves();
     }
 }
