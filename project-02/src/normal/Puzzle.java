@@ -217,8 +217,8 @@ public class Puzzle {
         int numberOfBoxes = boxes.size(), finishedBoxes = 0;
         boolean f = false;
         for (BlueBox box : boxes) {
-            for (int i = 0; i<numberOfBoxes; ++i) {
-                if (goals.get(i).getRow() == box.getRow() && goals.get(i).getCol() == box.getCol()) {
+            for (Goal goal : goals) {
+                if (goal.getRow() == box.getRow() && goal.getCol() == box.getCol()) {
                     box.setInGoal(true);
                     ++finishedBoxes;
                     break;
